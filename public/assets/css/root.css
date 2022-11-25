@@ -1,0 +1,41 @@
+/* Generic Tag */
+:root{
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-black-light: #001A27;
+    --color-grey: #B1A7A6;
+    --color-yellow: #FFD600;
+    --color-yellow-dark: #CAA904;
+    --color-blue-dark: #00263A;
+    --color-blue-dark-light: #023D5C;
+}
+
+/* Texts */
+.color-white{color: var(--color-white)}
+.color-black{color: var(--color-black)}
+.color-black-light{ color:var(--color-black-light)}
+.color-yellow-dark{color: var(--color-yellow-dark)}
+.color-yellow{color: var(--color-yellow)}
+.color-grey{color: var(--color-grey)}
+.color-blue-light{color: var(--color-blue-light)}
+.color-blue-dark{color: var(--color-blue-dark)}
+.color-blue-dark-light {color: var(--color-blue-dark-light)}
+
+/* Backgrounds */
+.bg-white{background: var(--color-white)}
+.bg-white{background: var(--color-white-light)}
+.bg-black{background: var(--color-black)}
+.bg-black-light { background: var(--color-black-light)}
+.bg-yellow-dark{background: var(--color-yellow-dark)}
+.bg-yellow{background: var(--color-yellow)}
+.bg-blue-light{background: var(--color-blue-light)}
+.bg-blue-dark{background: var(--color-blue-dark)}
+.bg-blue-dark-light {background: var(--color-blue-dark-light)}
+
+/* Generic */
+body{background: var(--color-black-light);}
+.table {text-align: center;}
+table {border-radius: 1em;overflow: hidden;}
+.text-20{font-size: 20px;}
+.table-bordered td,
+.table-bordered th{border: 1px solid #023D5C !important}

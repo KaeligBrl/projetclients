@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Lien de réinitialisation - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block content %}
+
+
+{% block body %}
+<div class="form-general text-center bg-white">
+    <h2 class="text-center mb-4">Lien envoyé</h2>
+    <p>Un email pour modifier ton mot de passe vient de t'être envoyé sur la boîte email.
+    <p class="mb-4"><span style="font-size:15px; font-style: italic;">N'oublie pas de vérifier tes spams</span></p>
+    <a href="{{ path('home') }}" class="btn-yellow-form">Connexion</a>
+</div>
+{% endblock %}
+{% endblock %}

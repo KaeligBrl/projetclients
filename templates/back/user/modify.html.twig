@@ -1,0 +1,35 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Modifier utilisateur - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	<div>
+{% block title_back_page %}Modifier l'utilisateur {{user.firstname}} {{user.lastname}}{% endblock %}
+	</div>
+	{% block content %}
+		{% if notification %}
+			<div class="form-success text-center text-bold">
+				{{ notification }}<br>
+				<a href="{{ path('user_list') }}">Retourner sur la liste équipe</a>
+			</div>
+		<div class="separator"></div>
+		<div class="mb-3"></div>
+		{% endif %}
+		<div class="form-back">
+		<h1 class="form-title text-center color-white">Modification du l'utilisateur <br><i class="fas fa-arrow-right"></i> {{user.firstname}} {{user.lastname}}</h1>
+		<div class="mb-3"></div>
+		<div class="separator"></div>
+		<div class="mb-5"></div>
+		{{ form_start(form_user_modify) }}
+			<div class="form-group">
+				{{ form_row(form_user_modify.email) }}
+				{{ form_row(form_user_modify.firstname) }}
+				{{ form_row(form_user_modify.lastname) }}
+				{{ form_row(form_user_modify.roles) }}
+				{{ form_row(form_user_modify.submit) }}
+			</div>
+		{{ form_end(form_user_modify) }}
+		</div>
+		
+	{% endblock %}
+{% endblock %}

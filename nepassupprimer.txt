@@ -1,0 +1,39 @@
+					<div class="row">	
+						{% for task in task %}
+								{% if task.archived == 0 %}
+									<div class="profile-card">
+										<div class="infos">
+											<h1 class="stat-customer">{{task.customer}}</h1>
+												<div class="social-media">
+													{% if task.object is empty %}{% else %}{{task.object}}<br><br>{% endif %}
+													{% if task.subobject1 is empty %}{% else %}{{task.subobject1}}<br><br>{% endif %} 
+													{% if task.subobject1 is empty %}{% else %}{{task.subobject2}}<br><br>{% endif %}
+													{% if task.subobject1 is empty %}{% else %}{{task.subobject3}}<br>{% endif %}
+												</div>
+												<div class="social-media">
+												{% for task in task.users %}
+													{{ task.firstname }}<br>
+												{% endfor %}
+												</div>
+										</div>
+										<div class="stats">
+											<div class="stat">
+											<span class="stat-num">									
+												{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+													<a href="{{ path('task_list_modify_admin', {"id": task.id}) }}"><i class="fas fa-cog"></i></a>
+												{% endif %}
+											</span>
+											</div>
+											
+											<div class="stat">
+												<span class="stat-num">									
+												{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+													<a href="{{ path('task_detete_home', {"id": task.id}) }}"><i class="fas fa-trash"></i></a>
+												{% endif %}
+												</span>
+											</div>
+										</div>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>

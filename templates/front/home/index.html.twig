@@ -1,0 +1,23 @@
+{% extends 'base_login_register.html.twig' %}
+{% block content %}
+    <title>{%  block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+	<img class="d-block mx-auto" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo de connexion To Do List">
+	<div class="mb-5"></div>
+	<form class="form-login text-center bg-white" method="post">
+		{% if error %}
+			<div class="message-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br>
+		{% endif %}
+		<div class="form-group mt-4">
+			<input class="input-group-lg mb-3 form-control" type="email" value="{{ last_username }}" name="email" placeholder="Email" required autofocus>
+		</div>
+		<input class="field form-control input-sm" type="password" name="password" placeholder="Mot de passe" required>
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		<div class="form-group">
+			<input type="submit" name="submit" class="btn-md btn-yellow-login mt-3" value="Connexion">
+		</div>
+		<div id="register-link" class="text-left mt-5">
+			<span class="text-login"> Aie c'est quoi déjà ? - </span><a class="text-login-link" href="{{path('app_forgot_password_request')}}" > Mot de passe oublié</a><br>
+			<span class="text-login"> Pas encore inscrit ? - </span><a class="text-login-link" href="{{path('register')}}"> Inscription</a>
+		</div>
+	</form>
+{%  endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 403 - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+<div class="pt-5 pb-5">
+    <div class="container text-center form-front">
+		<img class="d-block mx-auto" src="{{ asset('/assets/images/todo.png') }}" alt="Logo de connexion To Do List">
+        <h1 class=" color-yellow mt-4 mb-3">Accès interdit {{status_code}}</h1>
+        <p class="color-white mb-4">Autorisation nécessaire pour accéder à cette page</p>
+        <p class="btn btn-yellow text-bold"><a href="{{ path('home') }}" class="link-a">Retour à la page d'accueil</a></p>  
+    </div>
+</div>
+{% endblock %}

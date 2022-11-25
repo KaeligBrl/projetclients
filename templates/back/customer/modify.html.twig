@@ -1,0 +1,29 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Modifier le client - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	{% block content %}
+		{% if notification %}
+			<div class="form-success text-center text-bold">
+				{{ notification }}<br>
+				<a href="{{ path('list_customer') }}">Retourner sur la liste des clients</a>
+			</div>
+		<div class="separator"></div>
+		<div class="mb-5"></div>
+		{% endif %}
+		<div class="form-back">
+		<h1 class="form-title text-center color-white">Modification du client <br><i class="fas fa-arrow-right"></i> {{customer.name}}</h1>		
+		<div class="mb-3"></div>
+		<div class="separator"></div>
+		<div class="mb-5"></div>
+			{{ form_start(form_customer_modify) }}
+				<div>
+					{{ form_row(form_customer_modify.name) }}
+					{{ form_row(form_customer_modify.submit) }}
+				</div>
+			{{ form_end(form_customer_modify) }}
+		</div>
+	{% endblock %}
+	</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{%  block title %}Accueil - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+	<body>
+		<div class="container">
+			<div class="mb-5"></div>
+		<h1 class="text-center color-white">Projets finis</h1>	
+		<div class="mb-3"></div>
+		<div class="separator"></div>
+			<div class="row">
+				<div class="col padding-mobile">
+					<div class="d-flex flex-row-reverse">
+						<a href="{{ path('project_add_front') }}" title="Ajouter un client" type="button" class="btn mb-3">
+							<i class="color-white fas fa-plus-circle"></i>
+						</a>
+					</div>
+					<table class="table mb-5 table-bordered">
+						<thead class="bg-blue-dark-light table-borderless">
+							<tr>
+								<th class="color-yellow text-bold" scope="col">Nom du client</th>
+								<th class="color-yellow text-bold" scope="col">Site internet</th>
+								<th class="color-yellow text-bold" scope="col">Mise en ligne</th>
+								<th class="color-yellow text-bold" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody class="bg-blue-dark">
+							{% for project in projects %}
+								{% if project.finished == true %}
+									<tr class="form-switch">
+										<td class="color-white text-bold">{{ project.customer }}</td>
+										<td class="color-white"><a href="{{ project.domain }}" target="new">{{ step.project }}</a></td>
+										<td class="color-white">{{ step.online|date('d-m-Y')}} </td>
+										<td>
+											<a href="{{ path('toinprogressproject', {"id": project.id}) }}" title="Repasser en projet en cours"><i class=" color-white fas fa-chevron-left"></i></a>
+											<span class="color-white">|</span>
+											<a href="{{ path('project_modify_front', {"id": project.id}) }}" title="Modifier"><i class="color-white fas fa-cog"></i></a>
+											<span class="color-white">|</span>
+											<a href="{{ path('project_detete_front', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+										</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+{% endblock %}

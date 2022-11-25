@@ -1,0 +1,37 @@
+/* General */
+/* Chnagelog */
+.changelog{margin: 0 25px 25px 0;padding: 20px;background: var(--color-blue-dark); border-radius: 10px;width: 70%;}
+.changelog p{clear: both;color: var(--color-white)}
+.changelog a{color: var(--blue-dark-shebam);}
+.changelog a:hover{color: var(--color-yellow-dark)}
+.pchangleog{color: var(--color-yellow) !important;}
+.pointer-event{pointer-events: none;}
+
+/* Navbar */
+.activecurrent {color: var(--color-yellow-dark);}
+.active {color: var(--color-yellow)}
+
+/* Text Border */
+.text-border-admin {font-weight: bold;background: var(--color-blue-dark);color: var(--color-yellow);border-radius: 20px;padding: 8px 25px;margin-right: 20px;}
+.text-border-admin-active {font-weight: bold;background: var(--color-yellow);color: var(--color-blue-dark);border-radius: 20px;padding: 8px 25px;margin-right: 20px;}
+
+/* Form */
+
+.form-back {background: var(--color-blue-dark);width: 100%;max-width: 550px;padding: 70px;border-radius: 15px;margin: 0 auto;}
+.form-back .checkbox {font-weight: 400;}
+.form-back .form-control {position: relative;box-sizing: border-box;height: auto;padding: 10px;font-size: 16px;}
+.form-back .form-control:focus {z-index: 2;}
+.form-back input[type="text"],
+.form-back input[type="email"],
+.form-back input[type="password"],
+.form-back input[type="datetime-local"],
+.form-back input[type="text"]::placeholder,
+.form-back input[type="email"]::placeholder,
+.form-back select::placeholder,
+.form-back select {background: var(--color-black-light);border-radius: 20px;border: none;color: var(--color-white);}
+.form-success{margin: 0 auto;color: var(--color-yellow);background: var(--color-blue-dark-light);width: 100%;max-width: 550px;border-radius: 20px;padding: 40px;margin-bottom:20px;}
+
+/* Bootstrap table line row */
+.bootstrap-table .fixed-table-pagination>.pagination-detail .pagination-info {color: var(--color-yellow);font-weight: bold;}
+a:hover{color: var(--color-white)}
+.form-title{font-size: 25px;}

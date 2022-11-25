@@ -1,0 +1,27 @@
+{% extends 'base_reset_password.html.twig' %}
+
+{% block title %}Mot de passe oublié - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+
+{% block content %}
+
+	{% for flashError in app.flashes('reset_password_error') %}
+		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+	{% endfor %}
+	<a href="{{ path('current_week_p1') }}">
+		<img class="d-block mx-auto" src="{{ asset('/assets/images/logo-todolist.png') }}" alt="Logo de connexion To Do List">
+	</a>
+	<div class="mb-5"></div>
+    <div class="form-login text-center bg-white">
+        <h1 class="color-yellow">Mot de passe oublié</h1>
+		<div class="mb-5"></div>
+            {{ form_start(requestForm) }}
+        <div class="form-group">
+            {{ form_widget(requestForm) }}
+        </div>
+            {{ form_end(requestForm) }}
+        <span class="text-login"> Déjà inscrit ? </span><a href="{{ path('home') }}" class="text-login-link">Connectez-vous</a>
+    </div>
+
+{% endblock %}
+
