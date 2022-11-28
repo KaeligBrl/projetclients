@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier projet client {{step.customer }} - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block title %}Modifier projet client {{project.customer }} - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
 {% block body %}
 	{% block content %}
-	<div class="container">
-		<h1 class="text-white text-center">Modification du suivi client <i class="fas fa-arrow-right"></i> {{step.customer }}</h1>
+	<div class="container form-general">
+		<h1 class="text-white text-center">Modification du suivi client <i class="fas fa-arrow-right"></i> {{project.customer }}</h1>
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 		<div class="mb-5"></div>
-		{{ form_start(form_steps_modify_front) }}
+		{{ form_start(form_project_modify) }}
 		<div class="was-validated background-login is-valid">
 		{% if notification %}
 			<div class="form-success text-center">{{ notification }}
@@ -23,78 +23,78 @@
 				<div class="row">
 					<div class="col">
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentcustomerbrief) }}
+							{{ form_row(form_project_modify.commentcustomerbrief) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datecustomerbrief) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_steps_modify_front.domain) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.commentdomainname) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datedomainname) }}
+							{{ form_row(form_project_modify.datecustomerbrief) }}
 							<div class="mb-3"></div>
 						</div>
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentcomingsoon) }}
+							{{ form_row(form_project_modify.domain) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datecomingsoon) }}
+							{{ form_row(form_project_modify.commentdomainname) }}
 							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_steps_modify_front.commentcustomercontentreception) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datecustomercontentreception) }}
+							{{ form_row(form_project_modify.datedomainname) }}
 							<div class="mb-3"></div>
 						</div>
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentwebdesignprogress) }}
+							{{ form_row(form_project_modify.commentcomingsoon) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datewebdesignprogress) }}
+							{{ form_row(form_project_modify.datecomingsoon) }}
+							<div class="mb-3"></div>
+						</div>
+						<div ="row">
+							{{ form_row(form_project_modify.commentcustomercontentreception) }}
+							<div class="mb-3"></div>
+							{{ form_row(form_project_modify.datecustomercontentreception) }}
+							<div class="mb-3"></div>
+						</div>
+						<div ="row">
+							{{ form_row(form_project_modify.commentwebdesignprogress) }}
+							<div class="mb-3"></div>
+							{{ form_row(form_project_modify.datewebdesignprogress) }}
 							<div class="mb-3"></div>
 						</div>
 
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentwebdesignsend) }}
+							{{ form_row(form_project_modify.commentwebdesignsend) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datewebdesignsend) }}
+							{{ form_row(form_project_modify.datewebdesignsend) }}
 							<div class="mb-3"></div>
 						</div>
 
 					</div>
 					<div class="col">
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentwebdesignvalidated) }}
+							{{ form_row(form_project_modify.commentwebdesignvalidated) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datewebdesignvalidated) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_steps_modify_front.commentpicturesreception) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datepicturesreception) }}
+							{{ form_row(form_project_modify.datewebdesignvalidated) }}
 							<div class="mb-3"></div>
 						</div>
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentwebintegration) }}
+							{{ form_row(form_project_modify.commentpicturesreception) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datewebintegration) }}
+							{{ form_row(form_project_modify.datepicturesreception) }}
 							<div class="mb-3"></div>
 						</div>
 						<div ="row">
-							{{ form_row(form_steps_modify_front.commentwebtraining) }}
+							{{ form_row(form_project_modify.commentwebintegration) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.datewebtraining) }}
+							{{ form_row(form_project_modify.datewebintegration) }}
 							<div class="mb-3"></div>
-							{{ form_row(form_steps_modify_front.online) }}
-							{{ form_row(form_steps_modify_front.submit) }}
+						</div>
+						<div ="row">
+							{{ form_row(form_project_modify.commentwebtraining) }}
+							<div class="mb-3"></div>
+							{{ form_row(form_project_modify.datewebtraining) }}
+							<div class="mb-3"></div>
+							{{ form_row(form_project_modify.online) }}
+							{{ form_row(form_project_modify.submit) }}
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
-		{{ form_end(form_steps_modify_front) }}</div>
+		{{ form_end(form_project_modify) }}</div>
 	{% endblock %}
 {% endblock %}

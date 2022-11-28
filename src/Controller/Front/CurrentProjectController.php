@@ -35,7 +35,7 @@ class CurrentProjectController extends AbstractController
 
 
     /**
-     * @Route("/projet-en-cours/brief-client/{id}", name="steps_customerbrief_checkbox_admin")
+     * @Route("/projet-en-cours/brief-client/{id}", name="current_project_customerbrief_checkbox")
      */
     public function stepsCustomerbrief(Projects $stepsCustomerbrief)
     {
@@ -49,7 +49,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/coming-soon/{id}", name="steps_comingsoon_checkbox_admin")
+     * @Route("/projet-en-cours/coming-soon/{id}", name="current_project_comingsoon_checkbox")
      */
     public function stepsComingsoon(Projects $stepsComingsoon)
     {
@@ -63,7 +63,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/reception-contenu-client/{id}", name="steps_customercontentreception_checkbox_admin")
+     * @Route("/projet-en-cours/reception-contenu-client/{id}", name="current_project_customercontentreception_checkbox")
      */
     public function stepsCustomerContentReception(Projects $stepsCustomercontentreception)
     {
@@ -77,7 +77,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/reception-des-photos/{id}", name="steps_picturesreception_checkbox_admin")
+     * @Route("/projet-en-cours/reception-des-photos/{id}", name="current_project_picturesreception_checkbox")
      */
     public function stepsPictureReception(Projects $stepsPicturesreception)
     {
@@ -91,7 +91,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/maquette-en-cours/{id}", name="steps_webdesignprogress_checkbox_admin")
+     * @Route("/projet-en-cours/maquette-en-cours/{id}", name="current_project_webdesignprogress_checkbox")
      */
     public function stepsWebdesignProgress(Projects $stepWebdesignProgress)
     {
@@ -105,7 +105,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/maquette-envoyee/{id}", name="steps_webdesignsend_checkbox_admin")
+     * @Route("/projet-en-cours/maquette-envoyee/{id}", name="current_project_webdesignsend_checkbox")
      */
     public function stepsWebdesignWait(Projects $stepWebdesignSend)
     {
@@ -119,7 +119,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/maquette-validee/{id}", name="steps_webdesignvalidated_checkbox_admin")
+     * @Route("/projet-en-cours/maquette-validee/{id}", name="current_projectwebdesignvalidated_checkbox")
      */
     public function stepsWebdesignValidated(Projects $stepWebdesignValidated)
     {
@@ -133,7 +133,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/nom-de-domaine/{id}", name="steps_domainname_checkbox_admin")
+     * @Route("/projet-en-cours/nom-de-domaine/{id}", name="current_project_domainname_checkbox")
      */
     public function stepsWDomainName(Projects $stepDomainname)
     {
@@ -147,7 +147,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/integration/{id}", name="steps_integration_checkbox_admin")
+     * @Route("/projet-en-cours/integration/{id}", name="current_project_integration_checkbox")
      */
     public function stepsIntegration(Projects $stepWebintegration)
     {
@@ -161,7 +161,7 @@ class CurrentProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projet-en-cours/formation/{id}", name="steps_webtraining_checkbox_admin")
+     * @Route("/projet-en-cours/formation/{id}", name="current_project_webtraining_checkbox")
      */
     public function stepsWbeTraining(Projects $stepWebtraining)
     {
@@ -174,5 +174,16 @@ class CurrentProjectController extends AbstractController
         return new Response("true");
     }
 
+    /**
+     * @Route("/basculer-vers-projets-finis/id={id}", name="finishedprojects")
+     */
+    public function ChangeStepsForFinishProjectsFront(Projects $projectsFinish): Response
+    {
+        $rep = $this->getDoctrine()
+            ->getRepository(Projects::class)
+            ->setChangeStepsForFinishProjectsFront($projectsFinish->getId());
+
+        return $this->redirectToRoute("home");
+    }
 
 }

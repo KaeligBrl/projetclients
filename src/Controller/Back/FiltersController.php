@@ -29,7 +29,7 @@ class FiltersController extends AbstractController
     public function index(FiltersRepository $filters): Response
     {
 
-        return $this->render('back/filters/index.html.twig', [
+        return $this->render('back/filters/list.html.twig', [
             'filterslist' => $filters->findBy(array(), array('name' => 'ASC')),
         ]);
     }

@@ -18,10 +18,10 @@
 					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
 						{% if project is empty %}
 						<p class="text-center color-white mt-2">Aucun projet n'a encore été ajouté</p>
-						<p class="text-center color-white mt-2">Ajouter un projet <a href="{{ path('project_add_front') }}">ici</a></p>
+						<p class="text-center color-white mt-2">Ajouter un projet <a href="{{ path('project_add') }}">ici</a></p>
 						{% else %}
 						<div class="d-flex flex-row-reverse">
-							<a href="{{ path('project_add_front') }}" title="Ajouter un client" type="button" class="btn mb-3">
+							<a href="{{ path('project_add') }}" title="Ajouter un client" type="button" class="btn mb-3">
 								<i class="color-white fas fa-plus-circle"></i>
 							</a>
 						</div>
@@ -170,12 +170,12 @@
                                             <a href="{{ path('finishedprojects', {"id": project.id}) }}" title="Passer en projet fini"><i class="color-white fas fa-chevron-right"></i></a>
                                             <span class="color-white">|</span>
                                             {% if project.webtraining == 0 %}{% else %}
-                                            <a href="{{ path('mailfinish', {"id": project.id}) }}"><i class="color-white fas fa-envelope"></i></a>
+                                            <a href="{{ path('finish_project_mail', {"id": project.id}) }}"><i class="color-white fas fa-envelope"></i></a>
                                             <span class="color-white">|</span>
                                             {% endif %}
-                                            <a href="{{ path('project_modify_front', {"id": project.id}) }}"  title="Modifier"><i class="color-white fas fa-cog"></i></a>
+                                            <a href="{{ path('project_modify', {"id": project.id}) }}"  title="Modifier"><i class="color-white fas fa-cog"></i></a>
                                             <span class="color-white">|</span>
-                                            <a href="{{ path('project_detete_front', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')"  title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+                                            <a href="{{ path('project_detete', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')"  title="Supprimer"><i class="color-white fas fa-trash"></i></a>
 										</td>
 										{% endif %}	
 									</tr>

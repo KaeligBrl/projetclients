@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col padding-mobile">
 					<div class="d-flex flex-row-reverse">
-						<a href="{{ path('project_add_front') }}" title="Ajouter un client" type="button" class="btn mb-3">
+						<a href="{{ path('project_add') }}" title="Ajouter un client" type="button" class="btn mb-3">
 							<i class="color-white fas fa-plus-circle"></i>
 						</a>
 					</div>
@@ -36,14 +36,14 @@
 								{% if project.finished == true %}
 									<tr class="form-switch">
 										<td class="color-white text-bold">{{ project.customer }}</td>
-										<td class="color-white"><a href="{{ project.domain }}" target="new">{{ step.project }}</a></td>
-										<td class="color-white">{{ step.online|date('d-m-Y')}} </td>
+										<td class="color-white"><a class="color-white" href="{{ project.domain }}" target="new">{{ project.domain }}</a></td>
+										<td class="color-white">{{ project.online|date('d-m-Y')}} </td>
 										<td>
-											<a href="{{ path('toinprogressproject', {"id": project.id}) }}" title="Repasser en projet en cours"><i class=" color-white fas fa-chevron-left"></i></a>
+											<a href="{{ path('tocurrentproject', {"id": project.id}) }}" title="Repasser en projet en cours"><i class=" color-white fas fa-chevron-left"></i></a>
 											<span class="color-white">|</span>
-											<a href="{{ path('project_modify_front', {"id": project.id}) }}" title="Modifier"><i class="color-white fas fa-cog"></i></a>
+											<a href="{{ path('project_modify', {"id": project.id}) }}" title="Modifier"><i class="color-white fas fa-cog"></i></a>
 											<span class="color-white">|</span>
-											<a href="{{ path('project_detete_front', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+											<a href="{{ path('project_detete', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
 										</td>
 									</tr>
 								{% endif %}

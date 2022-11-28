@@ -29,7 +29,7 @@ class FinishedProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/basculer-vers-projets-en-cours/id={id}", name="toinprogressproject")
+     * @Route("/basculer-vers-projets-en-cours/id={id}", name="tocurrentproject")
      */
     public function ChangeProjectsForInProgressProjectsFront(Projects $project): Response
     {
@@ -37,22 +37,22 @@ class FinishedProjectsController extends AbstractController
             ->getRepository(Projects::class)
             ->setChangeStepsForInProgressProjectsFront($project->getId());
 
-        return $this->redirectToRoute("finishedprojects");
+        return $this->redirectToRoute("finished_projects");
     }
 
     /**
      * @Route("/projet-finis-/mail/id={id}", name="finish_project_mail")
      */
-    public function sendMail(Projects $step): Response
+    public function sendMail(Projects $projectMail): Response
     {
         $message = (new TemplatedEmail())
-            ->to('julien@camdsi.fr', 'mathilde@shebam.fr')
+            ->to('support@shebam.fr')
             ->from(new Address('support@shebam.fr', 'Support WEB Shebam'))
             ->cc('support@shebam.fr')
             ->subject('Site Internet Fini')
             ->htmlTemplate('front/mail/mail-project.html.twig')
             ->context([
-                'step' => $step
+                'project' => $projectMail
             ]);
         $this->mailer->send($message);
 

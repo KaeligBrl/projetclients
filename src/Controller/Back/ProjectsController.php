@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectsController extends AbstractController
-/**
-* @Route("/admin/")
-*/
 {
     private $entityManager;
     public function __construct(EntityManagerInterface $entityManager)
@@ -25,7 +22,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/ajouter", name="project_add_front")
+     * @Route("projet-en-cours/ajouter", name="project_add")
      */
     public function projectsAdd(Request $request): Response
     {
@@ -41,14 +38,14 @@ class ProjectsController extends AbstractController
             $form = $this->createForm(AddProjectType::class, $projectAdd);
         }
         return $this->render('front/projects/add.html.twig', [
-            'form_project_add_front' => $form->createView(),
+            'form_project_add' => $form->createView(),
             'notification' => $notification,
 
         ]);
     }
 
     /**
-     * @Route("projet-en-cours/modifier/{id}", name="project_modify_front")
+     * @Route("projet-en-cours/modifier/{id}", name="project_modify")
      */
     public function projectModify(Request $request, Projects $projectModify): Response
     {
@@ -66,14 +63,14 @@ class ProjectsController extends AbstractController
             $form = $this->createForm(ModifyProjectType::class, $projectModify);
         }
         return $this->render('front/projects/modify.html.twig', [
-            'form_project_modify_front' => $form->createView(),
+            'form_project_modify' => $form->createView(),
             'notification' => $notication,
             'project' => $projectModify
         ]);
     }
 
     /**
-     * @Route("projets-clients/supprimer/{id}", name="project_detete_front")
+     * @Route("projets-clients/supprimer/{id}", name="project_detete")
      * @param Projects $projectsDelete
      * return RedirectResponse
      */
@@ -87,7 +84,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/brief-client/{id}", name="project_customerbrief_checkbox_admin")
+     * @Route("projet-en-cours/brief-client/{id}", name="project_customerbrief_checkbox")
      */
     public function projectCustomerbrief(Projects $projectCustomerbrief)
     {
@@ -101,7 +98,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/coming-soon/{id}", name="project_comingsoon_checkbox_admin")
+     * @Route("projet-en-cours/coming-soon/{id}", name="project_comingsoon_checkbox")
      */
     public function projectComingsoon(Projects $projectComingsoon)
     {
@@ -115,7 +112,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/reception-contenu-client/{id}", name="project_customercontentreception_checkbox_admin")
+     * @Route("projet-en-cours/reception-contenu-client/{id}", name="project_customercontentreception_checkbox")
      */
     public function projectCustomerContentReception(Projects $projectCustomercontentreception)
     {
@@ -129,7 +126,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/reception-des-photos/{id}", name="project_picturesreception_checkbox_admin")
+     * @Route("projet-en-cours/reception-des-photos/{id}", name="project_picturesreception_checkbox")
      */
     public function projectPictureReception(Projects $projectPicturesreception)
     {
@@ -143,7 +140,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/maquette-en-cours/{id}", name="projects_webdesignprogress_checkbox_admin")
+     * @Route("projet-en-cours/maquette-en-cours/{id}", name="projects_webdesignprogress_checkbox")
      */
     public function projectWebdesignProgress(Projects $projectWebdesignProgress)
     {
@@ -157,7 +154,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/maquette-envoyee/{id}", name="project_webdesignsend_checkbox_admin")
+     * @Route("projet-en-cours/maquette-envoyee/{id}", name="project_webdesignsend_checkbox")
      */
     public function projectWebdesignWait(Projects $projectWebdesignSend)
     {
@@ -171,7 +168,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/maquette-validee/{id}", name="project_webdesignvalidated_checkbox_admin")
+     * @Route("projet-en-cours/maquette-validee/{id}", name="project_webdesignvalidated_checkbox")
      */
     public function projectWebdesignValidated(Projects $projectWebdesignValidated)
     {
@@ -185,7 +182,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/nom-de-domaine/{id}", name="project_domainname_checkbox_admin")
+     * @Route("projet-en-cours/nom-de-domaine/{id}", name="project_domainname_checkbox")
      */
     public function projectWDomainName(Projects $projectDomainname)
     {
@@ -199,7 +196,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/integration/{id}", name="projects_integration_checkbox_admin")
+     * @Route("projet-en-cours/integration/{id}", name="projects_integration_checkbox")
      */
     public function projectIntegration(Projects $projectWebintegration)
     {
@@ -213,7 +210,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/formation/{id}", name="project_webtraining_checkbox_admin")
+     * @Route("projet-en-cours/formation/{id}", name="project_webtraining_checkbox")
      */
     public function projectWbeTraining(Projects $projectWebtraining)
     {

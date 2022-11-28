@@ -29,7 +29,7 @@ class ListingProjectController extends AbstractController
     public function index(ListingProjectsRepository $listingProjectsRepository, FiltersRepository $filters, Request $request): Response
     {
         $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'));
-        return $this->render('front/listingCustomer/list.html.twig', [
+        return $this->render('front/listingProjects/list.html.twig', [
             'listingProjects' => $listingProjects,
             'filters' => $filters->findBy(array(), array('name' => 'ASC')),
             'currentFilterId' => $request->get('filters')
@@ -53,7 +53,7 @@ class ListingProjectController extends AbstractController
             $listingCustomerAdd = new ListingProjects();
             $form = $this->createForm(AddListingProjectsType::class, $listingCustomerAdd);
         }
-        return $this->render('front/listingCustomer/add.html.twig', [
+        return $this->render('front/listingProjects/add.html.twig', [
             'form_listingCustomer_add' => $form->createView(),
             'notification' => $notification
         ]);
@@ -77,7 +77,7 @@ class ListingProjectController extends AbstractController
             $listingProjectModify = $form->getData($listingProjectModify);
             $form = $this->createForm(ModifyListingProjectsType::class, $listingProjectModify);
         }
-        return $this->render('front/listingCustomer/modify.html.twig', [
+        return $this->render('front/listingProjects/modify.html.twig', [
             'form_listing_project_modify' => $form->createView(),
             'notification' => $notication,
             'listingCustomer' => $listingProjectModify
