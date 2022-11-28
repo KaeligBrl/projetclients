@@ -32,6 +32,10 @@ class AddListingProjectsType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                }
             ))
             ->add('websitetype', ChoiceType::class, [
                 'label' => 'Type de site :',
