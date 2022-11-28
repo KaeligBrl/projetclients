@@ -3,13 +3,14 @@
 {% block title %}Nouveau mot de passe - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 {% block content %}
     {% block body %}
-        <div class="form-general text-center bg-white">
-			<h3 class="mb-5">Nouveau mot de passe</h3>
+        <div class="form-general text-center">
+			<h3 class="mb-5 color-yellow">Nouveau mot de passe</h3>
+			<div class="mb-3"></div>
+			<div class="separator"></div>
+			<div class="mb-3"></div>
 				{{ form_start(resetForm) }}
-			<div class="form-group">
 				{{ form_widget(resetForm.plainPassword) }}
 				{{ form_widget(resetForm.submit) }}
-			</div>
 				{{ form_end(resetForm) }}
 		</div>
     {% endblock %}

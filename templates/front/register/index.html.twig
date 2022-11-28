@@ -2,21 +2,22 @@
 
 {% block title %}Inscription - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 {% block content %}
-	<img class="d-block mx-auto mb-5" src="{{ asset('/assets/images/logo-login-todolist.png') }}" alt="Logo de connexion To Do List">
+	<a href="{{ path('home') }}"><img class="d-block mx-auto mb-5" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo de connexion Projets Clients"></a>
     <div class="form-login text-center bg-white">
         <h1 class="color-yellow">Inscription</h1>
+		<div class="mb-3"></div>
         {% if notification %}
             <hr>
                 <div class="form-success text-center text-bold">{{ notification }}</div>
             <hr>
         {% endif %}
+
+        <div class="form-general">
             {{ form_start(form) }}
-        <div class="form-group">
             {{ form_widget(form) }}
-        </div>
             {{ form_end(form) }}
+        </div>
+
         <span class="text-login"> Déjà inscrit ? </span><a href="{{ path('home') }}" class="text-login-link">Connectez-vous</a>
     </div>
 {%  endblock %}
-
-

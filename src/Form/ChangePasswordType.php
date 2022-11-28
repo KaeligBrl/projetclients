@@ -35,7 +35,7 @@ class ChangePasswordType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [
-                    'class' => 'btn-md btn-yellow mt-3'
+                    'class' => 'btn-submit mt-3'
                 ]
             ]);
     }
