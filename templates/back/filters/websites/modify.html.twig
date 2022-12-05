@@ -1,0 +1,28 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Modifier le filte - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	{% block content %}
+		{% if notification %}
+			<div class="form-success text-center text-bold">
+				{{ notification }}<br>
+				<a href="{{ path('filters_activities') }}">Retourner sur la liste des filtres</a>
+			</div>
+		<div class="separator"></div>
+		<div class="mb-5"></div>
+		{% endif %}
+		<div class="form-back">
+		<h1 class="form-title text-center color-white">Modification du filtre <br><i class="fas fa-arrow-right"></i> {{filterWebsite.name}}</h1>
+		<div class="mb-3"></div>
+		<div class="separator"></div>
+			{{ form_start(form_filter_website_type_modify) }}
+				<div>
+					{{ form_row(form_filter_website_type_modify.name) }}
+					{{ form_row(form_filter_website_type_modify.submit) }}
+				</div>
+			{{ form_end(form_filter_website_type_modify) }}
+		</div>
+	{% endblock %}
+	</div>
+{% endblock %}

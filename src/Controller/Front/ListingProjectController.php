@@ -3,12 +3,14 @@
 namespace App\Controller\Front;
 
 use App\Entity\ListingProjects;
-use App\Repository\FiltersRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\FiltersWebsitesRepository;
 use App\Repository\ListingProjectsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\FiltersActivitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\FiltersWebsitesTypesRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Front\listingProjects\AddListingProjectsType;
@@ -26,13 +28,15 @@ class ListingProjectController extends AbstractController
     /**
      * @Route("/liste-des-projets", name="listing_projects")
      */
-    public function index(ListingProjectsRepository $listingProjectsRepository, FiltersRepository $filters, Request $request): Response
+    public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, Request $request): Response
     {
-        $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'));
+        $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'), $request->get('filtersFa'));
         return $this->render('front/listingProjects/list.html.twig', [
             'listingProjects' => $listingProjects,
-            'filters' => $filters->findBy(array(), array('name' => 'ASC')),
-            'currentFilterId' => $request->get('filters')
+            'filters' => $filters->findBy([], ['name' => 'ASC']),
+            'filterWebsites' => $filtersWebsites->findBy([], ['name' => 'ASC']),
+            'currentFilters' => $request->get('filters'),
+            'currentFiltersFa' => $request->get('filtersFa')
         ]);
     }
 
@@ -72,7 +76,7 @@ class ListingProjectController extends AbstractController
             $listingProjectModify = $form->getData();
             $this->entityManager->persist($listingProjectModify);
             $this->entityManager->flush();
-            $notication = "Le site internet a été mis à jour";
+            $notication = "Le client a été mis à jour";
             $listingProjectModify = new ListingProjects();
             $listingProjectModify = $form->getData($listingProjectModify);
             $form = $this->createForm(ModifyListingProjectsType::class, $listingProjectModify);

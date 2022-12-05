@@ -11,14 +11,14 @@
 </head>
 	<body>
 		<div class="container">
-		<h1 class="text-center color-white">Filtres</h1>	
+		<h1 class="text-center color-white">Filtres Activités</h1>	
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 			<div class="row">
 				<div class="col padding-mobile">
 					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
 						<div class="d-flex flex-row-reverse">
-							<a href="{{ path('filter_add') }}" title="Ajouter un filtre" type="button" class="btn mb-3">
+							<a href="{{ path('filter_activitie_add') }}" title="Ajouter un filtre" type="button" class="btn mb-3">
 								<i class="color-white fas fa-plus-circle"></i>
 							</a>
 						</div>
@@ -37,9 +37,9 @@
 										<td class="color-white text-bold">{{ filterlist.name }}</td>
 										{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 										<td>
-                                            <a href="{{ path('filter_modify', {"id": filterlist.id}) }}"  title="Modifier"><i class="color-yellow fas fa-cog"></i></a>
+                                            <a href="{{ path('filter_activitie_modifiy', {"id": filterlist.id}) }}"  title="Modifier"><i class="color-yellow fas fa-cog"></i></a>
                                             <span class="color-yellow">|</span>
-                                            <a href="{{ path('filter_detete', {"id": filterlist.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')"  title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
+                                            <a href="{{ path('filter_activitie_detete', {"id": filterlist.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une étape')"  title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
 										</td>
 										{% endif %}	
 									</tr>

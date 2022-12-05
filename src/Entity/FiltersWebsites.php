@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\FiltersRepository;
+use App\Repository\FiltersWebsitesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=FiltersRepository::class)
+ * @ORM\Entity(repositoryClass=FiltersWebsitesRepository::class)
  * @UniqueEntity(
  * fields= {"name"},
  * message= "Ce filtre a déjà été créé !"
  * )
  */
-class Filters
+class FiltersWebsites
 {
     /**
      * @ORM\Id
@@ -29,14 +29,8 @@ class Filters
      */
     private $name;
 
-    public function __toString()
-    {
-        return $this->name; // Remplacer champ par une propriété "string" de l'entité
-    }
-
-
     /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="name")
+     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameWebsites")
      */
     private $listingProjects;
 
@@ -74,7 +68,7 @@ class Filters
     {
         if (!$this->listingProjects->contains($listingProject)) {
             $this->listingProjects[] = $listingProject;
-            $listingProject->addName($this);
+            $listingProject->addNameWebsites($this);
         }
 
         return $this;
@@ -83,11 +77,9 @@ class Filters
     public function removeListingProject(ListingProjects $listingProject): self
     {
         if ($this->listingProjects->removeElement($listingProject)) {
-            $listingProject->removeName($this);
+            $listingProject->removeNameWebsites($this);
         }
 
         return $this;
     }
-
-
 }

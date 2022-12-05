@@ -6,12 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{%  block title %}Listes clients - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    <title>{%  block title %}Listes des projets - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
 </head>
 	<body>
 		<div class="container">
 		<div class="mb-5"></div>
-		<h1 class="text-center color-white">Liste clients</h1>	
+		<h1 class="text-center color-white">Liste des projets</h1>	
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 		<div class="mb-5"></div>
@@ -19,23 +19,36 @@
 				<a href="{{ path('listing_projects_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
 					Ajouter un site
 				</a>
-				&nbsp;
-				<a href="{{ path('filter_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
-					Ajouter un filtre
+				<div class="mr-3"></div>
+				<a href="{{ path('filter_activitie_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
+					Ajouter un filtre activité
+				</a>
+				<div class="mr-3"></div>
+				<a href="{{ path('filter_website_type_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
+					Ajouter un filtre type de site
 				</a>
 			</div>
         	<nav class="rounded-pill verta navbar navbar-expand-lg mt-5 mb-5">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="" role="button" ><i class="fa fa-bars" aria-hidden="true" style="color:#e6e6ff"></i></span>
 				</button>
-				<div class="collapse navbar-collapse bg-blue-dark text-center p-4 rounded-pill id="navbarNav">
-					<ul class="navbar-nav mx-auto">
-						{% for filter in filters %}
-							<li class="nav-item color-yellow mr-5">
-								<input id="checkFilter{{filter.id}}" class="checkFilter" type="checkbox" value="{{filter.id}}">
-								<label for="checkFilter{{filter.id}}" class="m-0" style="cursor: pointer">{{filter.name}}</label>
-							</li>
-						{% endfor %}
+				<div class="collapse navbar-collapse bg-blue-dark text-center p-4 rounded-pill" id="navbarNav">
+					<ul class="navbar-nav">
+						<select id="selectFilters" class="form-control">
+							<option value="">Choisir une activité</option>
+							{% for filter in filters %}
+								<option class="checkFilter" value="{{filter.id}}">{{filter.name}}</option>
+							{% endfor %}
+						</select>
+						<div class="mr-3"></div>
+
+						<select id="selectFiltersFa" class="form-control">
+							<option value="">Choisir un type de site</option>
+							{% for filterWebsite in filterWebsites %}
+							<option class="checkFilter" value="{{filterWebsite.id}}">{{filterWebsite.name}}</option>
+							{% endfor %}
+						</select>
+						<div class="mr-3"></div>
 					</ul>
 					<button class="btn-submit" onclick="validate()">Filtrer</button>
 				</div>
@@ -45,7 +58,7 @@
 				<thead class="bg-blue-dark-light table-borderless">
 					<tr>
 						<th class="color-yellow" scope="col">Nom de domaine</th>
-						<th class="color-yellow" scope="col">Catégories</th>
+						<th class="color-yellow" scope="col">Secteur d'activité</th>
 						<th class="color-yellow" scope="col">Type de site</th>
 						<th class="color-yellow"  scope="col">Action</th>
 					</tr>
@@ -53,11 +66,9 @@
 				<tbody class="bg-blue-dark align-middle">
 					{% for listingProject in listingProjects %}
 						<tr>
-							<td class="verta"><a class=" color-white" href="http://{{ listingProject.domainname }}" target="new">{{ listingProject.domainname }}</td>
-							<td class="verta color-white">
-								{{listingProject.name}}
-							</td>
-							<td class="verta color-white">{{ listingProject.websitetype }}</td>
+							<td class="verta"><a class=" color-white" href="http://{{ listingProject.domainname }}" target="new">{{ listingProject.domainname}}</td>
+							<td class="verta color-white">{{listingProject.nameActivity}}</td>
+							<td class="verta color-white">{{listingProject.nameWebsite}}</td>
 							<td>
 								<a href="{{ path('listing_projects_modify', {"id": listingProject.id}) }}"><i class=" color-white fas fa-cog"></i></a>
 								<span class="color-white">|</span>
@@ -69,20 +80,19 @@
 			</table>
 		</div>
 		<script>
-			let currentIds = '{{currentFilterId}}';
-			if (currentIds) currentIds = currentIds.split(',');
-			else currentIds = [];
+			const currentFilters = '{{currentFilters}}';
+			const currentFiltersFa = '{{currentFiltersFa}}';
 
-			const defaultCheckedCheckoboxes = currentIds.map(id => document.querySelector('#checkFilter' + id));
+			const selectFilters = document.querySelector('#selectFilters')
+			const selectFiltersFa = document.querySelector('#selectFiltersFa')
 
-			defaultCheckedCheckoboxes.forEach(c => c.checked = true);
+			selectFilters.value = currentFilters;
+			selectFiltersFa.value = currentFiltersFa;
 
 			function validate() {
-				const array = [];
-				const checkboxes = document.querySelectorAll('.checkFilter:checked');
-				checkboxes.forEach(c => array.push(c.value));
-				window.location.href = 'liste-des-projets?filters=' + array.join(',');
+				window.location.href = `liste-des-projets?filters=${selectFilters.value}&filtersFa=${selectFiltersFa.value}`;
 			}
+
 		</script>
 	</body>
 </html>

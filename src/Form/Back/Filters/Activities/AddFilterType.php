@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form\Front\listingProjects;
+namespace App\Form\Back\Filters\Activities;
 
 use App\Entity\FiltersActivities;
-use App\Entity\ListingProjects;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,26 +13,17 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class ModifyListingProjectsType extends AbstractType
+class AddFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('domainname', TextType::class, [
-                'label' => 'Nom de domaine :',
+            ->add('name', TextType::class, [
+                'label' => 'Nom du filtre :',
                 'required' => true,
-                'label_attr' => ['class' => 'color-yellow'],
+                'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('name', EntityType::class, array(
-                'required' => true,
-                'label' => false,
-                'choice_label' => fn (FiltersActivities $filter) => $filter->getName(),
-                'class' => FiltersActivities::class,
-                'expanded' => true,
-                'multiple' => true,
-                'label_attr' => ['class' => 'color-white'],
-                ))
-
+           
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn-submit'],
@@ -43,7 +33,7 @@ class ModifyListingProjectsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ListingProjects::class,
+            'data_class' => FiltersActivities::class,
         ]);
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\Filters;
-use App\Form\Back\Filters\AddFilterType;
-use App\Form\Back\Filters\ModifyFilterType;
-use App\Repository\FiltersRepository;
+use App\Entity\FiltersActivities;
+use App\Form\Back\Filters\Activities\AddFilterType;
+use App\Form\Back\Filters\Activities\ModifyFilterType;
+use App\Repository\FiltersActivitiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class FiltersController extends AbstractController
+class FiltersActivitesController extends AbstractController
 /**
 * @Route("/admin/")
 */
@@ -24,22 +24,22 @@ class FiltersController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("filtres", name="filters")
+     * @Route("filtres/activites", name="filters_activities")
      */
-    public function index(FiltersRepository $filters): Response
+    public function index(FiltersActivitiesRepository $filters): Response
     {
 
-        return $this->render('back/filters/list.html.twig', [
+        return $this->render('back/filters/activities/list.html.twig', [
             'filterslist' => $filters->findBy(array(), array('name' => 'ASC')),
         ]);
     }
 
     /**
-     * @Route("filtres/ajouter", name="filter_add")
+     * @Route("filtres/activite/ajouter", name="filter_activitie_add")
      */
     public function filterAdd(Request $request): Response
     {
-        $filterAdd = new Filters();
+        $filterAdd = new FiltersActivities();
         $form = $this->createForm(AddFilterType::class, $filterAdd);
         $notification = null;
         $form->handleRequest($request);
@@ -47,10 +47,10 @@ class FiltersController extends AbstractController
             $this->entityManager->persist($filterAdd);
             $this->entityManager->flush();
             $notification = 'Le filtre a bien été ajouté';
-            $filterAdd = new Filters();
+            $filterAdd = new FiltersActivities();
             $form = $this->createForm(AddFilterType::class, $filterAdd);
         }
-        return $this->render('back/filters/add.html.twig', [
+        return $this->render('back/filters/activities/add.html.twig', [
             'form_filter_add' => $form->createView(),
             'notification' => $notification
 
@@ -58,9 +58,9 @@ class FiltersController extends AbstractController
     }
 
     /**
-     * @Route("filtre/modifier/{id}", name="filter_modify")
+     * @Route("filtre/activite/modifier/{id}", name="filter_activitie_modifiy")
      */
-    public function filterModify(Request $request, Filters $filterModify): Response
+    public function filterModify(Request $request, FiltersActivities $filterModify): Response
     {
         $form = $this->createForm(ModifyFilterType::class, $filterModify);
         $notication = null;
@@ -71,11 +71,11 @@ class FiltersController extends AbstractController
             $this->entityManager->persist($filterModify);
             $this->entityManager->flush();
             $notication = "Le filtre a été mis à jour";
-            $filterModify = new Filters();
+            $filterModify = new FiltersActivities();
             $filterModify = $form->getData($filterModify);
             $form = $this->createForm(ModifyFilterType::class, $filterModify);
         }
-        return $this->render('back/filters/modify.html.twig', [
+        return $this->render('back/filters/activities/modify.html.twig', [
             'form_filter_modify' => $form->createView(),
             'notification' => $notication,
             'filter' => $filterModify
@@ -83,15 +83,15 @@ class FiltersController extends AbstractController
     }
 
     /**
-     * @Route("filtre/supprimer?id={id}", name="filter_detete")
+     * @Route("filtre/activite/supprimer/{id}", name="filter_activitie_detete")
      * return RedirectResponse
      */
-    public function filterDeleteAdmin(Filters $filterDelete): RedirectResponse
+    public function filterDeleteAdmin(FiltersActivities $filterDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($filterDelete);
         $em->flush();
 
-        return $this->redirectToRoute("filters");
+        return $this->redirectToRoute("filters_activities");
     }
 }

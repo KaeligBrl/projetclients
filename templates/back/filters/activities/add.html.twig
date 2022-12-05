@@ -1,0 +1,30 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Ajouter un suivi - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	{% block content %}
+
+		<h1 class="text-center color-white">Ajouter un filtre</h1>	
+		<div class="mb-3"></div>
+		<div class="separator"></div>
+		<div class="mb-3"></div>
+		{% if notification %}
+			<div class="form-success text-center text-bold">
+				{{ notification }}<br>
+				<a href="{{ path('filters_activities') }}">Retourner à la liste des filtres</a>
+			</div>
+		<div class="separator"></div>
+		<div class="mb-5"></div>
+		{% endif %}
+		<div class="form-general">
+		<div class="was-validated is-valid">
+			<div class="form-group">
+		{{ form_start(form_filter_add) }}
+			{{ form_row(form_filter_add.name) }}
+			{{ form_row(form_filter_add.submit) }}
+
+			{{ form_end(form_filter_add) }}
+		</div>
+	{% endblock %}
+{% endblock %}

@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Filters;
+use App\Entity\FiltersWebsites;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Filters>
+ * @extends ServiceEntityRepository<FiltersWebsites>
  *
- * @method Filters|null find($id, $lockMode = null, $lockVersion = null)
- * @method Filters|null findOneBy(array $criteria, array $orderBy = null)
- * @method Filters[]    findAll()
- * @method Filters[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method FiltersWebsites|null find($id, $lockMode = null, $lockVersion = null)
+ * @method FiltersWebsites|null findOneBy(array $criteria, array $orderBy = null)
+ * @method FiltersWebsites[]    findAll()
+ * @method FiltersWebsites[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FiltersRepository extends ServiceEntityRepository
+class FiltersWebsitesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Filters::class);
+        parent::__construct($registry, FiltersWebsites::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Filters $entity, bool $flush = true): void
+    public function add(FiltersWebsites $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class FiltersRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Filters $entity, bool $flush = true): void
+    public function remove(FiltersWebsites $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class FiltersRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Filters[] Returns an array of Filters objects
+    //  * @return FiltersWebsites[] Returns an array of FiltersWebsites objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class FiltersRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Filters
+    public function findOneBySomeField($value): ?FiltersWebsites
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

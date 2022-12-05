@@ -70,7 +70,7 @@
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'listing_customers' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'listing_customer_add_front' %}active{% endif %}
-                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">PROJETS CLIENTS
+                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">Liste des projets
                                 </a>
                             </li>
                             <li>
@@ -79,8 +79,10 @@
                                     {% if app.request.attributes.get('_route') starts with 'filters' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'user_list' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'modify_customer' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filter_modify' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filter_add' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_modify' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_type_add' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_website_type_modify' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_website_type_add' %}active{% endif %}
                                     navbar-text color-blue-dark text-uppercase" title="Aller sur l'administration" href="{{ path('list_customer') }}">Administration
                                 </a>
                             </li>
@@ -107,10 +109,18 @@
                             </li>
                             <li>
                                 <a class="
-                                    {% if app.request.attributes.get('_route') starts with 'filters' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filters_activities' %}text-border-admin-active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_add' %}text-border-admin-active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_modify' %}text-border-admin-active{% endif %}
-                                    navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters') }}">Filtres
+                                    navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters_activities') }}">Filtres Activités
+                                </a>
+                            </li>
+                            <li>
+                                <a class="
+                                    {% if app.request.attributes.get('_route') starts with 'filters_websites_types' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_website_type_add' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_website_type_modify' %}text-border-admin-active{% endif %}
+                                    navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters_websites_types') }}">Filtres types de site
                                 </a>
                             </li>
                             <li class="nav-item"> 

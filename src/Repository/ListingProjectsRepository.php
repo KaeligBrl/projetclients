@@ -19,21 +19,30 @@ class ListingProjectsRepository extends ServiceEntityRepository
         parent::__construct($registry, ListingProjects::class);
     }
 
-public function findListingProjectByParam($ids)
+public function findListingProjectByParam($idsLpf, $idsFa)
 {
     $where = "";
-    if ($ids) {
-        $where =  "where lpf.filters_id in(" . $ids . ")";
-
+    if ($idsLpf) {
+        $where =  "where lpf.filters_activities_id in(" . $idsLpf . ")";
+    }
+    if ($idsFa) {
+        if ($where) {
+            $where =  "where lpfw.filters_websites_id in(" . $idsFa . ")";
+        } else {
+            $where .=  "and lpfw.filters_websites_id in(" . $idsFa . ")";
+        }
     }
 
-    $req = "select distinct(lp.id), lp.websitetype, lp.domainname, group_concat(filters.name SEPARATOR ', ') as name
+
+    $req = "select distinct(lp.id), lp.domainname, group_concat(fa.name SEPARATOR ', ') as nameActivity, group_concat(fw.name SEPARATOR ', ') as nameWebsite 
             from Listing_Projects lp
-            left join listing_projects_filters lpf on lpf.listing_projects_id = lp.id
-            left join filters on filters.id = lpf.filters_id
-%1
-group by (lp.id)
-";
+            left join listing_projects_filters_activities lpf on lpf.listing_projects_id = lp.id
+            left join filters_activities fa on fa.id = lpf.filters_activities_id
+            left join listing_projects_filters_websites lpfw on lpfw.listing_projects_id = lp.id
+            left join filters_websites fw on fw.id = lpfw.filters_websites_id
+    %1
+    group by (lp.id)
+    ";
 
 $req = str_replace('%1', $where, $req);
 $query = $this->getEntityManager()->getConnection()->prepare($req);  

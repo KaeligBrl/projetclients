@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\FiltersActivities;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\ListingProjectsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ListingProjectsRepository::class)
@@ -25,18 +26,19 @@ class ListingProjects
     private $domainname;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $websitetype;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Filters::class, inversedBy="listingProjects")
+     * @ORM\ManyToMany(targetEntity=FiltersActivities::class, inversedBy="listingProjects")
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=FiltersWebsites::class, inversedBy="listingProjects")
+     */
+    private $nameWebsites;
 
     public function __construct()
     {
         $this->name = new ArrayCollection();
+        $this->nameWebsites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,27 +58,39 @@ class ListingProjects
         return $this;
     }
 
-    public function getWebsitetype(): ?string
+    /**
+     * @return Collection<int, FiltersWebsites>
+     */
+    public function getNameWebsites(): Collection
     {
-        return $this->websitetype;
+        return $this->nameWebsites;
     }
 
-    public function setWebsitetype(string $websitetype): self
+    public function addNameWebsite(FiltersWebsites $nameWebsite): self
     {
-        $this->websitetype = $websitetype;
+        if (!$this->nameWebsites->contains($nameWebsite)) {
+            $this->nameWebsites[] = $nameWebsite;
+        }
+
+        return $this;
+    }
+
+    public function removeNameWebsite(FiltersWebsites $nameWebsites): self
+    {
+        $this->nameWebsites->removeElement($nameWebsites);
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Filters>
+     * @return Collection<int, FiltersActivities>
      */
     public function getName(): Collection
     {
         return $this->name;
     }
 
-    public function addName(Filters $name): self
+    public function addName(FiltersActivities $name): self
     {
         if (!$this->name->contains($name)) {
             $this->name[] = $name;
@@ -85,9 +99,9 @@ class ListingProjects
         return $this;
     }
 
-    public function removeName(Filters $name): self
+    public function removeName(FiltersWebsites $names): self
     {
-        $this->name->removeElement($name);
+        $this->names->removeElement($names);
 
         return $this;
     }

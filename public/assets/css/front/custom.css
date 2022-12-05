@@ -1,8 +1,8 @@
 /* Custom */
 @font-face {font-family: "Gotham";src: url("https://todo.local/assets/fonts/Gotham-Bold.otf") format("truetype");}
 h4{color: var(--color-white)}
-a{color: var(--blue-dark);}
-a:hover{transition: 0.25s ease;color: var(--color-yellow);}
+a{color: var(--blue-dark);text-decoration: none;}
+a:hover{transition: 0.25s ease;color: var(--color-yellow);text-decoration: none;}
 hr{height: 3px;background: var(--color-yellow-dark); width: 10%;}
 .notification-success-custom{color: var(--color-blue) !important}
 .text-uppercase{text-transform: uppercase;text-decoration: none;}
