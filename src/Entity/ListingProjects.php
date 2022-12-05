@@ -35,10 +35,16 @@ class ListingProjects
      */
     private $nameWebsites;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=FiltersEnterprises::class, inversedBy="listingProjects")
+     */
+    private $nameEnterprises;
+
     public function __construct()
     {
         $this->name = new ArrayCollection();
         $this->nameWebsites = new ArrayCollection();
+        $this->Enterprises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,6 +108,31 @@ class ListingProjects
     public function removeName(FiltersWebsites $names): self
     {
         $this->names->removeElement($names);
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, FiltersEnterprises>
+     */
+    public function getEntreprise(): Collection
+    {
+        return $this->enterprise;
+    }
+
+    public function addenterprise(FiltersEnterprises $enterprise): self
+    {
+        if (!$this->enterprise->contains($enterprise)) {
+            $this->enterprise[] = $enterprise;
+        }
+
+        return $this;
+    }
+
+    public function removeEnterprise(FiltersEnterprises $enterprises): self
+    {
+        $this->enterprises->removeElement($enterprises);
 
         return $this;
     }

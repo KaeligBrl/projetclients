@@ -66,7 +66,7 @@
                                     {% if app.request.attributes.get('_route') starts with 'listing_projects' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'listing_projects_add' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'listing_projects_modify' %}active{% endif %}
-                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">PROJETS CLIENTS</a>
+                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">LISTE DES PROJETS</a>
                             </li>
                             <li>
                                 <a class="{% if app.request.attributes.get('_route') starts with 'list_customer' %}active{% endif %} navbar-text color-blue-dark text-uppercase" title="Aller sur l'administration" href="{{ path('list_customer') }}">Administration</a>

@@ -70,7 +70,7 @@
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'listing_customers' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'listing_customer_add_front' %}active{% endif %}
-                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">Liste des projets
+                                    navbar-text color-blue-dark text-uppercase" href="{{ path('listing_projects') }}">LISTE DES PROJETS
                                 </a>
                             </li>
                             <li>
@@ -121,6 +121,14 @@
                                     {% if app.request.attributes.get('_route') starts with 'filter_website_type_add' %}text-border-admin-active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_website_type_modify' %}text-border-admin-active{% endif %}
                                     navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters_websites_types') }}">Filtres types de site
+                                </a>
+                            </li>
+                            <li>
+                                <a class="
+                                    {% if app.request.attributes.get('_route') starts with 'filters_enterprises' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filters_enterprises_add' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filters_enterprises_modify' %}text-border-admin-active{% endif %}
+                                    navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters_enterprises') }}">Filtres entreprises
                                 </a>
                             </li>
                             <li class="nav-item"> 
