@@ -2,8 +2,10 @@
 
 namespace App\Form\Front\listingProjects;
 
-use App\Entity\Filters;
+use App\Entity\FiltersWebsites;
 use App\Entity\ListingProjects;
+use App\Entity\FiltersActivities;
+use App\Entity\FiltersEnterprises;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,25 +26,33 @@ class AddListingProjectsType extends AbstractType
                 'required' => true,
                 'label_attr' => ['class' => 'color-yellow'],
             ])
-            ->add('name', EntityType::class, array(
+            ->add('name_activities', EntityType::class, array(
                 'required' => true,
                 'label' => false,
-                'choice_label' => fn (Filters $filter) => $filter->getName(),
-                'class' => Filters::class,
+                'choice_label' => fn (FiltersActivities $filter) => $filter->getNameActivities(),
+                'class' => FiltersActivities::class,
+                'expanded' => true,
+                'multiple' => true,
+                'label_attr' => ['class' => 'color-white']
+            ))
+            ->add('nameEnterprise', EntityType::class, array(
+                'required' => true,
+                'label' => false,
+                'choice_label' => fn (FiltersEnterprises $filter) => $filter->getNameEnterprises(),
+                'class' => FiltersEnterprises::class,
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-                }
             ))
-            ->add('websitetype', ChoiceType::class, [
-                'label' => 'Type de site :',
-                'choices' => ['Site vitrine' => 'Site vitrine', 'E-commerce' => 'E-commerce'],
+            ->add('nameWebsites', EntityType::class, array(
                 'required' => true,
-                'label_attr' => ['class' => 'color-yellow'],
-            ])
+                'label' => false,
+                'choice_label' => fn (FiltersWebsites $filter) => $filter->getName(),
+                'class' => FiltersWebsites::class,
+                'expanded' => true,
+                'multiple' => true,
+                'label_attr' => ['class' => 'color-white'],
+            ))
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',

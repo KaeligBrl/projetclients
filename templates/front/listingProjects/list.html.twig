@@ -37,7 +37,7 @@
 						<select id="selectFilters" class="form-control">
 							<option value="">Choisir une activité</option>
 							{% for filter in filters %}
-								<option class="checkFilter" value="{{filter.id}}">{{filter.name}}</option>
+								<option class="checkFilter" value="{{filter.id}}">{{filter.nameActivities}}</option>
 							{% endfor %}
 						</select>
 						<div class="mr-3"></div>
@@ -45,14 +45,14 @@
 						<select id="selectFiltersFa" class="form-control">
 							<option value="">Choisir un type de site</option>
 							{% for filterWebsite in filterWebsites %}
-							<option class="checkFilter" value="{{filterWebsite.id}}">{{filterWebsite.name}}</option>
+							<option class="checkFilter" value="{{filterWebsite.id}}">{{filterWebsite.nameWebsites}}</option>
 							{% endfor %}
 						</select>
 						<div class="mr-3"></div>
-						<select id="selectFiltersE" class="form-control">
+						<select id="selectFiltersFe" class="form-control">
 							<option value="">Choisir un type d'entrprise</option>
 							{% for filterEnterprise in filterEnterprises %}
-							<option class="checkFilter" value="{{filterEnterprise.id}}">{{filterEnterprise.name}}</option>
+							<option class="checkFilter" value="{{filterEnterprise.id}}">{{filterEnterprise.nameEnterprises}}</option>
 							{% endfor %}
 						</select>
 						<div class="mr-3"></div>
@@ -76,7 +76,12 @@
 						<tr>
 							<td class="verta"><a class=" color-white" href="http://{{ listingProject.domainname }}" target="new">{{ listingProject.domainname}}</td>
 							<td class="verta color-white">{{listingProject.nameActivity}}</td>
-							<td class="verta color-white">{{listingProject.nameWebsite}}</td>
+							<td class="verta color-white">
+							{% if listingProject.nameWebsite is empty %}
+								<span>Pas de site réalisé</span>
+							{% else %}
+								{{listingProject.nameWebsite}}</td>
+							{% endif%}
 							<td class="verta color-white">{{listingProject.nameEntreprise}}</td>
 							<td>
 								<a href="{{ path('listing_projects_modify', {"id": listingProject.id}) }}"><i class=" color-white fas fa-cog"></i></a>
@@ -95,14 +100,14 @@
 
 			const selectFilters = document.querySelector('#selectFilters')
 			const selectFiltersFa = document.querySelector('#selectFiltersFa')
-			const selectFiltersE = document.querySelector('#selectFiltersE')
+			const selectFiltersFe = document.querySelector('#selectFiltersFe')
 
 			selectFilters.value = currentFilters;
 			selectFiltersFa.value = currentFiltersFa;
 			selectFiltersFe.value = currentFiltersFe;
 
 			function validate() {
-				window.location.href = `liste-des-projets?filters=${selectFilters.value}&filtersFa=${selectFiltersFa.value}&filtersFe=${selectFiltersE.value}`;
+				window.location.href = `liste-des-projets?filters=${selectFilters.value}&filtersFa=${selectFiltersFa.value}&filtersFe=${selectFiltersFe.value}`;
 			}
 
 		</script>

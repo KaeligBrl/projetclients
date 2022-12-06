@@ -15,7 +15,7 @@ class ModifyFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('nameActivities', TextType::class, [
                 'label' => 'Nom du filtre :',
                 'required' => true
             ])

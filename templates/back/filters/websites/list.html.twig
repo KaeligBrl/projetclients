@@ -34,7 +34,7 @@
 							<tbody class="bg-blue-dark">
 								{% for filterlist in filterslist %}
 									<tr class="form-switch">
-										<td class="color-white text-bold">{{ filterlist.name }}</td>
+										<td class="color-white text-bold">{{ filterlist.nameWebsites }}</td>
 										{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 										<td>
                                             <a href="{{ path('filter_website_type_modify', {"id": filterlist.id}) }}"  title="Modifier"><i class="color-yellow fas fa-cog"></i></a>

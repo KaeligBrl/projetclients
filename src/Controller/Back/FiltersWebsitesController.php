@@ -30,7 +30,7 @@ class FiltersWebsitesController extends AbstractController
     {
 
         return $this->render('back/filters/websites/list.html.twig', [
-            'filterslist' => $filters->findby([], ['name' => "ASC"]),
+            'filterslist' => $filters->findby([], ['nameWebsites' => "ASC"]),
         ]);
     }
 

@@ -21,10 +21,14 @@
 				<div>
 				{{ form_row(form_listingCustomer_add.domainname) }}
 				<div class="mb-3"></div>
-				<p class="text-left color-yellow">Catégories(s)</p>
-				{{ form_row(form_listingCustomer_add.name) }}
+				<p class="text-left color-yellow">Secteur d'activité</p>
+				{{ form_row(form_listingCustomer_add.name_activities) }}
 				<div class="mb-3"></div>
-				{{ form_row(form_listingCustomer_add.websitetype) }}
+				<p class="text-left color-yellow">Type de site</p>
+				{{ form_row(form_listingCustomer_add.nameWebsites) }}
+				<div class="mb-3"></div>
+				<p class="text-left color-yellow">Type d'entreprise</p>
+				{{ form_row(form_listingCustomer_add.nameEnterprise) }}
 				<div class="mb-3"></div>
 				{{ form_row(form_listingCustomer_add.submit) }}
 				</div>

@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=FiltersWebsitesRepository::class)
  * @UniqueEntity(
- * fields= {"name"},
+ * fields= {"nameWebsites"},
  * message= "Ce filtre a déjà été créé !"
  * )
  */
@@ -27,7 +27,7 @@ class FiltersWebsites
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    private $nameWebsites;
 
     /**
      * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameWebsites")
@@ -44,14 +44,14 @@ class FiltersWebsites
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNameWebsites(): ?string
     {
-        return $this->name;
+        return $this->nameWebsites;
     }
 
-    public function setName(string $name): self
+    public function setNameWebsites(string $nameWebsites): self
     {
-        $this->name = $name;
+        $this->nameWebsites = $nameWebsites;
 
         return $this;
     }

@@ -28,7 +28,7 @@ class ListingProjects
     /**
      * @ORM\ManyToMany(targetEntity=FiltersActivities::class, inversedBy="listingProjects")
      */
-    private $name;
+    private $nameActivities;
 
     /**
      * @ORM\ManyToMany(targetEntity=FiltersWebsites::class, inversedBy="listingProjects")
@@ -42,9 +42,9 @@ class ListingProjects
 
     public function __construct()
     {
-        $this->name = new ArrayCollection();
+        $this->nameActivities = new ArrayCollection();
         $this->nameWebsites = new ArrayCollection();
-        $this->Enterprises = new ArrayCollection();
+        $this->nameEnterprises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,23 +91,23 @@ class ListingProjects
     /**
      * @return Collection<int, FiltersActivities>
      */
-    public function getName(): Collection
+    public function getNameActivities(): Collection
     {
-        return $this->name;
+        return $this->nameActivities;
     }
 
-    public function addName(FiltersActivities $name): self
+    public function addNameActivities(FiltersActivities $nameActivities): self
     {
-        if (!$this->name->contains($name)) {
-            $this->name[] = $name;
+        if (!$this->nameActivities->contains($nameActivities)) {
+            $this->nameActivities[] = $nameActivities;
         }
 
         return $this;
     }
 
-    public function removeName(FiltersWebsites $names): self
+    public function removeNameActivities(FiltersWebsites $namesActivities): self
     {
-        $this->names->removeElement($names);
+        $this->namesActivities->removeElement($namesActivities);
 
         return $this;
     }
@@ -116,23 +116,23 @@ class ListingProjects
     /**
      * @return Collection<int, FiltersEnterprises>
      */
-    public function getEntreprise(): Collection
+    public function getNameEnterprise(): Collection
     {
-        return $this->enterprise;
+        return $this->nameEnterprises;
     }
 
-    public function addenterprise(FiltersEnterprises $enterprise): self
+    public function addNameEnterprise(FiltersEnterprises $nameEnterprises): self
     {
-        if (!$this->enterprise->contains($enterprise)) {
-            $this->enterprise[] = $enterprise;
+        if (!$this->nameEnterprises->contains($nameEnterprises)) {
+            $this->nameEnterprises[] = $nameEnterprises;
         }
 
         return $this;
     }
 
-    public function removeEnterprise(FiltersEnterprises $enterprises): self
+    public function removeNameEnterprise(FiltersEnterprises $nameEnterprises): self
     {
-        $this->enterprises->removeElement($enterprises);
+        $this->nameEnterprises->removeElement($nameEnterprises);
 
         return $this;
     }

@@ -16,7 +16,7 @@ class AddFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('nameWebsites', TextType::class, [
                 'label' => 'Nom du filtre :',
                 'required' => true,
                 'label_attr' => ['class' => 'label-custom'],

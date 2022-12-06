@@ -10,10 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=FiltersEnterprisesRepository::class)
- * @UniqueEntity(
- * fields= {"name"},
- * message= "Ce filtre a déjà été créé !"
- * )
  */
 class FiltersEnterprises
 {
@@ -27,7 +23,7 @@ class FiltersEnterprises
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    private $nameEnterprises;
 
     /**
      * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameEnterprises")
@@ -44,14 +40,14 @@ class FiltersEnterprises
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNameEnterprises(): ?string
     {
-        return $this->name;
+        return $this->nameEnterprises;
     }
 
-    public function setName(string $name): self
+    public function setNameEnterprises(string $nameEnterprises): self
     {
-        $this->name = $name;
+        $this->nameEnterprises = $nameEnterprises;
 
         return $this;
     }
@@ -77,7 +73,7 @@ class FiltersEnterprises
     public function removeListingProject(ListingProjects $listingProject): self
     {
         if ($this->listingProjects->removeElement($listingProject)) {
-            $listingProject->removeEntreprises($this);
+            $listingProject->removeEnterprises($this);
         }
 
         return $this;

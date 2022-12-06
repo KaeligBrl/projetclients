@@ -30,7 +30,7 @@ class FiltersActivitesController extends AbstractController
     {
 
         return $this->render('back/filters/activities/list.html.twig', [
-            'filterslist' => $filters->findBy(array(), array('name' => 'ASC')),
+            'filterslist' => $filters->findBy(array(), array('nameActivities' => 'ASC')),
         ]);
     }
 
@@ -58,7 +58,7 @@ class FiltersActivitesController extends AbstractController
     }
 
     /**
-     * @Route("filtre/activite/modifier/{id}", name="filter_activitie_modifiy")
+     * @Route("filtre/activite/modifier/{id}", name="filter_activitie_modify")
      */
     public function filterModify(Request $request, FiltersActivities $filterModify): Response
     {

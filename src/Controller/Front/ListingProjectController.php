@@ -34,9 +34,9 @@ class ListingProjectController extends AbstractController
         $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'), $request->get('filtersFa'),$request->get('filtersFe'));
         return $this->render('front/listingProjects/list.html.twig', [
             'listingProjects' => $listingProjects,
-            'filters' => $filters->findBy([], ['name' => 'ASC']),
-            'filterWebsites' => $filtersWebsites->findBy([], ['name' => 'ASC']),
-            'filterEnterprises' => $filtersEnterprises->findBy([], ['name' => 'ASC']),
+            'filters' => $filters->findBy([], ['nameActivities' => 'ASC']),
+            'filterWebsites' => $filtersWebsites->findBy([], ['nameWebsites' => 'ASC']),
+            'filterEnterprises' => $filtersEnterprises->findBy([], ['nameEnterprises' => 'ASC']),
             'currentFilters' => $request->get('filters'),
             'currentFiltersFa' => $request->get('filtersFa'),
             'currentFiltersFe' => $request->get('filtersFe')

@@ -13,12 +13,12 @@
 		<div class="mb-5"></div>
 		{% endif %}
 		<div class="form-back">
-		<h1 class="form-title text-center color-white">Modification du filtre <br><i class="fas fa-arrow-right"></i> {{filterWebsite.name}}</h1>
+		<h1 class="form-title text-center color-white">Modification du filtre <br><i class="fas fa-arrow-right"></i> {{filterWebsite.nameWebsites}}</h1>
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 			{{ form_start(form_filter_website_type_modify) }}
 				<div>
-					{{ form_row(form_filter_website_type_modify.name) }}
+					{{ form_row(form_filter_website_type_modify.nameWebsites) }}
 					{{ form_row(form_filter_website_type_modify.submit) }}
 				</div>
 			{{ form_end(form_filter_website_type_modify) }}

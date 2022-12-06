@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=FiltersActivitiesRepository::class)
  * @UniqueEntity(
- * fields= {"name"},
+ * fields= {"nameActivities"},
  * message= "Ce filtre a déjà été créé !"
  * )
  */
@@ -27,10 +27,10 @@ class FiltersActivities
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    private $nameActivities;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="name")
+     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameActivities")
      */
     private $listingProjects;
 
@@ -44,14 +44,14 @@ class FiltersActivities
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNameActivities(): ?string
     {
-        return $this->name;
+        return $this->nameActivities;
     }
 
-    public function setName(string $name): self
+    public function setNameActivities(string $nameActivities): self
     {
-        $this->name = $name;
+        $this->nameActivities = $nameActivities;
 
         return $this;
     }
@@ -68,7 +68,7 @@ class FiltersActivities
     {
         if (!$this->listingProjects->contains($listingProject)) {
             $this->listingProjects[] = $listingProject;
-            $listingProject->addName($this);
+            $listingProject->addNameActivities($this);
         }
 
         return $this;
@@ -77,7 +77,7 @@ class FiltersActivities
     public function removeListingProject(ListingProjects $listingProject): self
     {
         if ($this->listingProjects->removeElement($listingProject)) {
-            $listingProject->removeName($this);
+            $listingProject->removeNameActivities($this);
         }
 
         return $this;

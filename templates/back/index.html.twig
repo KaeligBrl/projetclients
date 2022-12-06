@@ -76,11 +76,11 @@
                             <li>
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'list_customer' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filters' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filters_activities' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'user_list' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'modify_customer' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_activitie_modify' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_type_add' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_add' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_website_type_modify' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'filter_website_type_add' %}active{% endif %}
                                     navbar-text color-blue-dark text-uppercase" title="Aller sur l'administration" href="{{ path('list_customer') }}">Administration
@@ -110,8 +110,8 @@
                             <li>
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'filters_activities' %}text-border-admin-active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filter_add' %}text-border-admin-active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'filter_modify' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_add' %}text-border-admin-active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'filter_activitie_modify' %}text-border-admin-active{% endif %}
                                     navbar-text color-blue-dark text-uppercase text-border-admin" title="Aller sur les filtres" href="{{ path('filters_activities') }}">Filtres Activités
                                 </a>
                             </li>

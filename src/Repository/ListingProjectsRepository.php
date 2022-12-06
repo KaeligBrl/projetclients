@@ -34,14 +34,14 @@ public function findListingProjectByParam($idsLpf, $idsFa, $idsFe)
     }
     if ($idsFe) {
         if ($where) {
-            $where =  "where lpfw.filters_enterprises_id in(" . $idsFe . ")";
+            $where =  "where lpfe.filters_enterprises_id in(" . $idsFe . ")";
         } else {
-            $where .=  "and lpfw.filters_enterprises_id in(" . $idsFe . ")";
+            $where .=  "and lpfe.filters_enterprises_id in(" . $idsFe . ")";
         }
     }
 
 
-    $req = "select distinct(lp.id), lp.domainname, group_concat(fa.name SEPARATOR ', ') as nameActivity, group_concat(fw.name SEPARATOR ', ') as nameWebsite, group_concat(fe.name SEPARATOR ', ') as nameEntreprise 
+    $req = "select distinct(lp.id), lp.domainname, group_concat(fa.name_activities SEPARATOR ', ') as nameActivity, group_concat(fw.name_websites SEPARATOR ', ') as nameWebsite, group_concat(fe.name_enterprises SEPARATOR ', ') as nameEntreprise 
             from Listing_Projects lp
             left join listing_projects_filters_activities lpf on lpf.listing_projects_id = lp.id
             left join filters_activities fa on fa.id = lpf.filters_activities_id

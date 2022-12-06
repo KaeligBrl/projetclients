@@ -21,8 +21,14 @@
 				<div>
 				{{ form_row(form_listing_project_modify.domainname) }}
 				<div class="mb-3"></div>
-				<p class="text-left color-yellow">Activité(s)</p>
-				{{ form_row(form_listing_project_modify.name) }}
+				<p class="text-left color-yellow">Secteur activité</p>
+				{{ form_row(form_listing_project_modify.name_activities) }}
+				<div class="mb-3"></div>
+				<p class="text-left color-yellow">Type de site</p>
+				{{ form_row(form_listing_project_modify.nameWebsites) }}
+				<div class="mb-3"></div>
+				<p class="text-left color-yellow">Type d'entreprise</p>
+				{{ form_row(form_listing_project_modify.nameEnterprise) }}
 				<div class="mb-3"></div>
 				{{ form_row(form_listing_project_modify.submit) }}
 				</div>
