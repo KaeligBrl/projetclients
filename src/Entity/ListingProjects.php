@@ -23,7 +23,12 @@ class ListingProjects
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $domainname;
+    private $enterprise;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $domainName;
 
     /**
      * @ORM\ManyToMany(targetEntity=FiltersActivities::class, inversedBy="listingProjects")
@@ -52,14 +57,14 @@ class ListingProjects
         return $this->id;
     }
 
-    public function getDomainname(): ?string
+    public function getEnterprise(): ?string
     {
-        return $this->domainname;
+        return $this->enterprise;
     }
 
-    public function setDomainname(string $domainname): self
+    public function setEnterprise(string $entreprise): self
     {
-        $this->domainname = $domainname;
+        $this->enterprise = $entreprise;
 
         return $this;
     }
@@ -137,4 +142,16 @@ class ListingProjects
         return $this;
     }
 
+ 
+    public function getDomainName()
+    {
+        return $this->domainName;
+    }
+
+    public function setDomainName($domainName)
+    {
+        $this->domainName = $domainName;
+
+        return $this;
+    }
 }

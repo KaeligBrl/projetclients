@@ -16,16 +16,21 @@
 		<div class="separator"></div>
 		<div class="mb-5"></div>
 			<div class="d-flex flex-row-reverse">
-				<a href="{{ path('listing_projects_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
-					Ajouter un site
+				<a href="{{ path('filter_enterprise_add') }}" title="Ajouter un filtre entreprise" type="button" class="btn-submit mb-3">
+					Ajouter un filtre entreprise
 				</a>
 				<div class="mr-3"></div>
-				<a href="{{ path('filter_activitie_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
+				<a href="{{ path('filter_website_type_add') }}" title="Ajouter un filtre type de site" type="button"
+					class="btn-submit mb-3">
+					Ajouter un filtre type de site
+				</a>
+				<div class="mr-3"></div>
+				<a href="{{ path('filter_activitie_add') }}" title="Ajouter un filtre activité" type="button" class="btn-submit mb-3">
 					Ajouter un filtre activité
 				</a>
 				<div class="mr-3"></div>
-				<a href="{{ path('filter_website_type_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
-					Ajouter un filtre type de site
+				<a href="{{ path('listing_projects_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
+					Ajouter un site
 				</a>
 			</div>
         	<nav class="rounded-pill verta navbar navbar-expand-lg mt-5 mb-5">
@@ -64,7 +69,8 @@
 			<table class="table mb-5 table-bordered" data-toggle="table" data-pagination="true">
 				<thead class="bg-blue-dark-light table-borderless">
 					<tr>
-						<th class="color-yellow" scope="col">Nom de domaine</th>
+						<th class="color-yellow" scope="col">Entreprise</th>
+						<th class="color-yellow" scope="col">Site internet</th>
 						<th class="color-yellow" scope="col">Secteur d'activité</th>
 						<th class="color-yellow" scope="col">Type de site</th>
 						<th class="color-yellow" scope="col">Type d'entrprises</th>
@@ -74,15 +80,37 @@
 				<tbody class="bg-blue-dark align-middle">
 					{% for listingProject in listingProjects %}
 						<tr>
-							<td class="verta"><a class=" color-white" href="http://{{ listingProject.domainname }}" target="new">{{ listingProject.domainname}}</td>
-							<td class="verta color-white">{{listingProject.nameActivity}}</td>
+							<td class="verta color-white">{{ listingProject.enterprise}}</td>
+							
+							<td class="verta color-white">
+								{% if listingProject.domain_name is empty %}
+									<span>Non renseigné</span>
+								{% else %}
+									<a class="color-white" href="http://{{ listingProject.domain_name }}" target="new">{{ listingProject.domain_name}}
+								{% endif %}
+							</td>
+							<td class="verta color-white">
+								{% if listingProject.nameActivity is empty %}
+									<span>Non renseigné</span>
+								{% else %}
+									{{listingProject.nameActivity}}
+								{% endif %}
+							</td>
 							<td class="verta color-white">
 							{% if listingProject.nameWebsite is empty %}
-								<span>Pas de site réalisé</span>
+								<span>Non renseigné</span>
 							{% else %}
-								{{listingProject.nameWebsite}}</td>
-							{% endif%}
-							<td class="verta color-white">{{listingProject.nameEntreprise}}</td>
+								{{listingProject.nameWebsite}}
+							{% endif %}
+							</td>
+							<td class="verta color-white">
+							{% if listingProject.nameEntreprise is empty %}
+								<span>Non renseigné</span>
+							{% else %}
+								{{listingProject.nameEntreprise}}
+							{% endif %}
+							
+							</td>
 							<td>
 								<a href="{{ path('listing_projects_modify', {"id": listingProject.id}) }}"><i class=" color-white fas fa-cog"></i></a>
 								<span class="color-white">|</span>

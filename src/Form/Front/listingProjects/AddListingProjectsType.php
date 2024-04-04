@@ -47,7 +47,7 @@ class AddListingProjectsType extends AbstractType
             ->add('nameWebsites', EntityType::class, array(
                 'required' => true,
                 'label' => false,
-                'choice_label' => fn (FiltersWebsites $filter) => $filter->getName(),
+                'choice_label' => fn (FiltersWebsites $filter) => $filter->getNameWebsites(),
                 'class' => FiltersWebsites::class,
                 'expanded' => true,
                 'multiple' => true,

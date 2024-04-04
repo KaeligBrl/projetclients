@@ -41,7 +41,7 @@ public function findListingProjectByParam($idsLpf, $idsFa, $idsFe)
     }
 
 
-    $req = "select distinct(lp.id), lp.domainname, group_concat(fa.name_activities SEPARATOR ', ') as nameActivity, group_concat(fw.name_websites SEPARATOR ', ') as nameWebsite, group_concat(fe.name_enterprises SEPARATOR ', ') as nameEntreprise 
+    $req = "select distinct(lp.id), lp.enterprise, lp.domain_name, group_concat(fa.name_activities SEPARATOR ', ') as nameActivity, group_concat(fw.name_websites SEPARATOR ', ') as nameWebsite, group_concat(fe.name_enterprises SEPARATOR ', ') as nameEntreprise 
             from Listing_Projects lp
             left join listing_projects_filters_activities lpf on lpf.listing_projects_id = lp.id
             left join filters_activities fa on fa.id = lpf.filters_activities_id

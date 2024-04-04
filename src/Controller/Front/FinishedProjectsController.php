@@ -24,7 +24,7 @@ class FinishedProjectsController extends AbstractController
     public function index2(ProjectsRepository $projects)
     {
         return $this->render('front/finish/index.html.twig', [
-            'projects' => $projects->findBy(array(), array('finished' => 'DESC')),
+            'projects' => $projects->findBy(array(), array('online' => 'DESC')),
         ]);
     }
 

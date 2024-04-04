@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\FiltersActivitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\FiltersEnterprisesRepository;
-use App\Repository\FiltersWebsitesTypesRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Front\listingProjects\AddListingProjectsType;
 use App\Form\Front\listingProjects\ModifyListingProjectsType;
