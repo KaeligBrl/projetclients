@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\FiltersEnterprisesRepository;
+use App\Repository\FilterEnterpriseTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=FiltersEnterprisesRepository::class)
+ * @ORM\Entity(repositoryClass=FilterEnterpriseTypeRepository::class)
  */
-class FiltersEnterprises
+class FilterEnterpriseType
 {
     /**
      * @ORM\Id
@@ -23,7 +23,7 @@ class FiltersEnterprises
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nameEnterprises;
+    private $nameEnterpriseType;
 
     /**
      * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameEnterprises")
@@ -40,14 +40,14 @@ class FiltersEnterprises
         return $this->id;
     }
 
-    public function getNameEnterprises(): ?string
+    public function getNameEnterpriseType(): ?string
     {
-        return $this->nameEnterprises;
+        return $this->nameEnterpriseType;
     }
 
-    public function setNameEnterprises(string $nameEnterprises): self
+    public function setNameEnterpriseType(string $nameEnterpriseType): self
     {
-        $this->nameEnterprises = $nameEnterprises;
+        $this->nameEnterpriseType = $nameEnterpriseType;
 
         return $this;
     }
@@ -64,7 +64,7 @@ class FiltersEnterprises
     {
         if (!$this->listingProjects->contains($listingProject)) {
             $this->listingProjects[] = $listingProject;
-            $listingProject->addEnterprises($this);
+            $listingProject->addNameEnterpriseType($this);
         }
 
         return $this;
@@ -73,7 +73,7 @@ class FiltersEnterprises
     public function removeListingProject(ListingProjects $listingProject): self
     {
         if ($this->listingProjects->removeElement($listingProject)) {
-            $listingProject->removeEnterprises($this);
+            $listingProject->removeNameEnterpriseType($this);
         }
 
         return $this;

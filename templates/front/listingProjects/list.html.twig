@@ -73,7 +73,7 @@
 						<th class="color-yellow" scope="col">Site internet</th>
 						<th class="color-yellow" scope="col">Secteur d'activité</th>
 						<th class="color-yellow" scope="col">Type de site</th>
-						<th class="color-yellow" scope="col">Type d'entrprises</th>
+						<th class="color-yellow" scope="col">Type d'entreprise</th>
 						<th class="color-yellow"  scope="col">Action</th>
 					</tr>
 				</thead>
@@ -104,10 +104,10 @@
 							{% endif %}
 							</td>
 							<td class="verta color-white">
-							{% if listingProject.nameEntreprise is empty %}
+							{% if listingProject.nameEnterpriseType is empty %}
 								<span>Non renseigné</span>
 							{% else %}
-								{{listingProject.nameEntreprise}}
+								{{listingProject.nameEnterpriseType}}
 							{% endif %}
 							
 							</td>

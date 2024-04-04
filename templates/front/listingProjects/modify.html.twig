@@ -13,12 +13,13 @@
 		<div class="mb-3"></div>
 		{% endif %}
 		<div class="form-general">
-			<h1 class="text-center color-white">Modification du projet <i class="fas fa-arrow-right"></i> {{listingCustomer.domainname}}</h1>	
+			<h1 class="text-center color-white text-capitalize">Modification du projet <i class="fas fa-arrow-right"></i> {{listingCustomer.enterprise}}</h1>	
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 		<div class="mb-5"></div>
 			{{ form_start(form_listing_project_modify) }}
 				<div>
+					{{ form_row(form_listing_project_modify.enterprise) }}
 				{{ form_row(form_listing_project_modify.domainname) }}
 				<div class="mb-3"></div>
 				<p class="text-left color-yellow">Secteur activité</p>
@@ -28,7 +29,7 @@
 				{{ form_row(form_listing_project_modify.nameWebsites) }}
 				<div class="mb-3"></div>
 				<p class="text-left color-yellow">Type d'entreprise</p>
-				{{ form_row(form_listing_project_modify.nameEnterprise) }}
+				{{ form_row(form_listing_project_modify.nameEnterpriseType) }}
 				<div class="mb-3"></div>
 				{{ form_row(form_listing_project_modify.submit) }}
 				</div>

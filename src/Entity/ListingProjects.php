@@ -41,15 +41,15 @@ class ListingProjects
     private $nameWebsites;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FiltersEnterprises::class, inversedBy="listingProjects")
+     * @ORM\ManyToMany(targetEntity=FilterEnterpriseType::class, inversedBy="listingProjects")
      */
-    private $nameEnterprises;
+    private $nameEnterpriseType;
 
     public function __construct()
     {
         $this->nameActivities = new ArrayCollection();
         $this->nameWebsites = new ArrayCollection();
-        $this->nameEnterprises = new ArrayCollection();
+        $this->nameEnterpriseType = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,32 +112,31 @@ class ListingProjects
 
     public function removeNameActivities(FiltersWebsites $namesActivities): self
     {
-        $this->namesActivities->removeElement($namesActivities);
+        $this->nameActivities->removeElement($namesActivities);
 
         return $this;
     }
 
-
     /**
-     * @return Collection<int, FiltersEnterprises>
+     * @return Collection<int, FilterEnterpriseType>
      */
-    public function getNameEnterprise(): Collection
+    public function getNameEnterpriseType(): Collection
     {
-        return $this->nameEnterprises;
+        return $this->nameEnterpriseType;
     }
 
-    public function addNameEnterprise(FiltersEnterprises $nameEnterprises): self
+    public function addNameEnterpriseType(FilterEnterpriseType $nameEnterpriseType): self
     {
-        if (!$this->nameEnterprises->contains($nameEnterprises)) {
-            $this->nameEnterprises[] = $nameEnterprises;
+        if (!$this->nameEnterpriseType->contains($nameEnterpriseType)) {
+            $this->nameEnterpriseType[] = $nameEnterpriseType;
         }
 
         return $this;
     }
 
-    public function removeNameEnterprise(FiltersEnterprises $nameEnterprises): self
+    public function removeNameEnterpriseType(FilterEnterpriseType $nameEnterprisesType): self
     {
-        $this->nameEnterprises->removeElement($nameEnterprises);
+        $this->nameEnterpriseType->removeElement($nameEnterprisesType);
 
         return $this;
     }

@@ -5,7 +5,7 @@ namespace App\Form\Front\listingProjects;
 use App\Entity\FiltersWebsites;
 use App\Entity\ListingProjects;
 use App\Entity\FiltersActivities;
-use App\Entity\FiltersEnterprises;
+use App\Entity\FilterEnterpriseType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +21,11 @@ class ModifyListingProjectsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('enterprise', TextType::class, [
+                'label' => 'Nom de l\'entreprise :',
+                'required' => true,
+                'label_attr' => ['class' => 'color-yellow'],
+            ])
             ->add('domainname', TextType::class, [
                 'label' => 'Nom de domaine :',
                 'required' => true,
@@ -35,11 +40,11 @@ class ModifyListingProjectsType extends AbstractType
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
                 ))
-            ->add('nameEnterprise', EntityType::class, array(
+            ->add('nameEnterpriseType', EntityType::class, array(
                 'required' => true,
                 'label' => false,
-                'choice_label' => fn (FiltersEnterprises $filter) => $filter->getNameEnterprises(),
-                'class' => FiltersEnterprises::class,
+                'choice_label' => fn (FilterEnterpriseType $filter) => $filter->getNameEnterpriseType(),
+                'class' => FilterEnterpriseType::class,
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\FiltersActivitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\FiltersEnterprisesRepository;
+use App\Repository\FilterEnterpriseTypeRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Front\listingProjects\AddListingProjectsType;
 use App\Form\Front\listingProjects\ModifyListingProjectsType;
@@ -27,14 +27,14 @@ class ListingProjectController extends AbstractController
     /**
      * @Route("/liste-des-projets", name="listing_projects")
      */
-    public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, FiltersEnterprisesRepository $filtersEnterprises, Request $request): Response
+    public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, FilterEnterpriseTypeRepository $filtersEnterprises, Request $request): Response
     {
         $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'), $request->get('filtersFa'),$request->get('filtersFe'));
         return $this->render('front/listingProjects/list.html.twig', [
             'listingProjects' => $listingProjects,
             'filters' => $filters->findBy([], ['nameActivities' => 'ASC']),
             'filterWebsites' => $filtersWebsites->findBy([], ['nameWebsites' => 'ASC']),
-            'filterEnterprises' => $filtersEnterprises->findBy([], ['nameEnterprises' => 'ASC']),
+            'filterEnterprises' => $filtersEnterprises->findBy([], ['nameEnterpriseType' => 'ASC']),
             'currentFilters' => $request->get('filters'),
             'currentFiltersFa' => $request->get('filtersFa'),
             'currentFiltersFe' => $request->get('filtersFe')
