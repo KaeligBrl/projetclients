@@ -26,6 +26,10 @@ class AddProjectType extends AbstractType
                 'label' => 'Client',
                 'required' => true,
                 'label_attr' => ['class' => 'label-custom'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                    ->orderBy('c.name', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                },
             ])
 
             ->add('customerbrief', CheckboxType::class, [
