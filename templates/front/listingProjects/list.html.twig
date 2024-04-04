@@ -55,9 +55,9 @@
 						</select>
 						<div class="mr-3"></div>
 						<select id="selectFiltersFe" class="form-control">
-							<option value="">Choisir un type d'entrprise</option>
+							<option value="">Choisir un type d'entreprise</option>
 							{% for filterEnterprise in filterEnterprises %}
-							<option class="checkFilter" value="{{filterEnterprise.id}}">{{filterEnterprise.nameEnterprises}}</option>
+							<option class="checkFilter" value="{{filterEnterprise.id}}">{{filterEnterprise.NameEnterpriseType}}</option>
 							{% endfor %}
 						</select>
 						<div class="mr-3"></div>
@@ -134,9 +134,22 @@
 			selectFiltersFa.value = currentFiltersFa;
 			selectFiltersFe.value = currentFiltersFe;
 
-			function validate() {
-				window.location.href = `liste-des-projets?filters=${selectFilters.value}&filtersFa=${selectFiltersFa.value}&filtersFe=${selectFiltersFe.value}`;
-			}
+		function validate() {
+			const selectFilters = document.querySelector('#selectFilters').value;
+			const selectFiltersFa = document.querySelector('#selectFiltersFa').value;
+			const selectFiltersFe = document.querySelector('#selectFiltersFe').value;
+
+			// Récupérer l'URL actuelle
+			let url = new URL(window.location.href);
+
+			// Mettre à jour les paramètres de requête avec les nouvelles valeurs sélectionnées
+			url.searchParams.set('filters', selectFilters);
+			url.searchParams.set('filtersFa', selectFiltersFa);
+			url.searchParams.set('filtersFe', selectFiltersFe);
+
+			// Recharger la page avec les nouveaux paramètres de filtre
+			window.location.href = url;
+		}
 
 		</script>
 	</body>

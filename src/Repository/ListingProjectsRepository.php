@@ -19,72 +19,38 @@ class ListingProjectsRepository extends ServiceEntityRepository
         parent::__construct($registry, ListingProjects::class);
     }
 
-public function findListingProjectByParam($idsLpf, $idsFa, $idsFe)
-{
-    $where = "";
-    if ($idsLpf) {
-        $where =  "where lpf.filters_activities_id in(" . $idsLpf . ")";
-    }
-    if ($idsFa) {
-        if ($where) {
-            $where =  "where lpfw.filters_websites_id in(" . $idsFa . ")";
-        } else {
-            $where .=  "and lpfw.filters_websites_id in(" . $idsFa . ")";
-        }
-    }
-    if ($idsFe) {
-        if ($where) {
-            $where =  "where lpfe.filters_enterprises_id in(" . $idsFe . ")";
-        } else {
-            $where .=  "and lpfe.filters_enterprises_id in(" . $idsFe . ")";
-        }
-    }
-
-
-    $req = "select distinct(lp.id), lp.enterprise, lp.domain_name, group_concat(fa.name_activities SEPARATOR ', ') as nameActivity, group_concat(fw.name_websites SEPARATOR ', ') as nameWebsite, group_concat(fe.name_enterprise_type SEPARATOR ', ') as nameEntreprise 
-            from Listing_Projects lp
-            left join listing_projects_filters_activities lpf on lpf.listing_projects_id = lp.id
-            left join filters_activities fa on fa.id = lpf.filters_activities_id
-            left join listing_projects_filters_websites lpfw on lpfw.listing_projects_id = lp.id
-            left join filters_websites fw on fw.id = lpfw.filters_websites_id
-            left join listing_projects_filter_enterprise_type lpfe on lpfe.listing_projects_id = lp.id
-            left join filter_enterprise_type fe on fe.id = lpfe.filter_enterprise_type_id
-    %1
-    group by (lp.id)
-    ";
-
-$req = str_replace('%1', $where, $req);
-$query = $this->getEntityManager()->getConnection()->prepare($req);  
-
-return $query->executeQuery()->fetchAllAssociative();
-}
-
-    // /**
-    //  * @return ListingProjects[] Returns an array of ListingProjects objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findListingProjectByParam($idsLpf, $idsFa, $idsFe)
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $where = " WHERE 1 = 1"; // Commencez avec une clause WHERE valide
 
-    /*
-    public function findOneBySomeField($value): ?Website
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($idsLpf) {
+            $where .= " AND lpf.filters_activities_id IN (" . $idsLpf . ")";
+        }
+        if ($idsFa) {
+            $where .= " AND lpfw.filters_websites_id IN (" . $idsFa . ")";
+        }
+        if ($idsFe) {
+            $where .= " AND lpfe.filter_enterprise_type_id IN (" . $idsFe . ")";
+        }
+
+        $req = "SELECT DISTINCT lp.id, lp.enterprise, lp.domain_name, 
+                    GROUP_CONCAT(fa.name_activities SEPARATOR ', ') AS nameActivity, 
+                    GROUP_CONCAT(fw.name_websites SEPARATOR ', ') AS nameWebsite, 
+                    GROUP_CONCAT(fe.name_enterprise_type SEPARATOR ', ') AS nameEnterpriseType 
+            FROM Listing_Projects lp
+            LEFT JOIN listing_projects_filters_activities lpf ON lpf.listing_projects_id = lp.id
+            LEFT JOIN filters_activities fa ON fa.id = lpf.filters_activities_id
+            LEFT JOIN listing_projects_filters_websites lpfw ON lpfw.listing_projects_id = lp.id
+            LEFT JOIN filters_websites fw ON fw.id = lpfw.filters_websites_id
+            LEFT JOIN listing_projects_filter_enterprise_type lpfe ON lpfe.listing_projects_id = lp.id
+            LEFT JOIN filter_enterprise_type fe ON fe.id = lpfe.filter_enterprise_type_id
+            $where
+            GROUP BY lp.id";
+
+        $req = str_replace('%1', $where, $req);
+        $query = $this->getEntityManager()->getConnection()->prepare($req);
+
+        return $query->executeQuery()->fetchAllAssociative();
     }
-    */
+
 }

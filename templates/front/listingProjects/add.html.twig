@@ -19,6 +19,7 @@
 		<div class="mb-5"></div>
 			{{ form_start(form_listingCustomer_add) }}
 				<div>
+				{{ form_row(form_listingCustomer_add.enterprise) }}
 				{{ form_row(form_listingCustomer_add.domainname) }}
 				<div class="mb-3"></div>
 				<p class="text-left color-yellow">Secteur d'activité</p>
@@ -28,7 +29,7 @@
 				{{ form_row(form_listingCustomer_add.nameWebsites) }}
 				<div class="mb-3"></div>
 				<p class="text-left color-yellow">Type d'entreprise</p>
-				{{ form_row(form_listingCustomer_add.nameEnterprise) }}
+				{{ form_row(form_listingCustomer_add.nameEnterpriseType) }}
 				<div class="mb-3"></div>
 				{{ form_row(form_listingCustomer_add.submit) }}
 				</div>
