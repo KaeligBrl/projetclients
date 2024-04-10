@@ -31,7 +31,7 @@ class FiltersEnterprisesController extends AbstractController
     {
 
         return $this->render('back/filters/enterprises/list.html.twig', [
-            'filterslist' => $filters->findby([], ['nameEnterprises' => "ASC"]),
+            'filterslist' => $filters->findby([], ['nameEnterpriseType' => "ASC"]),
         ]);
     }
 

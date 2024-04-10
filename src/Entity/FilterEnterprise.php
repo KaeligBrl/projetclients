@@ -26,7 +26,7 @@ class FilterEnterprise
     private $nameEnterpriseType;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameEnterprises")
+     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameEnterpriseType")
      */
     private $listingProjects;
 
