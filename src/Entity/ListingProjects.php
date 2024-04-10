@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\FiltersActivities;
+use App\Entity\FilterEnterprise;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\FiltersActivities;
 use Doctrine\Common\Collections\Collection;
 use App\Repository\ListingProjectsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
