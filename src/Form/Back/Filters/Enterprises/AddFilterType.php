@@ -2,7 +2,7 @@
 
 namespace App\Form\Back\Filters\Enterprises;
 
-use App\Entity\FiltersEnterprises;
+use App\Entity\FilterEnterprise;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ class AddFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FiltersEnterprises::class,
+            'data_class' => FilterEnterprise::class,
         ]);
     }
 }
