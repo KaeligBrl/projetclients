@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\FilterEnterpriseTypeRepository;
+use App\Repository\FilterEnterpriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=FilterEnterpriseTypeRepository::class)
+ * @ORM\Entity(repositoryClass=FilterEnterpriseRepository::class)
  */
-class FilterEnterpriseType
+class FilterEnterprise
 {
     /**
      * @ORM\Id

@@ -2,12 +2,13 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\FilterEnterprise;
 use App\Entity\FiltersEnterprises;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\FilterEnterpriseRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\FiltersEnterprisesRepository;
 use App\Form\Back\Filters\Enterprises\AddFilterType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Back\Filters\Enterprises\ModifyFilterType;
@@ -26,7 +27,7 @@ class FiltersEnterprisesController extends AbstractController
     /**
      * @Route("filtre/entreprises", name="filters_enterprises")
      */
-    public function index(FiltersEnterprisesRepository $filters): Response
+    public function index(FilterEnterpriseRepository $filters): Response
     {
 
         return $this->render('back/filters/enterprises/list.html.twig', [
@@ -39,7 +40,7 @@ class FiltersEnterprisesController extends AbstractController
      */
     public function filterEnterpriseAdd(Request $request): Response
     {
-        $filterEnterpriseAdd = new FiltersEnterprises();
+        $filterEnterpriseAdd = new FilterEnterprise();
         $form = $this->createForm(AddFilterType::class, $filterEnterpriseAdd);
         $notification = null;
         $form->handleRequest($request);
@@ -48,7 +49,7 @@ class FiltersEnterprisesController extends AbstractController
             $this->entityManager->persist($filterEnterpriseAdd);
             $this->entityManager->flush();
             $notification = 'Le filtre a bien été ajouté';
-            $filterEnterpriseAdd = new FiltersEnterprises();
+            $filterEnterpriseAdd = new FilterEnterprise();
             $form = $this->createForm(AddFilterType::class, $filterEnterpriseAdd);
         }
         return $this->render('back/filters/enterprises/add.html.twig', [
@@ -61,7 +62,7 @@ class FiltersEnterprisesController extends AbstractController
     /**
      * @Route("filtre/entreprise/modifier/{id}", name="filter_enterprise_modify")
      */
-    public function filterWebsiteModify(Request $request, FiltersEnterprises $filtersEnterprisesModify): Response
+    public function filterWebsiteModify(Request $request, FilterEnterprise $filtersEnterprisesModify): Response
     {
         $form = $this->createForm(ModifyFilterType::class, $filtersEnterprisesModify);
         $notication = null;
@@ -72,7 +73,7 @@ class FiltersEnterprisesController extends AbstractController
             $this->entityManager->persist($filtersEnterprisesModify);
             $this->entityManager->flush();
             $notication = "Le filtre a été mis à jour";
-            $filtersEnterprisesModify = new FiltersEnterprises();
+            $filtersEnterprisesModify = new FilterEnterprise();
             $filtersEnterprisesModify = $form->getData($filtersEnterprisesModify);
             $form = $this->createForm(ModifyFilterType::class, $filtersEnterprisesModify);
         }
@@ -87,7 +88,7 @@ class FiltersEnterprisesController extends AbstractController
      * @Route("filtre/entreprise/supprimer/{id}", name="filter_enterprise_detete")
      * return RedirectResponse
      */
-    public function filterDeleteAdmin(filtersEnterprises $filterEnterpriseDelete): RedirectResponse
+    public function filterDeleteAdmin(filterEnterprise $filterEnterpriseDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($filterEnterpriseDelete);
