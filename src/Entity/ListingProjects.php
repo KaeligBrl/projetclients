@@ -42,7 +42,7 @@ class ListingProjects
     private $nameWebsites;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FilterEnterpriseType::class, inversedBy="listingProjects")
+     * @ORM\ManyToMany(targetEntity=FilterEnterprise::class, inversedBy="listingProjects")
      */
     private $nameEnterpriseType;
 
