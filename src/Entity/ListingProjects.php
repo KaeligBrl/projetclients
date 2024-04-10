@@ -118,14 +118,14 @@ class ListingProjects
     }
 
     /**
-     * @return Collection<int, FilterEnterpriseType>
+     * @return Collection<int, FilterEnterprise>
      */
     public function getNameEnterpriseType(): Collection
     {
         return $this->nameEnterpriseType;
     }
 
-    public function addNameEnterpriseType(FilterEnterpriseType $nameEnterpriseType): self
+    public function addNameEnterpriseType(FilterEnterprise $nameEnterpriseType): self
     {
         if (!$this->nameEnterpriseType->contains($nameEnterpriseType)) {
             $this->nameEnterpriseType[] = $nameEnterpriseType;
@@ -134,7 +134,7 @@ class ListingProjects
         return $this;
     }
 
-    public function removeNameEnterpriseType(FilterEnterpriseType $nameEnterprisesType): self
+    public function removeNameEnterpriseType(FilterEnterprise $nameEnterprisesType): self
     {
         $this->nameEnterpriseType->removeElement($nameEnterprisesType);
 
