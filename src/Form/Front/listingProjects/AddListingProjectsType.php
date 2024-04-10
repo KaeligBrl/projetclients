@@ -6,7 +6,7 @@ use App\Entity\FiltersWebsites;
 use App\Entity\ListingProjects;
 use App\Entity\FiltersActivities;
 use Doctrine\ORM\EntityRepository;
-use App\Entity\FilterEnterpriseType;
+use App\Entity\FilterEnterprise;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -43,8 +43,8 @@ class AddListingProjectsType extends AbstractType
             ->add('nameEnterpriseType', EntityType::class, array(
                 'required' => true,
                 'label' => false,
-                'choice_label' => fn (FilterEnterpriseType $filter) => $filter->getNameEnterpriseType(),
-                'class' => FilterEnterpriseType::class,
+                'choice_label' => fn (FilterEnterprise $filter) => $filter->getNameEnterpriseType(),
+                'class' => FilterEnterprise::class,
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
