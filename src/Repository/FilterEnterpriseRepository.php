@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\FilterEnterpriseType;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use App\Entity\FilterEnterprise;
+use App\Entity\FilterEnterpriseType;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<FilterEnterpriseType>
@@ -16,18 +17,18 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method FilterEnterpriseType[]    findAll()
  * @method FilterEnterpriseType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FilterEnterpriseTypeRepository extends ServiceEntityRepository
+class FilterEnterpriseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FilterEnterpriseType::class);
+        parent::__construct($registry, FilterEnterprise::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(FilterEnterpriseType $entity, bool $flush = true): void
+    public function add(FilterEnterprise $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +40,7 @@ class FilterEnterpriseTypeRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(FilterEnterpriseType $entity, bool $flush = true): void
+    public function remove(FilterEnterprise $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
