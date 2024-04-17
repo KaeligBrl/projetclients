@@ -30,7 +30,7 @@ class ListingProjectsRepository extends ServiceEntityRepository
             $where .= " AND lpfw.filters_websites_id IN (" . $idsFa . ")";
         }
         if ($idsFe) {
-            $where .= " AND lpfe.filter_enterprise_type_id IN (" . $idsFe . ")";
+            $where .= " AND lpfe.filter_enterprise_id IN (" . $idsFe . ")";
         }
 
         $req = "SELECT DISTINCT lp.id, lp.enterprise, lp.domain_name, 
@@ -42,8 +42,8 @@ class ListingProjectsRepository extends ServiceEntityRepository
             LEFT JOIN filters_activities fa ON fa.id = lpf.filters_activities_id
             LEFT JOIN listing_projects_filters_websites lpfw ON lpfw.listing_projects_id = lp.id
             LEFT JOIN filters_websites fw ON fw.id = lpfw.filters_websites_id
-            LEFT JOIN listing_projects_filter_enterprise_type lpfe ON lpfe.listing_projects_id = lp.id
-            LEFT JOIN filter_enterprise_type fe ON fe.id = lpfe.filter_enterprise_type_id
+            LEFT JOIN listing_projects_filter_enterprise lpfe ON lpfe.listing_projects_id = lp.id
+            LEFT JOIN filter_enterprise fe ON fe.id = lpfe.filter_enterprise_id
             $where
             GROUP BY lp.id";
 

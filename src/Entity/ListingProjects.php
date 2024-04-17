@@ -46,11 +46,19 @@ class ListingProjects
      */
     private $nameEnterpriseType;
 
+    // Ajoutez la relation ManyToMany avec FilterEnterprise
+    /**
+     * @ORM\ManyToMany(targetEntity=FilterEnterprise::class, inversedBy="listingProjects")
+     * @ORM\JoinTable(name="listing_projects_filter_enterprise_type")
+     */
+    private $filterEnterprises;
+
     public function __construct()
     {
         $this->nameActivities = new ArrayCollection();
         $this->nameWebsites = new ArrayCollection();
         $this->nameEnterpriseType = new ArrayCollection();
+        $this->filterEnterprises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +159,24 @@ class ListingProjects
     public function setDomainName($domainName)
     {
         $this->domainName = $domainName;
+
+        return $this;
+    }
+
+    // Méthode pour ajouter des filtres d'entreprise
+    public function addFilterEnterprise(FilterEnterprise $filterEnterprise): self
+    {
+        if (!$this->filterEnterprises->contains($filterEnterprise)) {
+            $this->filterEnterprises[] = $filterEnterprise;
+        }
+
+        return $this;
+    }
+
+    // Méthode pour retirer des filtres d'entreprise
+    public function removeFilterEnterprise(FilterEnterprise $filterEnterprise): self
+    {
+        $this->filterEnterprises->removeElement($filterEnterprise);
 
         return $this;
     }
