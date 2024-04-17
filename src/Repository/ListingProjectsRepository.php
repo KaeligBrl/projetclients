@@ -46,7 +46,7 @@ class ListingProjectsRepository extends ServiceEntityRepository
             LEFT JOIN filter_enterprise fe ON fe.id = lpfe.filter_enterprise_id
             $where
             GROUP BY lp.id
-            ORDER BY lp.id ASC";
+            ORDER BY lp.enterprise ASC";
 
         $req = str_replace('%1', $where, $req);
         $query = $this->getEntityManager()->getConnection()->prepare($req);
