@@ -39,6 +39,10 @@ class AddListingProjectsType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('c')
+                    ->orderBy('c.nameActivities', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+            },
             ))
             ->add('nameEnterpriseType', EntityType::class, array(
                 'required' => true,
@@ -48,6 +52,10 @@ class AddListingProjectsType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nameEnterpriseType', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                },
             ))
 
             ->add('nameWebsites', EntityType::class, array(
@@ -58,6 +66,10 @@ class AddListingProjectsType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'label_attr' => ['class' => 'color-white'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nameWebsites', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                },
             ))
 
             ->add('submit', SubmitType::class, [
