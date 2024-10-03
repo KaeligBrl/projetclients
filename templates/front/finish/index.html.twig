@@ -27,6 +27,7 @@
 							<tr>
 								<th class="color-yellow text-bold" scope="col">Nom du client</th>
 								<th class="color-yellow text-bold" scope="col">Site internet</th>
+								<th class="color-yellow text-bold" scope="col">Installation Wordpress</th>
 								<th class="color-yellow text-bold" scope="col">Mise en ligne</th>
 								<th class="color-yellow text-bold" scope="col">Action</th>
 							</tr>
@@ -37,6 +38,7 @@
 									<tr class="form-switch">
 										<td class="color-white text-bold">{{ project.customer }}</td>
 										<td class="color-white"><a class="color-white" href="{{ project.domain }}" target="new">{{ project.domain }}</a></td>
+										<td class="color-white">{% if project.wordpressInstallation is empty %}Non renseigné {% else %} {{ project.wordpressInstallation|date('d-m-Y')}} {% endif %}</td>
 										<td class="color-white">{{ project.online|date('d-m-Y')}} </td>
 										<td>
 											<a href="{{ path('tocurrentproject', {"id": project.id}) }}" title="Repasser en projet en cours"><i class=" color-white fas fa-chevron-left"></i></a>
