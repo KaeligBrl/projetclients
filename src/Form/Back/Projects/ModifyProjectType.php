@@ -22,6 +22,12 @@ class ModifyProjectType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
+            ->add('wordpressInstallation', DateType::class, [
+                'label' => 'Installation Wordpress',
+                'required' => false,
+                'label_attr' => ['class' => 'label-custom'],
+                'widget' => 'single_text'
+            ])
             ->add('datecustomerbrief', DateType::class, [
                 'label' => false,
                 'required' => false,

@@ -198,6 +198,11 @@ class Projects
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $finished;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $wordpressInstallation;
     
     public function __construct()
     {
@@ -625,6 +630,18 @@ class Projects
     public function setFinished(?bool $finished): self
     {
         $this->finished = $finished;
+
+        return $this;
+    }
+
+    public function getWordpressInstallation(): ?\DateTimeInterface
+    {
+        return $this->wordpressInstallation;
+    }
+
+    public function setWordpressInstallation(?\DateTimeInterface $wordpressInstallation): self
+    {
+        $this->wordpressInstallation = $wordpressInstallation;
 
         return $this;
     }

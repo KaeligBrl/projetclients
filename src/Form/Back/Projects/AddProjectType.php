@@ -31,7 +31,12 @@ class AddProjectType extends AbstractType
                     ->orderBy('c.name', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
                 },
             ])
-
+            ->add('wordpressInstallation', DateType::class, [
+                'label' => 'Installation Wordpress',
+                'required' => false,
+                'label_attr' => ['class' => 'label-custom'],
+                'widget' => 'single_text'
+            ])
             ->add('customerbrief', CheckboxType::class, [
                 'label' => 'Fait',
                 'required' => false,

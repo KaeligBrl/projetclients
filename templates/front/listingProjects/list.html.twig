@@ -103,13 +103,13 @@
 								{{listingProject.nameWebsite}}
 							{% endif %}
 							</td>
-<td class="verta color-white">
-	{% if listingProject.nameEnterpriseType is empty %}
-	<span>Non renseigné</span>
-	{% else %}
-	{{ listingProject.nameEnterpriseType|nl2br }}
-	{% endif %}
-</td>
+							<td class="verta color-white">
+								{% if listingProject.nameEnterpriseType is empty %}
+								<span>Non renseigné</span>
+								{% else %}
+								{{ listingProject.nameEnterpriseType|nl2br }}
+								{% endif %}
+							</td>
 							<td>
 								<a href="{{ path('listing_projects_modify', {"id": listingProject.id}) }}"><i class=" color-white fas fa-cog"></i></a>
 								<span class="color-white">|</span>

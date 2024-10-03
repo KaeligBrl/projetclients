@@ -29,6 +29,7 @@
 							<thead class="bg-blue-dark-light table-borderless">
 								<tr>
 									<th class="color-yellow text-bold" scope="col">Nom du<br> client</th>
+									<th class="color-yellow text-bold" scope="col">Installation<br> Wordpress</th>
 									<th class="color-yellow text-bold" scope="col">Brief<br> client</th>
 									<th class="color-yellow text-bold" scope="col">Nom de<br> domaine</th>
 									<th class="color-yellow text-bold" scope="col">Commentaire nom <br>de domaine</th>
@@ -51,6 +52,8 @@
 									{% if project.finished == false %}
 									<tr class="form-switch">
 										<td class="color-white text-bold">{{ project.customer }}</td>
+										<td class="color-white text-bold">{% if project.wordpressInstallation is empty %}<span>Inconnue</span>{% else %}{{
+											project.wordpressInstallation|date('d-m-Y') }}{% endif %}</td>
 										<td class="text-center">
 											<input class="customerbrief form-check-input" type="checkbox" {{ (project.customerbrief) ? 'checked' : ''}} data-customerbrief="{{project.id}}">
 											{% if (project.commentcustomerbrief) or (project.datecustomerbrief) %}
