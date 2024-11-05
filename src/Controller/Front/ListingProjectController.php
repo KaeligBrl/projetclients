@@ -3,14 +3,15 @@
 namespace App\Controller\Front;
 
 use App\Entity\ListingProjects;
+use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FiltersWebsitesRepository;
 use App\Repository\ListingProjectsRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\FilterEnterpriseRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\FiltersActivitiesRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\FilterEnterpriseRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Front\listingProjects\AddListingProjectsType;
 use App\Form\Front\listingProjects\ModifyListingProjectsType;
@@ -30,6 +31,10 @@ class ListingProjectController extends AbstractController
     public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, FilterEnterpriseRepository $filtersEnterprises, Request $request): Response
     {
         $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'), $request->get('filtersFa'),$request->get('filtersFe'));
+
+        $projects = $listingProjectsRepository->findAll();
+        $count = count($projects);
+
         return $this->render('front/listingProjects/list.html.twig', [
             'listingProjects' => $listingProjects,
             'filters' => $filters->findBy([], ['nameActivities' => 'ASC']),
@@ -37,7 +42,8 @@ class ListingProjectController extends AbstractController
             'filterEnterprises' => $filtersEnterprises->findBy([], ['nameEnterpriseType' => 'ASC']),
             'currentFilters' => $request->get('filters'),
             'currentFiltersFa' => $request->get('filtersFa'),
-            'currentFiltersFe' => $request->get('filtersFe')
+            'currentFiltersFe' => $request->get('filtersFe'),
+            'project_count' => $count,
         ]);
     }
 

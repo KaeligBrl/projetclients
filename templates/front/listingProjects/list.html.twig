@@ -11,7 +11,14 @@
 	<body>
 		<div class="container">
 		<div class="mb-5"></div>
-		<h1 class="text-center color-white">Liste des projets</h1>	
+		<h1 class="text-center color-white">Liste des projets</h1>
+
+		{% if project_count > 1 %}
+			<p class="color-white text-center">{{ project_count }} sites internet ont été créés.</p>
+		{% else %}
+			<p class="color-white text-center">{{ project_count }} site internet a été créé.</p>
+		{% endif %}
+
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 		<div class="mb-5"></div>

@@ -32,4 +32,5 @@ class ProjectsRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQuery($sql)->setParameters(['id' => $id]);
         return $query->getResult();
     }
+
 }
