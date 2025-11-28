@@ -20,6 +20,7 @@
 					<table class="table mb-5 table-bordered">
 						<thead class="bg-blue-dark-light table-borderless">
 							<tr>
+								<th class="color-yellow text-bold" scope="col">ID</th>
 								<th class="color-yellow text-bold" scope="col">Nom du client</th>
 								<th class="color-yellow text-bold" scope="col">Site internet</th>
 								<th class="color-yellow text-bold" scope="col">Installation Wordpress</th>
@@ -31,6 +32,7 @@
 							{% for project in projects %}
 								{% if project.finished == true %}
 									<tr class="form-switch">
+										<td class="color-white text-bold">{{ project.id }}</td>
 										<td class="color-white text-bold">{{ project.customer }}</td>
 										<td class="color-white"><a class="color-white" href="{{ project.domainText }}" target="new">{{ project.domainText }}</a></td>
 										<td class="color-white">{% if project.wordpressInstallation is empty %}Non renseigné {% else %} {{ project.wordpressInstallation|date('d-m-Y')}} {% endif %}</td>
