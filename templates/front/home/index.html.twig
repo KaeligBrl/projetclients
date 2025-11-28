@@ -1,6 +1,6 @@
 {% extends 'base_login_register.html.twig' %}
 {% block content %}
-    <title>{%  block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    {%  block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 	<img class="d-block mx-auto" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo de connexion To Do List">
 	<div class="mb-5"></div>
 	<form class="form-login text-center bg-white" method="post">

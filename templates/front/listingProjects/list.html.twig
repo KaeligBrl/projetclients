@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{%  block title %}Listes des projets - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
 {% block content %}
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{%  block title %}Listes des projets - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
-</head>
-	<body>
+
+
 		<div class="container">
 		<div class="mb-5"></div>
 		<h1 class="text-center color-white">Liste des projets</h1>
