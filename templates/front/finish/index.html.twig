@@ -37,6 +37,7 @@
 								{% if project.finished == true %}
 									<tr class="form-switch">
 										<td class="color-white text-bold">{{ project.customer }}</td>
+										<td class="color-white"><a class="color-white" href="{{ project.domainText }}" target="new">{{ project.domainText }}</a></td>
 										<td class="color-white">{% if project.wordpressInstallation is empty %}Non renseigné {% else %} {{ project.wordpressInstallation|date('d-m-Y')}} {% endif %}</td>
 										<td class="color-white">{{ project.online|date('d-m-Y')}} </td>
 										<td>
