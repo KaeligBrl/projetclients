@@ -61,6 +61,7 @@ class ProjectsController extends AbstractController
             $projectModify = new Projects();
             $projectModify = $form->getData($projectModify);
             $form = $this->createForm(ModifyProjectType::class, $projectModify);
+      
         }
         return $this->render('front/projects/modify.html.twig', [
             'form_project_modify' => $form->createView(),
