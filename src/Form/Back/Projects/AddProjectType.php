@@ -42,11 +42,6 @@ class AddProjectType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('domain', TextType::class, [
-                'label' => 'Nom de domaine',
-                'required' => true,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
             ->add('comingsoon', CheckboxType::class, [
                 'label' => 'Page de maintenance créée',
                 'required' => false,
