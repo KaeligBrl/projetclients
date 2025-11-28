@@ -91,7 +91,7 @@
                                             {% endif %}
                                             <a href="{{ path('project_modify', {"id": project.id}) }}"  title="Modifier"><i class="color-white fas fa-cog"></i></a>
                                             <span class="color-white">|</span>
-											<a href="{{ path('project_detete', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un projet')"  title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+											<a href="{{ path('project_delete', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un projet')"  title="Supprimer"><i class="color-white fas fa-trash"></i></a>
 											</td>
 										{% endif %}	
 									</tr>

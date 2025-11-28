@@ -70,7 +70,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projets-clients/supprimer/{id}", name="project_detete")
+     * @Route("projets-clients/supprimer/{id}", name="project_delete")
      * @param Projects $projectsDelete
      * return RedirectResponse
      */
@@ -80,7 +80,7 @@ class ProjectsController extends AbstractController
         $em->remove($projectDelete);
         $em->flush();
 
-        return $this->redirectToRoute("current_project");
+        return $this->redirectToRoute("finished_projects");
     }
 
     /**
