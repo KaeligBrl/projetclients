@@ -38,12 +38,12 @@ class AddProjectType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('customerbrief', CheckboxType::class, [
-                'label' => 'Fait',
+                'label' => 'Brief client reçu',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
             ->add('domainname', CheckboxType::class, [
-                'label' => 'Fait',
+                'label' => 'Nom de domaine renseigné',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
@@ -58,7 +58,7 @@ class AddProjectType extends AbstractType
                 'label_attr' => ['class' => 'label-custom'],
             ])
             ->add('customercontentreception', CheckboxType::class, [
-                'label' => 'Fait',
+                'label' => 'Contenu client reçu',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
@@ -83,7 +83,7 @@ class AddProjectType extends AbstractType
                 'label_attr' => ['class' => 'label-custom'],
             ])
             ->add('webtraining', CheckboxType::class, [
-                'label' => 'Fait',
+                'label' => 'Formation de prise en main effectuée',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
