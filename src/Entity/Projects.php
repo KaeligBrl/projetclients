@@ -52,11 +52,6 @@ class Projects
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $picturesreception;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $webdesignprogress;
 
     /**
@@ -92,107 +87,7 @@ class Projects
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $commentcustomerbrief;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentcomingsoon;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentcustomercontentreception;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentpicturesreception;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentwebdesignprogress;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentwebdesignsend;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentwebdesignvalidated;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentdomainname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $domain;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentwebintegration;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $commentwebtraining;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datecustomerbrief;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datedomainname;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datecomingsoon;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datecustomercontentreception;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datepicturesreception;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datewebdesignprogress;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datewebdesignsend;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datewebdesignvalidated;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datewebintegration;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $datewebtraining;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -203,11 +98,8 @@ class Projects
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $wordpressInstallation;
-    
-    public function __construct()
-    {
-        $this->customers = new ArrayCollection();
-    }
+
+    // Constructeur supprimé (aucune collection à initialiser)
 
     public function getId(): ?int
     {
@@ -270,18 +162,6 @@ class Projects
     public function setCustomercontentreception(?bool $customercontentreception): self
     {
         $this->customercontentreception = $customercontentreception;
-
-        return $this;
-    }
-
-    public function getPicturesreception(): ?bool
-    {
-        return $this->picturesreception;
-    }
-
-    public function setPicturesreception(?bool $picturesreception): self
-    {
-        $this->picturesreception = $picturesreception;
 
         return $this;
     }
@@ -370,95 +250,6 @@ class Projects
         return $this;
     }
 
-    public function getCommentcustomerbrief(): ?string
-    {
-        return $this->commentcustomerbrief;
-    }
-
-    public function setCommentcustomerbrief(?string $commentcustomerbrief): self
-    {
-        $this->commentcustomerbrief = $commentcustomerbrief;
-
-        return $this;
-    }
-
-    public function getCommentcomingsoon(): ?string
-    {
-        return $this->commentcomingsoon;
-    }
-
-    public function setCommentcomingsoon(?string $commentcomingsoon): self
-    {
-        $this->commentcomingsoon = $commentcomingsoon;
-
-        return $this;
-    }
-
-    public function getCommentcustomercontentreception(): ?string
-    {
-        return $this->commentcustomercontentreception;
-    }
-
-    public function setCommentcustomercontentreception(?string $commentcustomercontentreception): self
-    {
-        $this->commentcustomercontentreception = $commentcustomercontentreception;
-
-        return $this;
-    }
-
-    public function getCommentpicturesreception(): ?string
-    {
-        return $this->commentpicturesreception;
-    }
-
-    public function setCommentpicturesreception(?string $commentpicturesreception): self
-    {
-        $this->commentpicturesreception = $commentpicturesreception;
-
-        return $this;
-    }
-
-    public function getCommentwebdesignprogress(): ?string
-    {
-        return $this->commentwebdesignprogress;
-    }
-
-    public function setCommentwebdesignprogress(?string $commentwebdesignprogress): self
-    {
-        $this->commentwebdesignprogress = $commentwebdesignprogress;
-
-        return $this;
-    }
-
-    public function getCommentwebdesignsend(): ?string
-    {
-        return $this->commentwebdesignsend;
-    }
-
-    public function setCommentwebdesignsend(?string $commentwebdesignsend): self
-    {
-        $this->commentwebdesignsend = $commentwebdesignsend;
-
-        return $this;
-    }
-
-    public function getCommentwebdesignvalidated(): ?string
-    {
-        return $this->commentwebdesignvalidated;
-    }
-
-    public function setCommentwebdesignvalidated(?string $commentwebdesignvalidated): self
-    {
-        $this->commentwebdesignvalidated = $commentwebdesignvalidated;
-
-        return $this;
-    }
-
-    public function getCommentdomainname(): ?string
-    {
-        return $this->commentdomainname;
-    }
-
     public function getDomain(): ?string
     {
         return $this->domain;
@@ -467,157 +258,6 @@ class Projects
     public function setDomain(?string $domain): self
     {
         $this->domain = $domain;
-
-        return $this;
-    }
-
-    public function setCommentdomainname(?string $commentdomainname): self
-    {
-        $this->commentdomainname = $commentdomainname;
-
-        return $this;
-    }
-
-    public function getCommentwebintegration(): ?string
-    {
-        return $this->commentwebintegration;
-    }
-
-    public function setCommentwebintegration(?string $commentwebintegration): self
-    {
-        $this->commentwebintegration = $commentwebintegration;
-
-        return $this;
-    }
-
-    public function getCommentwebtraining(): ?string
-    {
-        return $this->commentwebtraining;
-    }
-
-    public function setCommentwebtraining(?string $commentwebtraining): self
-    {
-        $this->commentwebtraining = $commentwebtraining;
-
-        return $this;
-    }
-    
-    public function getDatecustomerbrief(): ?\DateTimeInterface
-    {
-        return $this->datecustomerbrief;
-    }
-
-    public function setDatecustomerbrief(?\DateTimeInterface $datecustomerbrief): self
-    {
-        $this->datecustomerbrief = $datecustomerbrief;
-
-        return $this;
-    }
-
-    public function getDatedomainname(): ?\DateTimeInterface
-    {
-        return $this->datedomainname;
-    }
-
-    public function setDatedomainname(?\DateTimeInterface $datedomainname): self
-    {
-        $this->datedomainname = $datedomainname;
-
-        return $this;
-    }
-
-    public function getDatecomingsoon(): ?\DateTimeInterface
-    {
-        return $this->datecomingsoon;
-    }
-
-    public function setDatecomingsoon(?\DateTimeInterface $datecomingsoon): self
-    {
-        $this->datecomingsoon = $datecomingsoon;
-
-        return $this;
-    }
-
-    public function getDatecustomercontentreception(): ?\DateTimeInterface
-    {
-        return $this->datecustomercontentreception;
-    }
-
-    public function setDatecustomercontentreception(?\DateTimeInterface $datecustomercontentreception): self
-    {
-        $this->datecustomercontentreception = $datecustomercontentreception;
-
-        return $this;
-    }
-
-    public function getDatepicturesreception(): ?\DateTimeInterface
-    {
-        return $this->datepicturesreception;
-    }
-
-    public function setDatepicturesreception(?\DateTimeInterface $datepicturesreception): self
-    {
-        $this->datepicturesreception = $datepicturesreception;
-
-        return $this;
-    }
-
-    public function getDatewebdesignprogress(): ?\DateTimeInterface
-    {
-        return $this->datewebdesignprogress;
-    }
-
-    public function setDatewebdesignprogress(?\DateTimeInterface $datewebdesignprogress): self
-    {
-        $this->datewebdesignprogress = $datewebdesignprogress;
-
-        return $this;
-    }
-
-    public function getDatewebdesignsend(): ?\DateTimeInterface
-    {
-        return $this->datewebdesignsend;
-    }
-
-    public function setDatewebdesignsend(?\DateTimeInterface $datewebdesignsend): self
-    {
-        $this->datewebdesignsend = $datewebdesignsend;
-
-        return $this;
-    }
-
-    public function getDatewebdesignvalidated(): ?\DateTimeInterface
-    {
-        return $this->datewebdesignvalidated;
-    }
-
-    public function setDatewebdesignvalidated(?\DateTimeInterface $datewebdesignvalidated): self
-    {
-        $this->datewebdesignvalidated = $datewebdesignvalidated;
-
-        return $this;
-    }
-
-    public function getDatewebintegration(): ?\DateTimeInterface
-    {
-        return $this->datewebintegration;
-    }
-
-    public function setDatewebintegration(?\DateTimeInterface $datewebintegration): self
-    {
-        $this->datewebintegration = $datewebintegration;
-
-        return $this;
-    }
-
-    public function getDatewebtraining(): ?\DateTimeInterface
-    {
-        return $this->datewebtraining;
-    }
-
-    public function setDatewebtraining(?\DateTimeInterface $datewebtraining): self
-    {
-        $this->datewebtraining = $datewebtraining;
 
         return $this;
     }

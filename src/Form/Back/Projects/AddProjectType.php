@@ -28,7 +28,7 @@ class AddProjectType extends AbstractType
                 'label_attr' => ['class' => 'label-custom'],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                    ->orderBy('c.name', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                    ->orderBy('c.name', 'ASC');
                 },
             ])
             ->add('wordpressInstallation', DateType::class, [
@@ -42,22 +42,6 @@ class AddProjectType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('commentcustomerbrief', TextareaType::class, [
-                'label' => 'Brief client',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datecustomerbrief', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-            ->add('commentdomainname', TextareaType::class, [
-                'label' => 'Commentaire nom de domaine',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
             ->add('domainname', CheckboxType::class, [
                 'label' => 'Fait',
                 'required' => false,
@@ -68,32 +52,8 @@ class AddProjectType extends AbstractType
                 'required' => true,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('datedomainname', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-
-            ->add('commentcomingsoon', TextareaType::class, [
-                'label' => 'Page de Maintenance',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
             ->add('comingsoon', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datecomingsoon', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-
-            ->add('commentcustomercontentreception', TextareaType::class, [
-                'label' => 'Contenu client',
+                'label' => 'Page de maintenance créée',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
@@ -102,99 +62,23 @@ class AddProjectType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('datecustomercontentreception', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text',
-            ])
-            
-            ->add('commentpicturesreception', TextareaType::class, [
-                'label' => 'Photos',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('picturesreception', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datepicturesreception', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-            
-            ->add('commentwebdesignprogress', TextareaType::class, [
+            ->add('webdesignprogress', CheckboxType::class, [
                 'label' => 'Maquette en cours',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('webdesignprogress', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datewebdesignprogress', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-
-            ->add('commentwebdesignsend', TextareaType::class, [
+            ->add('webdesignsend', CheckboxType::class, [
                 'label' => 'Maquette envoyée',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('webdesignsend', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datewebdesignsend', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-            ->add('commentwebdesignvalidated', TextareaType::class, [
+            ->add('webdesignvalidated', CheckboxType::class, [
                 'label' => 'Maquette validée',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('webdesignvalidated', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datewebdesignvalidated', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-
-            ->add('commentwebintegration', TextareaType::class, [
-                'label' => 'Intégration',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
             ->add('webintegration', CheckboxType::class, [
-                'label' => 'Fait',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datewebintegration', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
-            ])
-
-            ->add('commentwebtraining', TextareaType::class, [
-                'label' => 'Formation',
+                'label' => 'Intégration web faite',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
@@ -202,12 +86,6 @@ class AddProjectType extends AbstractType
                 'label' => 'Fait',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
-            ])
-            ->add('datewebtraining', DateType::class, [
-                'label' => false,
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
             ])
             
             ->add('online', DateType::class, [

@@ -126,34 +126,6 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("projet-en-cours/reception-des-photos/{id}", name="project_picturesreception_checkbox")
-     */
-    public function projectPictureReception(Projects $projectPicturesreception)
-    {
-        $projectPicturesreception->setPicturesreception(($projectPicturesreception->getPicturesreception()) ? false : true);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($projectPicturesreception);
-        $em->flush();
-
-        return new Response("true");
-    }
-
-    /**
-     * @Route("projet-en-cours/maquette-en-cours/{id}", name="projects_webdesignprogress_checkbox")
-     */
-    public function projectWebdesignProgress(Projects $projectWebdesignProgress)
-    {
-        $projectWebdesignProgress->setWebdesignprogress(($projectWebdesignProgress->getWebdesignprogress()) ? false : true);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($projectWebdesignProgress);
-        $em->flush();
-
-        return new Response("true");
-    }
-
-    /**
      * @Route("projet-en-cours/maquette-envoyee/{id}", name="project_webdesignsend_checkbox")
      */
     public function projectWebdesignWait(Projects $projectWebdesignSend)

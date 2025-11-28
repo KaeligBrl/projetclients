@@ -30,7 +30,6 @@
 									<th scope="col">Nom du<br> client</th>
 									<th scope="col">Brief<br> client</th>
 									<th scope="col">Nom de<br> domaine</th>
-									<th scope="col">Commentaire nom <br>de domaine</th>
 									<th scope="col">Coming<br> soon</th>
 									<th scope="col">Contenu<br> client</th>
 									<th scope="col">Photos</th>
@@ -52,122 +51,38 @@
 										<td>{{ project.customer }}</td>
 										<td>
 											<input type="checkbox" class="customerbrief form-check-input" {{ (project.customerbrief) ? 'checked' : ''}} data-customerbrief="{{project.id}}">
-											{% if (project.commentcustomerbrief) or (project.datecustomerbrief) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-customerbrief" data-bs-id="{{project.id}}"
-												data-bs-commentcustomerbrief="{% if project.commentcustomerbrief is empty %}{% else %}{{project.commentcustomerbrief}}{% endif %}"
-												data-bs-datecustomerbrief="{% if project.datecustomerbrief is empty %}{% else %}{{project.datecustomerbrief|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 										<td><a href="{{ project.domain }}" target="new"></a>{{ project.domain }}</td>
 										<td>
 											<input type="checkbox" class="domainname form-check-input" {{ (project.domainname) ? 'checked' : ''}} data-domainname="{{project.id}}">
-											{% if (project.commentdomainname) or (project.datedomainname) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-domainname" data-bs-id="{{project.id}}"
-												data-bs-commentdomainname="{% if project.commentdomainname is empty %}{% else %}{{project.commentdomainname}}{% endif %}"
-												data-bs-datedomainname="{% if project.datedomainname is empty %}{% else %}{{project.datedomainname|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 									
 										<td>
 											<input type="checkbox" class="comingsoon form-check-input" {{ (project.comingsoon) ? 'checked' : ''}} data-comingsoon="{{project.id}}">
-											{% if (project.commentcomingsoon) or (project.datecomingsoon) %}
-											| 
-											<a data-bs-toggle="modal" data-bs-target="#popup-comingsoon" data-bs-id="{{project.id}}"
-												data-bs-commentcomingsoon="{% if project.commentcomingsoon is empty %}{% else %}{{project.commentcomingsoon}}{% endif %}"
-												data-bs-datecomingsoon="{% if project.datecomingsoon is empty %}{% else %}{{project.datecomingsoon|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 									
 										<td>
 											<input type="checkbox" class="customercontentreception form-check-input" {{ (project.customercontentreception) ? 'checked' : ''}} data-customercontentreception="{{project.id}}">
-											{% if (project.commentcustomercontentreception) or (project.datecustomercontentreception) %}
-											| 
-											<a data-bs-toggle="modal" data-bs-target="#popup-customercontentreception" data-bs-id="{{project.id}}"
-												data-bs-commentcustomercontentreception="{% if project.commentcustomercontentreception is empty %}{% else %}{{project.commentcustomercontentreception}}{% endif %}"
-												data-bs-datecustomercontentreception="{% if project.datecustomercontentreception is empty %}{% else %}{{project.datecustomercontentreception|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
-										</td>
-
-										<td>
-											<input type="checkbox" class="picturesreception form-check-input" {{ (project.picturesreception) ? 'checked' : ''}} data-picturesreception="{{project.id}}">
-											{% if (project.commentpicturesreception) or (project.datepicturesreception) %}
-											| 
-											<a data-bs-toggle="modal" data-bs-target="#popup-picturesreception" data-bs-id="{{project.id}}"
-												data-bs-commentpicturesreception="{% if project.commentpicturesreception is empty %}{% else %}{{project.commentpicturesreception}}{% endif %}"
-												data-bs-datepicturesreception="{% if project.datepicturesreception is empty %}{% else %}{{project.datepicturesreception|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>
 											<input type="checkbox" class="webdesignprogress form-check-input" {{ (project.webdesignprogress) ? 'checked' : ''}} data-webdesignprogress="{{project.id}}">
-											{% if (project.commentwebdesignprogress) or (project.datewebdesignprogress) %}
-											| 
-											<a data-bs-toggle="modal" data-bs-target="#popup-webdesignprogress" data-bs-id="{{project.id}}"
-												data-bs-commentwebdesignprogress="{% if project.commentwebdesignprogress is empty %}{% else %}{{project.commentwebdesignprogress}}{% endif %}"
-												data-bs-datewebdesignprogress="{% if project.datewebdesignprogress is empty %}{% else %}{{project.datewebdesignprogress|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>
 											<input type="checkbox" class="webdesignsend form-check-input" {{ (project.webdesignsend) ? 'checked' : ''}} data-webdesignsend="{{project.id}}">
-											{% if (project.commentwebdesignsend) or (project.datewebdesignsend) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-webdesignsend" data-bs-id="{{project.id}}"
-												data-bs-commentwebdesignsend="{% if project.commentwebdesignsend is empty %}{% else %}{{project.commentwebdesignsend}}{% endif %}"
-												data-bs-datewebdesignsend="{% if project.datewebdesignsend is empty %}{% else %}{{project.datewebdesignsend|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>
 											<input type="checkbox" class="webdesignvalidated form-check-input" {{ (project.webdesignvalidated) ? 'checked' : ''}} data-webdesignvalidated="{{project.id}}">
-											{% if (project.commentwebdesignvalidated) or (project.datewebdesignvalidated) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-webdesignvalidated" data-bs-id="{{project.id}}"
-												data-bs-commentwebdesignvalidated="{% if project.commentwebdesignvalidated is empty %}{% else %}{{project.commentwebdesignvalidated}}{% endif %}"
-												data-bs-datewebdesignvalidated="{% if project.datewebdesignvalidated is empty %}{% else %}{{project.datewebdesignvalidated|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>
 											<input type="checkbox" class="webintegration form-check-input" {{ (project.webintegration) ? 'checked' : ''}} data-webintegration="{{project.id}}">
-											{% if (project.commentwebintegration) or (project.datewebintegration) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-webintegration" data-bs-id="{{project.id}}"
-												data-bs-commentwebintegration="{% if project.commentwebintegration is empty %}{% else %}{{project.commentwebintegration}}{% endif %}"
-												data-bs-datewebintegration="{% if project.datewebintegration is empty %}{% else %}{{project.datewebintegration|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>
 											<input type="checkbox" class="webtraining form-check-input" {{ (project.webtraining) ? 'checked' : ''}} data-webtraining="{{project.id}}">
-											{% if (project.commentwebtraining) or (project.datewebtraining) %}
-											|
-											<a data-bs-toggle="modal" data-bs-target="#popup-webtraining" data-bs-id="{{project.id}}"
-												data-bs-commentwebtraining="{% if project.commentwebtraining is empty %}{% else %}{{project.commentwebtraining}}{% endif %}"
-												data-bs-datewebtraining="{% if project.datewebtraining is empty %}{% else %}{{project.datewebtraining|date("d-m-Y") }}{% endif %}">
-											<i class="fas fa-eye"></i></a>
-											{% else %}
-											{% endif %}
 										</td>
 
 										<td>{% if project.online is empty %}<span>Inconnue</span>{% else %}{{ project.online|date('d-m-Y') }}{% endif %}</td>
@@ -175,7 +90,7 @@
 
 										{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 										<td>
-										<a href="{{ path('tofinishedprojects', {"id": project.id}) }}" title="Passer en projet fini"><i class="fas fa-chevron-right"></i></a>
+										<a href="{{ path('finishedprojects', {"id": project.id}) }}" title="Passer en projet fini"><i class="fas fa-chevron-right"></i></a>
 										|
 										{% if project.webtraining == 0 %}{% else %}
 										<a href="{{ path('mailfinish', {"id": project.id}) }}"><i class="fas fa-envelope"></i></a>

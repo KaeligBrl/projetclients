@@ -7,12 +7,8 @@ use App\Entity\Projects;
 
 use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\Front\Task\ModifyTaskP1CurrentWeekType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CurrentProjectController extends AbstractController
@@ -71,34 +67,6 @@ class CurrentProjectController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($stepsCustomercontentreception);
-        $em->flush();
-
-        return new Response("true");
-    }
-
-    /**
-     * @Route("/projet-en-cours/reception-des-photos/{id}", name="current_project_picturesreception_checkbox")
-     */
-    public function stepsPictureReception(Projects $stepsPicturesreception)
-    {
-        $stepsPicturesreception->setPicturesreception(($stepsPicturesreception->getPicturesreception()) ? false : true);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($stepsPicturesreception);
-        $em->flush();
-
-        return new Response("true");
-    }
-
-    /**
-     * @Route("/projet-en-cours/maquette-en-cours/{id}", name="current_project_webdesignprogress_checkbox")
-     */
-    public function stepsWebdesignProgress(Projects $stepWebdesignProgress)
-    {
-        $stepWebdesignProgress->setWebdesignprogress(($stepWebdesignProgress->getWebdesignprogress()) ? false : true);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($stepWebdesignProgress);
         $em->flush();
 
         return new Response("true");
@@ -174,14 +142,17 @@ class CurrentProjectController extends AbstractController
         return new Response("true");
     }
 
+
     /**
      * @Route("/basculer-vers-projets-finis/id={id}", name="finishedprojects")
      */
     public function ChangeStepsForFinishProjectsFront(Projects $projectsFinish): Response
     {
-        $rep = $this->getDoctrine()
-            ->getRepository(Projects::class)
-            ->setChangeStepsForFinishProjectsFront($projectsFinish->getId());
+        $projectsFinish->setFinished(true);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($projectsFinish);
+        $em->flush();
 
         return $this->redirectToRoute("home");
     }

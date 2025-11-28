@@ -25,24 +25,6 @@ window.onload = () => {
         })
     }
 
-    let picturesreception = document.querySelectorAll(".picturesreception")
-    for (button of picturesreception) {
-        button.addEventListener("click", function () {
-            let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/reception-des-photos/${this.dataset.picturesreception}`)
-            xmhttp.send()
-        })
-    }
-
-    let webdesignprogress = document.querySelectorAll(".webdesignprogress")
-    for (button of webdesignprogress) {
-        button.addEventListener("click", function () {
-            let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/maquette-en-cours/${this.dataset.webdesignprogress}`)
-            xmhttp.send()
-        })
-    }
-
     let webdesignwait = document.querySelectorAll(".webdesignsend")
     for (button of webdesignwait) {
         button.addEventListener("click", function () {

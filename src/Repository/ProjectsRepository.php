@@ -18,14 +18,6 @@ class ProjectsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Projects::class);
     }
-
-    public function setChangeStepsForFinishProjectsFront($id)
-    {
-        $sql = "update App\Entity\Projects as t set t.finished = 1 where t.id = :id";
-        $query = $this->getEntityManager()->createQuery($sql)->setParameters(['id' => $id]);
-        return $query->getResult();
-    }
-
     public function setChangeStepsForInProgressProjectsFront($id)
     {
         $sql = "update App\Entity\Projects as t set t.finished = 0 where t.id = :id";

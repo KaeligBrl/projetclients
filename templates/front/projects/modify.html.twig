@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier projet client {{project.customer }} - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block title %}Modifier - {{project.customer }} - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
 {% block body %}
 	{% block content %}
 	<div class="container form-general">
-		<h1 class="text-white text-center">Modification du suivi client <i class="fas fa-arrow-right"></i> {{project.customer }}</h1>
+		<h1 class="text-white text-center">Modification du suivi <i class="fas fa-arrow-right"></i> {{project.customer }}</h1>
 		<div class="mb-3"></div>
 		<div class="separator"></div>
 		<div class="mb-5"></div>
@@ -22,78 +22,12 @@
 			<div class="form-group">
 				<div class="row">
 					<div class="col">
-						<div ="row">
-							{{ form_row(form_project_modify.commentcustomerbrief) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datecustomerbrief) }}
-							<div class="mb-3"></div>
-						</div>
-						<div="row">
-							{{ form_row(form_project_modify.wordpressInstallation) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.domain) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.commentdomainname) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datedomainname) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentcomingsoon) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datecomingsoon) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentcustomercontentreception) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datecustomercontentreception) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentwebdesignprogress) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datewebdesignprogress) }}
-							<div class="mb-3"></div>
-						</div>
-
-						<div ="row">
-							{{ form_row(form_project_modify.commentwebdesignsend) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datewebdesignsend) }}
-							<div class="mb-3"></div>
-						</div>
-
+						{{ form_row(form_project_modify.wordpressInstallation) }}
+						{{ form_row(form_project_modify.domain) }}
 					</div>
 					<div class="col">
-						<div ="row">
-							{{ form_row(form_project_modify.commentwebdesignvalidated) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datewebdesignvalidated) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentpicturesreception) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datepicturesreception) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentwebintegration) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datewebintegration) }}
-							<div class="mb-3"></div>
-						</div>
-						<div ="row">
-							{{ form_row(form_project_modify.commentwebtraining) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.datewebtraining) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_modify.online) }}
-							{{ form_row(form_project_modify.submit) }}
-						</div>
+						{{ form_row(form_project_modify.online) }}
+						{{ form_row(form_project_modify.submit) }}
 					</div>
 
 				</div>
