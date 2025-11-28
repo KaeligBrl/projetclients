@@ -70,6 +70,11 @@ class Projects
     private $domainname;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $domainText; 
+
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $webintegration;
@@ -205,6 +210,18 @@ class Projects
     public function setDomainname(bool $domainname): self
     {
         $this->domainname = $domainname;
+
+        return $this;
+    }
+
+    public function getDomainText()
+    {
+        return $this->domainText;
+    }
+
+    public function setDomainText($domainText)
+    {
+        $this->domainText = $domainText;
 
         return $this;
     }

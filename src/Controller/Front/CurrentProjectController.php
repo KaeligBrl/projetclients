@@ -25,7 +25,7 @@ class CurrentProjectController extends AbstractController
     {
 
         return $this->render('front/current/index.html.twig', [
-            'project' => $projects->findBy(array(), array('customer' => 'DESC')),
+            'projects' => $projects->findBy(array(), array('customer' => 'DESC')),
         ]);
     }
 

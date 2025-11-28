@@ -1,21 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{%  block title %}Accueil - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
-    </style>
-</head>
-	<body>
-		<div class="mb-5"></div>
-			<h1 class="text-center color-blue-dark-shebam mb-3">Projets Clients</h1>	
-			<div class="mb-4"></div>
 
-			<div class="row">
-				<div class="col padding-mobile">
+{% block content %}
+
+	<div class="mb-5"></div>
+	<h1 class="text-center color-blue-dark-shebam mb-3">Projets Clients</h1>
+	<div class="mb-4"></div>
+
+	<div class="row">
+		<div class="col padding-mobile">
 						{% if projects is empty %}
 						<p class="text-center">Ajouter un projet <a href="{{ path('projects_add_admin') }}">ici</a></p>
 						{% else %}
@@ -32,12 +25,11 @@
 									<th scope="col">Nom de<br> domaine</th>
 									<th scope="col">Coming<br> soon</th>
 									<th scope="col">Contenu<br> client</th>
-									<th scope="col">Photos</th>
 									<th scope="col">Maquette<br> en cours</th>
 									<th scope="col">Maquette<br> envoyée</th>
 									<th scope="col">Maquette<br> validée</th>
 									<th scope="col">Intégration</th>
-									<th scolpe="col">Formation</th>
+									<th scope="col">Formation</th>
 									<th scope="col">Mise en ligne</th>
 									{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 										<th scope="col">Action</th>
@@ -97,7 +89,7 @@
 										{% endif %}
 										<a href="{{ path('projects_modify_admin', {"id": project.id}) }}"  title="Modifier"><i class="fas fa-cog"></i></a>
 										|
-										<a href="{{ path('projects_detete_front', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un projet')"  title="Supprimer"><i class="fas fa-trash"></i></a>
+										<a href="{{ path('projects_detete_front', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un projet')"  title="Supprimer"><i class="fas fa-trash"></i></a>
 										</td>
 										{% endif %}	
 									</tr>
