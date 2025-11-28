@@ -23,7 +23,7 @@ class ModifyProjectType extends AbstractType
                 'label_attr' => ['class' => 'label-custom'],
                 'widget' => 'single_text'
             ])
-            ->add('domain', TextType::class, [
+            ->add('domainText', TextType::class, [
                 'label' => 'Nom de domaine',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
