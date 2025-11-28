@@ -42,11 +42,6 @@ class AddProjectType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
             ])
-            ->add('domainname', CheckboxType::class, [
-                'label' => 'Nom de domaine renseigné',
-                'required' => false,
-                'label_attr' => ['class' => 'label-custom'],
-            ])
             ->add('domain', TextType::class, [
                 'label' => 'Nom de domaine',
                 'required' => true,

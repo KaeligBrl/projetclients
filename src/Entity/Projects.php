@@ -85,11 +85,6 @@ class Projects
     private $online;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $domain;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $finished;
@@ -246,18 +241,6 @@ class Projects
     public function setOnline(?\DateTimeInterface $online): self
     {
         $this->online = $online;
-
-        return $this;
-    }
-
-    public function getDomain(): ?string
-    {
-        return $this->domain;
-    }
-
-    public function setDomain(?string $domain): self
-    {
-        $this->domain = $domain;
 
         return $this;
     }
