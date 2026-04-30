@@ -1,5 +1,5 @@
 
-@font-face {font-family: "Gotham";src: url("/fonts/Gotham-Bold.otf") format("truetype");}
+@font-face {font-family: "Gotham";src: url("/assets/fonts/GothamBold.otf") format("truetype");}
 /* Connexion Page */
 .form-login {width: 100%;max-width: 550px;padding: 70px;margin: 0 auto;border-radius: 20%;}
 .form-login .checkbox {font-weight: 400;}
