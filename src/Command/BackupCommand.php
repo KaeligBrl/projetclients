@@ -5,6 +5,7 @@ namespace App\Command;
 use Doctrine\DBAL\Connection;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -16,11 +17,10 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Process\Process;
 
-
-
+#[AsCommand(name: 'app:backup')]
 class BackupCommand extends Command
 {
-    protected static $defaultName = 'backup';
+    protected static $defaultName = 'app:backup';
 
     private ManagerRegistry $managerRegistry;
 
@@ -28,11 +28,11 @@ class BackupCommand extends Command
 
     private SymfonyStyle $io;
 
-    public function __contruct( ManagerRegistry $managerRegistry, string $projectDirectory)
+    public function __construct(ManagerRegistry $managerRegistry, string $projectDirectory)
     {
         parent::__construct();
         $this->managerRegistry = $managerRegistry;
-        $this->$projectDirectory = $projectDirectory;
+        $this->projectDirectory = $projectDirectory;
     }
 
     protected function configure(): void
@@ -61,8 +61,6 @@ class BackupCommand extends Command
             throw new IOException($error);
         }
 
-        dd($this->managerRegistry->getConnection());
-
         /** @var Connection $databaseConnection */
         $databaseConnection = $this->managerRegistry->getConnection();
 
@@ -76,7 +74,7 @@ class BackupCommand extends Command
 
         $filePathTarget = "--result-file={$backupDirectory}/backup.sql";
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $this->io->success('Sauvegarde preparée.');
 
         return Command::SUCCESS;
     }

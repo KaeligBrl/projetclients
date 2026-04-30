@@ -8,7 +8,7 @@ use App\Entity\Projects;
 use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CurrentProjectController extends AbstractController
@@ -18,22 +18,16 @@ class CurrentProjectController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    /**
-     * @Route("/projet-en-cours", name="current_project")
-     */
-    public function index(ProjectsRepository $projects): Response
+#[Route("/projet-en-cours", name: 'current_project')]
+public function index(ProjectsRepository $projects): Response
     {
 
         return $this->render('front/current/index.html.twig', [
             'projects' => $projects->findBy(array(), array('customer' => 'DESC')),
         ]);
     }
-
-
-    /**
-     * @Route("/projet-en-cours/brief-client/{id}", name="current_project_customerbrief_checkbox")
-     */
-    public function stepsCustomerbrief(Projects $stepsCustomerbrief)
+#[Route("/projet-en-cours/brief-client/{id}", name: 'current_project_customerbrief_checkbox')]
+public function stepsCustomerbrief(Projects $stepsCustomerbrief)
     {
         $stepsCustomerbrief->setCustomerbrief(($stepsCustomerbrief->getCustomerbrief()) ? false : true);
 
@@ -43,11 +37,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/coming-soon/{id}", name="current_project_comingsoon_checkbox")
-     */
-    public function stepsComingsoon(Projects $stepsComingsoon)
+#[Route("/projet-en-cours/coming-soon/{id}", name: 'current_project_comingsoon_checkbox')]
+public function stepsComingsoon(Projects $stepsComingsoon)
     {
         $stepsComingsoon->setComingsoon(($stepsComingsoon->getComingsoon()) ? false : true);
 
@@ -57,11 +48,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/reception-contenu-client/{id}", name="current_project_customercontentreception_checkbox")
-     */
-    public function stepsCustomerContentReception(Projects $stepsCustomercontentreception)
+#[Route("/projet-en-cours/reception-contenu-client/{id}", name: 'current_project_customercontentreception_checkbox')]
+public function stepsCustomerContentReception(Projects $stepsCustomercontentreception)
     {
         $stepsCustomercontentreception->setCustomercontentreception(($stepsCustomercontentreception->getCustomercontentreception()) ? false : true);
 
@@ -71,11 +59,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/maquette-envoyee/{id}", name="current_project_webdesignsend_checkbox")
-     */
-    public function stepsWebdesignWait(Projects $stepWebdesignSend)
+#[Route("/projet-en-cours/maquette-envoyee/{id}", name: 'current_project_webdesignsend_checkbox')]
+public function stepsWebdesignWait(Projects $stepWebdesignSend)
     {
         $stepWebdesignSend->setWebdesignSend(($stepWebdesignSend->getWebdesignSend()) ? false : true);
 
@@ -85,11 +70,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/maquette-validee/{id}", name="current_projectwebdesignvalidated_checkbox")
-     */
-    public function stepsWebdesignValidated(Projects $stepWebdesignValidated)
+#[Route("/projet-en-cours/maquette-validee/{id}", name: 'current_projectwebdesignvalidated_checkbox')]
+public function stepsWebdesignValidated(Projects $stepWebdesignValidated)
     {
         $stepWebdesignValidated->setWebdesignvalidated(($stepWebdesignValidated->getWebdesignvalidated()) ? false : true);
 
@@ -99,11 +81,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/nom-de-domaine/{id}", name="current_project_domainname_checkbox")
-     */
-    public function stepsWDomainName(Projects $stepDomainname)
+#[Route("/projet-en-cours/nom-de-domaine/{id}", name: 'current_project_domainname_checkbox')]
+public function stepsWDomainName(Projects $stepDomainname)
     {
         $stepDomainname->SetDomainname(($stepDomainname->getDomainname()) ? false : true);
 
@@ -113,11 +92,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/integration/{id}", name="current_project_integration_checkbox")
-     */
-    public function stepsIntegration(Projects $stepWebintegration)
+#[Route("/projet-en-cours/integration/{id}", name: 'current_project_integration_checkbox')]
+public function stepsIntegration(Projects $stepWebintegration)
     {
         $stepWebintegration->setWebintegration(($stepWebintegration->getWebintegration()) ? false : true);
 
@@ -127,11 +103,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-    /**
-     * @Route("/projet-en-cours/formation/{id}", name="current_project_webtraining_checkbox")
-     */
-    public function stepsWbeTraining(Projects $stepWebtraining)
+#[Route("/projet-en-cours/formation/{id}", name: 'current_project_webtraining_checkbox')]
+public function stepsWbeTraining(Projects $stepWebtraining)
     {
         $stepWebtraining->setWebTraining(($stepWebtraining->getWebtraining()) ? false : true);
 
@@ -141,12 +114,8 @@ class CurrentProjectController extends AbstractController
 
         return new Response("true");
     }
-
-
-    /**
-     * @Route("/basculer-vers-projets-finis/id={id}", name="finishedprojects")
-     */
-    public function ChangeStepsForFinishProjectsFront(Projects $projectsFinish): Response
+#[Route("/basculer-vers-projets-finis/id={id}", name: 'finishedprojects')]
+public function ChangeStepsForFinishProjectsFront(Projects $projectsFinish): Response
     {
         $projectsFinish->setFinished(true);
 
@@ -158,3 +127,9 @@ class CurrentProjectController extends AbstractController
     }
 
 }
+
+
+
+
+
+

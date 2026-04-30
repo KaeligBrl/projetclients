@@ -4,13 +4,11 @@ namespace App\Controller\Front;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DeleteAccountController extends AbstractController
 {
-    /**
-     * @Route("/delete/account/{userId}", name="delete_account")
-     */
+#[Route("/delete/account/{userId}", name: 'delete_account')]
 public function deleteUserAction(Request $request,$userId,
                                   EntityManagerInterface $em,
                                  TranslatorInterface $translator,
@@ -55,3 +53,9 @@ public function deleteUserAction(Request $request,$userId,
     }
 }
 }
+
+
+
+
+
+

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\FilterEnterpriseRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\FiltersActivitiesRepository;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Front\listingProjects\AddListingProjectsType;
 use App\Form\Front\listingProjects\ModifyListingProjectsType;
@@ -24,11 +24,8 @@ class ListingProjectController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-
-    /**
-     * @Route("/liste-des-projets", name="listing_projects")
-     */
-    public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, FilterEnterpriseRepository $filtersEnterprises, Request $request): Response
+#[Route("/liste-des-projets", name: 'listing_projects')]
+public function index(ListingProjectsRepository $listingProjectsRepository, FiltersActivitiesRepository $filters, FiltersWebsitesRepository $filtersWebsites, FilterEnterpriseRepository $filtersEnterprises, Request $request): Response
     {
         $listingProjects = $listingProjectsRepository->findListingProjectByParam($request->get('filters'), $request->get('filtersFa'),$request->get('filtersFe'));
 
@@ -46,11 +43,8 @@ class ListingProjectController extends AbstractController
             'project_count' => $count,
         ]);
     }
-
-    /**
-     * @Route("/liste-des-projets/ajouter", name="listing_projects_add")
-     */
-    public function listingProjectAdd(Request $request): Response
+#[Route("/liste-des-projets/ajouter", name: 'listing_projects_add')]
+public function listingProjectAdd(Request $request): Response
     {
         $listingCustomerAdd = new ListingProjects();
         $form = $this->createForm(AddListingProjectsType::class, $listingCustomerAdd);
@@ -60,7 +54,7 @@ class ListingProjectController extends AbstractController
 
             $this->entityManager->persist($listingCustomerAdd);
             $this->entityManager->flush();
-            $notification = "le client a été ajouté";
+            $notification = "le client a Ã©tÃ© ajoutÃ©";
             $listingCustomerAdd = new ListingProjects();
             $form = $this->createForm(AddListingProjectsType::class, $listingCustomerAdd);
         }
@@ -69,11 +63,8 @@ class ListingProjectController extends AbstractController
             'notification' => $notification
         ]);
     }
-
-    /**
-     * @Route("/liste-des-projets/modifier/{id}", name="listing_projects_modify")
-     */
-    public function listingProjectModify(Request $request, ListingProjects $listingProjectModify): Response
+#[Route("/liste-des-projets/modifier/{id}", name: 'listing_projects_modify')]
+public function listingProjectModify(Request $request, ListingProjects $listingProjectModify): Response
     {
         $form = $this->createForm(ModifyListingProjectsType::class, $listingProjectModify);
         $notication = null;
@@ -83,7 +74,7 @@ class ListingProjectController extends AbstractController
             $listingProjectModify = $form->getData();
             $this->entityManager->persist($listingProjectModify);
             $this->entityManager->flush();
-            $notication = "Le client a été mis à jour";
+            $notication = "Le client a Ã©tÃ© mis Ã  jour";
             $listingProjectModify = new ListingProjects();
             $listingProjectModify = $form->getData($listingProjectModify);
             $form = $this->createForm(ModifyListingProjectsType::class, $listingProjectModify);
@@ -94,11 +85,8 @@ class ListingProjectController extends AbstractController
             'listingCustomer' => $listingProjectModify
         ]);
     }
-
-    /**
-     * @Route("/liste-des-projets/{id}/supprimer", name="listing_projects_detete")
-     */
-    public function listingProjectDelete(ListingProjects $listingProjectsDelete): RedirectResponse
+#[Route("/liste-des-projets/{id}/supprimer", name: 'listing_projects_detete')]
+public function listingProjectDelete(ListingProjects $listingProjectsDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($listingProjectsDelete);
@@ -108,3 +96,8 @@ class ListingProjectController extends AbstractController
     }
 
 }
+
+
+
+
+

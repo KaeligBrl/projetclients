@@ -9,22 +9,21 @@ use App\Form\Back\Customer\AddCustomerType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Back\Customer\ModifyCustomerType;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/admin/')]
 class CustomerController extends AbstractController
-/**
-* @Route("/admin/")
-*/
 {
     private $entityManager;
-    public function __construct(EntityManagerInterface $entityManager){
-    $this->entityManager = $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
-    /**
-     * @Route("clients", name="list_customer")
-     */
+
+    #[Route('clients', name: 'list_customer')]
     public function listCustomers(CustomerRepository $customerAdmin): Response
     {
         //Count Customer
@@ -41,60 +40,61 @@ class CustomerController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("client/ajouter", name="add_customer")
-     */
-    public function index(Request $request): Response {
+    #[Route('client/ajouter', name: 'add_customer')]
+    public function index(Request $request): Response
+    {
         $customerAdd = new Customer();
         $form = $this->createForm(AddCustomerType::class, $customerAdd);
         $notification = null;
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($customerAdd);
             $this->entityManager->flush();
-            $notification = 'Le client a bien été ajouté';
+            $notification = 'Le client a bien Ã©tÃ© ajoutÃ©';
             $customerAdd = new Customer();
             $form = $this->createForm(AddCustomerType::class, $customerAdd);
         }
-            return $this->render('back/customer/add.html.twig', [
-                'form_customer_add' => $form->createView(),
-                'notification' => $notification
-            ]);
-        }
 
-    /**
-     * @Route("client/{id}/supprimer", name="delete_customer")
-     * @param Customer $customerDelete
-     * return RedirectResponse
-     */
-    public function deleteStatut(Customer $customerDelete): RedirectResponse {
+        return $this->render('back/customer/add.html.twig', [
+            'form_customer_add' => $form->createView(),
+            'notification' => $notification
+        ]);
+    }
+
+    #[Route('client/{id}/supprimer', name: 'delete_customer')]
+    public function deleteStatut(Customer $customerDelete): RedirectResponse
+    {
         $em = $this->getDoctrine()->getManager();
         $em->remove($customerDelete);
         $em->flush();
-        return $this->redirectToRoute("list_customer");
+        return $this->redirectToRoute('list_customer');
     }
 
-    /**
-     * @Route("client/{id}/modifier", name="modify_customer")
-     */
+    #[Route('client/{id}/modifier', name: 'modify_customer')]
     public function modifyTask(Request $request, Customer $customerModify): Response
     {
         $form = $this->createForm(ModifyCustomerType::class, $customerModify);
         $notification = null;
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $customerModify = $form->getData();
             $this->entityManager->persist($customerModify);
             $this->entityManager->flush();
-            $notification = 'Client mise à jour !';
+            $notification = 'Client mise Ã  jour !';
             $form = $this->createForm(ModifyCustomerType::class, $customerModify);
         }
-        return $this->render('back/customer/modify.html.twig',[
+
+        return $this->render('back/customer/modify.html.twig', [
             'form_customer_modify' => $form->createView(),
-            'notification' =>$notification,
+            'notification' => $notification,
             'customer' => $customerModify
-        ]);   
+        ]);
     }
-    
 }
+
+
+
+
+
+

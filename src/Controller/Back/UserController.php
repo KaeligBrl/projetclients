@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\Back\User\ModifyUserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,21 +21,15 @@ class UserController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
     }
-
-    /**
-    * @Route("/admin/utilisateurs", name="user_list")
-    */
-    public function index(UserRepository $userAdmin): Response
+#[Route("/admin/utilisateurs", name: 'user_list')]
+public function index(UserRepository $userAdmin): Response
     {
         return $this->render('back/user/list.html.twig', [
             'user' => $userAdmin->findBy(array(), array('firstname' => 'ASC')),
         ]);
     }
-
-    /**
-    * @Route("/admin/utilisateurs/ajouter", name="user_add")
-    */
-    public function addUser(Request $request, UserPasswordEncoderInterface $encoder)
+#[Route("/admin/utilisateurs/ajouter", name: 'user_add')]
+public function addUser(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(AddUserType:: class, $user);
@@ -56,11 +50,8 @@ class UserController extends AbstractController
 
         ]);
     }
-
-    /**
-     * @Route("/admin/utilisateurs/{id}/modifier", name="user_modify")
-     */
-    public function modifyUser(User $userTitle, Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+#[Route("/admin/utilisateurs/{id}/modifier", name: 'user_modify')]
+public function modifyUser(User $userTitle, Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(ModifyUserType::class, $user);
         $notification = null;
@@ -70,7 +61,7 @@ class UserController extends AbstractController
             $user = $form->getData();
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $notification = 'Utilisateur mis à jour !';
+            $notification = 'Utilisateur mis Ã  jour !';
             $user = new User();
             $user = $form->getData();
             $form = $this->createForm(ModifyUserType::class, $user);
@@ -83,11 +74,7 @@ class UserController extends AbstractController
         ]);
     }   
 
-    /**
-    * @Route("/admin/utilisateurs/{id}/supprimer", name="user_delete")
-    * @param User $user
-    * return RedirectResponse
-    */
+    #[Route("/admin/utilisateurs/{id}/supprimer", name: 'user_delete')]
     public function deleteUser(User $user): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
@@ -98,3 +85,9 @@ class UserController extends AbstractController
     }
     
 }
+
+
+
+
+
+

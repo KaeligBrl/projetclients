@@ -3,27 +3,25 @@
 namespace App\Controller\Back;
 
 use App\Entity\Projects;
-use App\Repository\ProjectsRepository;
 use App\Form\Back\Projects\AddProjectType;
 use App\Form\Back\Projects\ModifyProjectType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectsController extends AbstractController
 {
     private $entityManager;
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("projet-en-cours/ajouter", name="project_add")
-     */
+    #[Route('projet-en-cours/ajouter', name: 'project_add')]
     public function projectsAdd(Request $request): Response
     {
         $projectAdd = new Projects();
@@ -33,7 +31,7 @@ class ProjectsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($projectAdd);
             $this->entityManager->flush();
-            $notification = "Le projet a été ajouté";
+            $notification = "Le projet a Ã©tÃ© ajoutÃ©";
             $projectAdd = new Projects();
             $form = $this->createForm(AddProjectType::class, $projectAdd);
         }
@@ -44,9 +42,7 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("projet-en-cours/modifier/{id}", name="project_modify")
-     */
+    #[Route('projet-en-cours/modifier/{id}', name: 'project_modify')]
     public function projectModify(Request $request, Projects $projectModify): Response
     {
         $form = $this->createForm(ModifyProjectType::class, $projectModify);
@@ -57,7 +53,7 @@ class ProjectsController extends AbstractController
             $projectModify = $form->getData();
             $this->entityManager->persist($projectModify);
             $this->entityManager->flush();
-            $notication = "Projet mis à jour !";
+            $notication = "Projet mis Ã  jour !";
             $projectModify = new Projects();
             $projectModify = $form->getData($projectModify);
             $form = $this->createForm(ModifyProjectType::class, $projectModify);
@@ -70,37 +66,29 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("projets-clients/supprimer/{id}", name="project_delete")
-     * @param Projects $projectsDelete
-     * return RedirectResponse
-     */
+    #[Route('projets-clients/supprimer/{id}', name: 'project_delete')]
     public function projectDeleteFront(Projects $projectDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($projectDelete);
         $em->flush();
 
-        return $this->redirectToRoute("finished_projects");
+        return $this->redirectToRoute('finished_projects');
     }
 
-    /**
-     * @Route("projet-en-cours/brief-client/{id}", name="project_customerbrief_checkbox")
-     */
+    #[Route('projet-en-cours/brief-client/{id}', name: 'project_customerbrief_checkbox')]
     public function projectCustomerbrief(Projects $projectCustomerbrief)
     {
-        $projectCustomerbrief->setCustomerbrief(($projectCustomerbrief->getCustomerbrief())? false : true);
+        $projectCustomerbrief->setCustomerbrief(($projectCustomerbrief->getCustomerbrief()) ? false : true);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($projectCustomerbrief);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/coming-soon/{id}", name="project_comingsoon_checkbox")
-     */
+    #[Route('projet-en-cours/coming-soon/{id}', name: 'project_comingsoon_checkbox')]
     public function projectComingsoon(Projects $projectComingsoon)
     {
         $projectComingsoon->setComingsoon(($projectComingsoon->getComingsoon()) ? false : true);
@@ -109,12 +97,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectComingsoon);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/reception-contenu-client/{id}", name="project_customercontentreception_checkbox")
-     */
+    #[Route('projet-en-cours/reception-contenu-client/{id}', name: 'project_customercontentreception_checkbox')]
     public function projectCustomerContentReception(Projects $projectCustomercontentreception)
     {
         $projectCustomercontentreception->setCustomercontentreception(($projectCustomercontentreception->getCustomercontentreception()) ? false : true);
@@ -123,12 +109,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectCustomercontentreception);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/maquette-envoyee/{id}", name="project_webdesignsend_checkbox")
-     */
+    #[Route('projet-en-cours/maquette-envoyee/{id}', name: 'project_webdesignsend_checkbox')]
     public function projectWebdesignWait(Projects $projectWebdesignSend)
     {
         $projectWebdesignSend->setWebdesignSend(($projectWebdesignSend->getWebdesignSend()) ? false : true);
@@ -137,12 +121,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectWebdesignSend);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/maquette-validee/{id}", name="project_webdesignvalidated_checkbox")
-     */
+    #[Route('projet-en-cours/maquette-validee/{id}', name: 'project_webdesignvalidated_checkbox')]
     public function projectWebdesignValidated(Projects $projectWebdesignValidated)
     {
         $projectWebdesignValidated->setWebdesignvalidated(($projectWebdesignValidated->getWebdesignvalidated()) ? false : true);
@@ -151,12 +133,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectWebdesignValidated);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/nom-de-domaine/{id}", name="project_domainname_checkbox")
-     */
+    #[Route('projet-en-cours/nom-de-domaine/{id}', name: 'project_domainname_checkbox')]
     public function projectWDomainName(Projects $projectDomainname)
     {
         $projectDomainname->SetDomainname(($projectDomainname->getDomainname()) ? false : true);
@@ -165,12 +145,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectDomainname);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/integration/{id}", name="projects_integration_checkbox")
-     */
+    #[Route('projet-en-cours/integration/{id}', name: 'projects_integration_checkbox')]
     public function projectIntegration(Projects $projectWebintegration)
     {
         $projectWebintegration->setWebintegration(($projectWebintegration->getWebintegration()) ? false : true);
@@ -179,12 +157,10 @@ class ProjectsController extends AbstractController
         $em->persist($projectWebintegration);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
 
-    /**
-     * @Route("projet-en-cours/formation/{id}", name="project_webtraining_checkbox")
-     */
+    #[Route('projet-en-cours/formation/{id}', name: 'project_webtraining_checkbox')]
     public function projectWbeTraining(Projects $projectWebtraining)
     {
         $projectWebtraining->setWebTraining(($projectWebtraining->getWebtraining()) ? false : true);
@@ -193,7 +169,12 @@ class ProjectsController extends AbstractController
         $em->persist($projectWebtraining);
         $em->flush();
 
-        return new Response("true");
+        return new Response('true');
     }
-
 }
+
+
+
+
+
+

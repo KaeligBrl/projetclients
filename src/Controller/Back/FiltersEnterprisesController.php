@@ -8,25 +8,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\FilterEnterpriseRepository;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use App\Form\Back\Filters\Enterprises\AddFilterType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Form\Back\Filters\Enterprises\ModifyFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FiltersEnterprisesController extends AbstractController
-/**
-* @Route("/admin/")
-*/
 {
     private $entityManager;
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-    /**
-     * @Route("filtre/entreprises", name="filters_enterprises")
-     */
+
+    #[Route("/admin/filtre/entreprises", name: 'filters_enterprises')]
     public function index(FilterEnterpriseRepository $filters): Response
     {
 
@@ -35,9 +31,7 @@ class FiltersEnterprisesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("filtre/entreprises/ajouter", name="filter_enterprise_add")
-     */
+    #[Route("/admin/filtre/entreprises/ajouter", name: 'filter_enterprise_add')]
     public function filterEnterpriseAdd(Request $request): Response
     {
         $filterEnterpriseAdd = new FilterEnterprise();
@@ -48,7 +42,7 @@ class FiltersEnterprisesController extends AbstractController
 
             $this->entityManager->persist($filterEnterpriseAdd);
             $this->entityManager->flush();
-            $notification = 'Le filtre a bien été ajouté';
+            $notification = 'Le filtre a bien Ã©tÃ© ajoutÃ©';
             $filterEnterpriseAdd = new FilterEnterprise();
             $form = $this->createForm(AddFilterType::class, $filterEnterpriseAdd);
         }
@@ -59,9 +53,7 @@ class FiltersEnterprisesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("filtre/entreprise/modifier/{id}", name="filter_enterprise_modify")
-     */
+    #[Route("/admin/filtre/entreprise/modifier/{id}", name: 'filter_enterprise_modify')]
     public function filterWebsiteModify(Request $request, FilterEnterprise $filtersEnterprisesModify): Response
     {
         $form = $this->createForm(ModifyFilterType::class, $filtersEnterprisesModify);
@@ -72,7 +64,7 @@ class FiltersEnterprisesController extends AbstractController
             $filtersEnterprisesModify = $form->getData();
             $this->entityManager->persist($filtersEnterprisesModify);
             $this->entityManager->flush();
-            $notication = "Le filtre a été mis à jour";
+            $notication = "Le filtre a Ã©tÃ© mis Ã  jour";
             $filtersEnterprisesModify = new FilterEnterprise();
             $filtersEnterprisesModify = $form->getData($filtersEnterprisesModify);
             $form = $this->createForm(ModifyFilterType::class, $filtersEnterprisesModify);
@@ -84,10 +76,7 @@ class FiltersEnterprisesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("filtre/entreprise/supprimer/{id}", name="filter_enterprise_detete")
-     * return RedirectResponse
-     */
+    #[Route("/admin/filtre/entreprise/supprimer/{id}", name: 'filter_enterprise_detete')]
     public function filterDeleteAdmin(filterEnterprise $filterEnterpriseDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
@@ -97,3 +86,8 @@ class FiltersEnterprisesController extends AbstractController
         return $this->redirectToRoute("filters_enterprises");
     }
 }
+
+
+
+
+

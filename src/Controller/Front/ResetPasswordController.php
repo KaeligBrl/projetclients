@@ -11,7 +11,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -30,11 +30,7 @@ class ResetPasswordController extends AbstractController
         $this->resetPasswordHelper = $resetPasswordHelper;
     }
 
-    /**
-     * Display & process form to request a password reset.
-     *
-     * @Route("/reinitialiser-le-mot-de-passe", name="app_forgot_password_request")
-     */
+    #[Route("/reinitialiser-le-mot-de-passe", name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -53,11 +49,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Confirmation page after a user has requested a password reset.
-     *
-     * @Route("/reinitialiser-le-mot-de-passe/email-envoye", name="app_check_email")
-     */
+    #[Route("/reinitialiser-le-mot-de-passe/email-envoye", name: 'app_check_email')]
     public function checkEmail(): Response
     {
         // We prevent users from directly accessing this page
@@ -70,11 +62,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Validates and process the reset URL that the user clicked in their email.
-     *
-     * @Route("/reinitialiser-le-mot-de-passe/changer/{token}", name="app_reset_password")
-     */
+    #[Route("/reinitialiser-le-mot-de-passe/changer/{token}", name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
     {
         if ($token) {
@@ -87,14 +75,14 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('Aucun jeton de réinitialisation du mot de passe trouvé dans l\'URL ou dans la session.');
+            throw $this->createNotFoundException('Aucun jeton de rÃ©initialisation du mot de passe trouvÃ© dans l\'URL ou dans la session.');
         }
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'Un problème est survenu lors de la validation de votre demande de réinitialisation - %s',
+                'Un problÃ¨me est survenu lors de la validation de votre demande de rÃ©initialisation - %s',
                 $e->getReason()
             ));
 
@@ -159,9 +147,9 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('contact@shebam.fr', 'Réinitialiser le mot de passe'))
+            ->from(new Address('contact@shebam.fr', 'RÃ©initialiser le mot de passe'))
             ->to($user->getEmail())
-            ->subject('Lien de réinitialisation du mot de passe - To do')
+            ->subject('Lien de rÃ©initialisation du mot de passe - To do')
             ->htmlTemplate('front/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
@@ -172,12 +160,15 @@ class ResetPasswordController extends AbstractController
 
         return $this->redirectToRoute('app_check_email');
     }
-
-    /**
-     * @Route("/reinitialiser-le-mot-de-passe/changer-avec-succes", name="reset_password_change_message_sucess")
-     */
-    public function changePasswordMessageSuccess(): Response
+#[Route("/reinitialiser-le-mot-de-passe/changer-avec-succes", name: 'reset_password_change_message_sucess')]
+public function changePasswordMessageSuccess(): Response
     {
         return $this->render('front/reset_password/reset_password_message_success.twig');
     }
 }
+
+
+
+
+
+

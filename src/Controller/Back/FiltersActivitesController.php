@@ -9,34 +9,28 @@ use App\Repository\FiltersActivitiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FiltersActivitesController extends AbstractController
-/**
-* @Route("/admin/")
-*/
 {
     private $entityManager;
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-    /**
-     * @Route("filtres/activites", name="filters_activities")
-     */
+
+    #[Route('/admin/filtres/activites', name: 'filters_activities')]
     public function index(FiltersActivitiesRepository $filters): Response
     {
-
         return $this->render('back/filters/activities/list.html.twig', [
             'filterslist' => $filters->findBy(array(), array('nameActivities' => 'ASC')),
         ]);
     }
 
-    /**
-     * @Route("filtres/activite/ajouter", name="filter_activitie_add")
-     */
+    #[Route('/admin/filtres/activite/ajouter', name: 'filter_activitie_add')]
     public function filterAdd(Request $request): Response
     {
         $filterAdd = new FiltersActivities();
@@ -46,20 +40,17 @@ class FiltersActivitesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($filterAdd);
             $this->entityManager->flush();
-            $notification = 'Le filtre a bien été ajouté';
+            $notification = 'Le filtre a bien Ã©tÃ© ajoutÃ©';
             $filterAdd = new FiltersActivities();
             $form = $this->createForm(AddFilterType::class, $filterAdd);
         }
         return $this->render('back/filters/activities/add.html.twig', [
             'form_filter_add' => $form->createView(),
             'notification' => $notification
-
         ]);
     }
 
-    /**
-     * @Route("filtre/activite/modifier/{id}", name="filter_activitie_modify")
-     */
+    #[Route('/admin/filtre/activite/modifier/{id}', name: 'filter_activitie_modify')]
     public function filterModify(Request $request, FiltersActivities $filterModify): Response
     {
         $form = $this->createForm(ModifyFilterType::class, $filterModify);
@@ -70,7 +61,7 @@ class FiltersActivitesController extends AbstractController
             $filterModify = $form->getData();
             $this->entityManager->persist($filterModify);
             $this->entityManager->flush();
-            $notication = "Le filtre a été mis à jour";
+            $notication = "Le filtre a Ã©tÃ© mis Ã  jour";
             $filterModify = new FiltersActivities();
             $filterModify = $form->getData($filterModify);
             $form = $this->createForm(ModifyFilterType::class, $filterModify);
@@ -82,10 +73,7 @@ class FiltersActivitesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("filtre/activite/supprimer/{id}", name="filter_activitie_detete")
-     * return RedirectResponse
-     */
+    #[Route('/admin/filtre/activite/supprimer/{id}', name: 'filter_activitie_detete')]
     public function filterDeleteAdmin(FiltersActivities $filterDelete): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
@@ -95,3 +83,8 @@ class FiltersActivitesController extends AbstractController
         return $this->redirectToRoute("filters_activities");
     }
 }
+
+
+
+
+

@@ -7,7 +7,7 @@ use App\Form\Front\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,10 +19,8 @@ class RegisterController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
     }
-    /**
-     * @Route("/inscription", name="register")
-     */
-    public function index(Request $request, UserPasswordEncoderInterface $encoder){
+#[Route("/inscription", name: 'register')]
+public function index(Request $request, UserPasswordEncoderInterface $encoder){
 
         if ($this->getUser() instanceof UserInterface === true) {
             return $this->redirectToRoute('current_week');
@@ -42,7 +40,7 @@ class RegisterController extends AbstractController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $notification = 'Tu es désormais inscris sur le site';
+            $notification = 'Tu es dÃ©sormais inscris sur le site';
             return $this->redirectToRoute('register_message_success');
 
     }
@@ -55,12 +53,16 @@ class RegisterController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
-    /**
-     * @Route("/inscription/tu-es-bien-inscris", name="register_message_success")
-     */
-    public function registerOk(): Response
+#[Route("/inscription/tu-es-bien-inscris", name: 'register_message_success')]
+public function registerOk(): Response
     {
         return $this->render('front/register/register_message_success.twig');
     }
     
 }
+
+
+
+
+
+

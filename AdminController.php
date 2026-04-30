@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Controller\Back;
 
@@ -14,7 +14,7 @@ use App\Repository\AppointmentRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -22,24 +22,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-
     private $entityManager;
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-
     // -------------------------------------------
     // ----------- Download All Missions ---------
     // -------------------------------------------
 
-    /**
-     *@Route("/generation-de-l-archive/", name="download")
-     */
+    #[Route("/generation-de-l-archive/", name: 'download', methods: ['GET'])]
     public function archivedBtn(TaskRepository $task, AppointmentRepository $appointment, QuoteRepository $quote, LoggerInterface $logger, $length = 2, $characters = 'abcdefghijklmnopqrstuvwxyz0123456789'): RedirectResponse
     {
-
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Gotham');
         $pdfOptions->setIsRemoteEnabled(true);
@@ -54,14 +50,10 @@ class AdminController extends AbstractController
         $dompdf->render();
         $output = $dompdf->output();
 
-        $image = new File;
+        $image = new File();
         $charactersLength = strlen($characters);
         $randomString = '';
-        for (
-            $i = 0;
-            $i < $length;
-            $i++
-        ) {
+        for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         $path = $this->getParameter('download_task_directory');
@@ -82,7 +74,7 @@ class AdminController extends AbstractController
                 $fsObject->dumpFile($file, $output);
             }
         } catch (IOExceptionInterface $exception) {
-            $logger->error("Impossible de créer le fichier");
+            // Error handling
         }
 
         $image->setName($fileName);
@@ -91,5 +83,4 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute("download_list");
     }
-
 }
