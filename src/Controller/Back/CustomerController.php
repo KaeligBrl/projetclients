@@ -27,7 +27,7 @@ class CustomerController extends AbstractController
     public function listCustomers(CustomerRepository $customerAdmin): Response
     {
         //Count Customer
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $repoCustomer = $em->getRepository(Customer::class);
         $totalCustomer = $repoCustomer->createQueryBuilder('a')
             ->select('count(a.id)')
@@ -64,7 +64,7 @@ class CustomerController extends AbstractController
     #[Route('client/{id}/supprimer', name: 'delete_customer')]
     public function deleteStatut(Customer $customerDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($customerDelete);
         $em->flush();
         return $this->redirectToRoute('list_customer');

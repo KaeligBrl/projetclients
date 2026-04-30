@@ -76,7 +76,7 @@ class FiltersWebsitesController extends AbstractController
     #[Route("/admin/filtre/types-de-site/supprimer/{id}", name: 'filter_website_type_detete')]
     public function filterDeleteAdmin(FiltersWebsites $filterWebsitesDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($filterWebsitesDelete);
         $em->flush();
 

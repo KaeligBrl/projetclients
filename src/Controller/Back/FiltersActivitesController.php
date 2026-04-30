@@ -76,7 +76,7 @@ class FiltersActivitesController extends AbstractController
     #[Route('/admin/filtre/activite/supprimer/{id}', name: 'filter_activitie_detete')]
     public function filterDeleteAdmin(FiltersActivities $filterDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($filterDelete);
         $em->flush();
 

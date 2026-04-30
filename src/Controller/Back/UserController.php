@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 class UserController extends AbstractController
@@ -29,7 +29,7 @@ public function index(UserRepository $userAdmin): Response
         ]);
     }
 #[Route("/admin/utilisateurs/ajouter", name: 'user_add')]
-public function addUser(Request $request, UserPasswordEncoderInterface $encoder)
+public function addUser(Request $request, UserPasswordHasherInterface $passwordHasher)
     {
         $user = new User();
         $form = $this->createForm(AddUserType:: class, $user);
@@ -37,7 +37,7 @@ public function addUser(Request $request, UserPasswordEncoderInterface $encoder)
 
         if($form->isSubmitted() && $form->isValid()) {
                 $user = $form->getData();
-                $password = $encoder->encodePassword($user,$user->getPassword());
+                $password = $passwordHasher->hashPassword($user, $user->getPassword());
                 $user->setPassword($password);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
@@ -51,7 +51,7 @@ public function addUser(Request $request, UserPasswordEncoderInterface $encoder)
         ]);
     }
 #[Route("/admin/utilisateurs/{id}/modifier", name: 'user_modify')]
-public function modifyUser(User $userTitle, Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+public function modifyUser(User $userTitle, Request $request, User $user): Response
     {
         $form = $this->createForm(ModifyUserType::class, $user);
         $notification = null;
@@ -77,7 +77,7 @@ public function modifyUser(User $userTitle, Request $request, User $user, UserPa
     #[Route("/admin/utilisateurs/{id}/supprimer", name: 'user_delete')]
     public function deleteUser(User $user): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($user);
         $em->flush();
 

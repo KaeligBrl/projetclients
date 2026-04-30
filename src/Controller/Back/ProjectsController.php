@@ -69,7 +69,7 @@ class ProjectsController extends AbstractController
     #[Route('projets-clients/supprimer/{id}', name: 'project_delete')]
     public function projectDeleteFront(Projects $projectDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($projectDelete);
         $em->flush();
 
@@ -81,7 +81,7 @@ class ProjectsController extends AbstractController
     {
         $projectCustomerbrief->setCustomerbrief(($projectCustomerbrief->getCustomerbrief()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectCustomerbrief);
         $em->flush();
 
@@ -93,7 +93,7 @@ class ProjectsController extends AbstractController
     {
         $projectComingsoon->setComingsoon(($projectComingsoon->getComingsoon()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectComingsoon);
         $em->flush();
 
@@ -105,7 +105,7 @@ class ProjectsController extends AbstractController
     {
         $projectCustomercontentreception->setCustomercontentreception(($projectCustomercontentreception->getCustomercontentreception()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectCustomercontentreception);
         $em->flush();
 
@@ -117,7 +117,7 @@ class ProjectsController extends AbstractController
     {
         $projectWebdesignSend->setWebdesignSend(($projectWebdesignSend->getWebdesignSend()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectWebdesignSend);
         $em->flush();
 
@@ -129,7 +129,7 @@ class ProjectsController extends AbstractController
     {
         $projectWebdesignValidated->setWebdesignvalidated(($projectWebdesignValidated->getWebdesignvalidated()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectWebdesignValidated);
         $em->flush();
 
@@ -141,7 +141,7 @@ class ProjectsController extends AbstractController
     {
         $projectDomainname->SetDomainname(($projectDomainname->getDomainname()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectDomainname);
         $em->flush();
 
@@ -153,7 +153,7 @@ class ProjectsController extends AbstractController
     {
         $projectWebintegration->setWebintegration(($projectWebintegration->getWebintegration()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectWebintegration);
         $em->flush();
 
@@ -165,7 +165,7 @@ class ProjectsController extends AbstractController
     {
         $projectWebtraining->setWebTraining(($projectWebtraining->getWebtraining()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectWebtraining);
         $em->flush();
 

@@ -31,7 +31,7 @@ public function stepsCustomerbrief(Projects $stepsCustomerbrief)
     {
         $stepsCustomerbrief->setCustomerbrief(($stepsCustomerbrief->getCustomerbrief()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepsCustomerbrief);
         $em->flush();
 
@@ -42,7 +42,7 @@ public function stepsComingsoon(Projects $stepsComingsoon)
     {
         $stepsComingsoon->setComingsoon(($stepsComingsoon->getComingsoon()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepsComingsoon);
         $em->flush();
 
@@ -53,7 +53,7 @@ public function stepsCustomerContentReception(Projects $stepsCustomercontentrece
     {
         $stepsCustomercontentreception->setCustomercontentreception(($stepsCustomercontentreception->getCustomercontentreception()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepsCustomercontentreception);
         $em->flush();
 
@@ -64,7 +64,7 @@ public function stepsWebdesignWait(Projects $stepWebdesignSend)
     {
         $stepWebdesignSend->setWebdesignSend(($stepWebdesignSend->getWebdesignSend()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepWebdesignSend);
         $em->flush();
 
@@ -75,7 +75,7 @@ public function stepsWebdesignValidated(Projects $stepWebdesignValidated)
     {
         $stepWebdesignValidated->setWebdesignvalidated(($stepWebdesignValidated->getWebdesignvalidated()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepWebdesignValidated);
         $em->flush();
 
@@ -86,7 +86,7 @@ public function stepsWDomainName(Projects $stepDomainname)
     {
         $stepDomainname->SetDomainname(($stepDomainname->getDomainname()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepDomainname);
         $em->flush();
 
@@ -97,7 +97,7 @@ public function stepsIntegration(Projects $stepWebintegration)
     {
         $stepWebintegration->setWebintegration(($stepWebintegration->getWebintegration()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepWebintegration);
         $em->flush();
 
@@ -108,7 +108,7 @@ public function stepsWbeTraining(Projects $stepWebtraining)
     {
         $stepWebtraining->setWebTraining(($stepWebtraining->getWebtraining()) ? false : true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($stepWebtraining);
         $em->flush();
 
@@ -119,7 +119,7 @@ public function ChangeStepsForFinishProjectsFront(Projects $projectsFinish): Res
     {
         $projectsFinish->setFinished(true);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->persist($projectsFinish);
         $em->flush();
 

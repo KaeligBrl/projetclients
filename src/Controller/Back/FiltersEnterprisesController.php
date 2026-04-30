@@ -3,7 +3,6 @@
 namespace App\Controller\Back;
 
 use App\Entity\FilterEnterprise;
-use App\Entity\FiltersEnterprises;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\FilterEnterpriseRepository;
@@ -79,7 +78,7 @@ class FiltersEnterprisesController extends AbstractController
     #[Route("/admin/filtre/entreprise/supprimer/{id}", name: 'filter_enterprise_detete')]
     public function filterDeleteAdmin(filterEnterprise $filterEnterpriseDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($filterEnterpriseDelete);
         $em->flush();
 

@@ -3,7 +3,6 @@
 namespace App\Controller\Front;
 
 use App\Entity\ListingProjects;
-use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FiltersWebsitesRepository;
 use App\Repository\ListingProjectsRepository;
@@ -88,7 +87,7 @@ public function listingProjectModify(Request $request, ListingProjects $listingP
 #[Route("/liste-des-projets/{id}/supprimer", name: 'listing_projects_detete')]
 public function listingProjectDelete(ListingProjects $listingProjectsDelete): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->entityManager;
         $em->remove($listingProjectsDelete);
         $em->flush();
 
