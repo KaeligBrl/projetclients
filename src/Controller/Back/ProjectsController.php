@@ -2,7 +2,7 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\Projects;
+use App\Entity\WebsiteProject;
 use App\Form\Back\Projects\AddProjectType;
 use App\Form\Back\Projects\ModifyProjectType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,19 +21,19 @@ class ProjectsController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('projet-en-cours/ajouter', name: 'project_add')]
+    #[Route('projet-sites-web/ajouter', name: 'website_project_add')]
     public function projectsAdd(Request $request): Response
     {
-        $projectAdd = new Projects();
-        $form = $this->createForm(AddProjectType::class, $projectAdd);
+        $projectAdd = new WebsiteProject();
+        $form = $this->createForm(AddWebsiteProjectType::class, $projectAdd);
         $notification = null;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($projectAdd);
             $this->entityManager->flush();
-            $notification = "Le projet a Ã©tÃ© ajoutÃ©";
-            $projectAdd = new Projects();
-            $form = $this->createForm(AddProjectType::class, $projectAdd);
+            $notification = "Le projet a été ajouté";
+            $projectAdd = new WebsiteProject();
+            $form = $this->createForm(AddWebsiteProjectType::class, $projectAdd);
         }
         return $this->render('front/projects/add.html.twig', [
             'form_project_add' => $form->createView(),
@@ -42,10 +42,10 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('projet-en-cours/modifier/{id}', name: 'project_modify')]
-    public function projectModify(Request $request, Projects $projectModify): Response
+    #[Route('projet-sites-web/modifier/{id}', name: 'project_modify')]
+    public function projectModify(Request $request, WebsiteProject $projectModify): Response
     {
-        $form = $this->createForm(ModifyProjectType::class, $projectModify);
+        $form = $this->createForm(ModifyWebsiteProjectType::class, $projectModify);
         $notication = null;
         $form->handleRequest($request);
 
@@ -53,10 +53,10 @@ class ProjectsController extends AbstractController
             $projectModify = $form->getData();
             $this->entityManager->persist($projectModify);
             $this->entityManager->flush();
-            $notication = "Projet mis Ã  jour !";
-            $projectModify = new Projects();
+            $notication = "Projet mis à jour !";
+            $projectModify = new WebsiteProject();
             $projectModify = $form->getData($projectModify);
-            $form = $this->createForm(ModifyProjectType::class, $projectModify);
+            $form = $this->createForm(ModifyWebsiteProjectType::class, $projectModify);
       
         }
         return $this->render('front/projects/modify.html.twig', [
@@ -67,7 +67,7 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('projets-clients/supprimer/{id}', name: 'project_delete')]
-    public function projectDeleteFront(Projects $projectDelete): RedirectResponse
+    public function projectDeleteFront(WebsiteProject $projectDelete): RedirectResponse
     {
         $em = $this->entityManager;
         $em->remove($projectDelete);
@@ -76,8 +76,8 @@ class ProjectsController extends AbstractController
         return $this->redirectToRoute('finished_projects');
     }
 
-    #[Route('projet-en-cours/brief-client/{id}', name: 'project_customerbrief_checkbox')]
-    public function projectCustomerbrief(Projects $projectCustomerbrief)
+    #[Route('projet-sites-web/brief-client/{id}', name: 'project_customerbrief_checkbox')]
+    public function projectCustomerbrief(WebsiteProject $projectCustomerbrief)
     {
         $projectCustomerbrief->setCustomerbrief(($projectCustomerbrief->getCustomerbrief()) ? false : true);
 
@@ -88,8 +88,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/coming-soon/{id}', name: 'project_comingsoon_checkbox')]
-    public function projectComingsoon(Projects $projectComingsoon)
+    #[Route('projet-sites-web/coming-soon/{id}', name: 'project_comingsoon_checkbox')]
+    public function projectComingsoon(WebsiteProject $projectComingsoon)
     {
         $projectComingsoon->setComingsoon(($projectComingsoon->getComingsoon()) ? false : true);
 
@@ -100,8 +100,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/reception-contenu-client/{id}', name: 'project_customercontentreception_checkbox')]
-    public function projectCustomerContentReception(Projects $projectCustomercontentreception)
+    #[Route('projet-sites-web/reception-contenu-client/{id}', name: 'project_customercontentreception_checkbox')]
+    public function projectCustomerContentReception(WebsiteProject $projectCustomercontentreception)
     {
         $projectCustomercontentreception->setCustomercontentreception(($projectCustomercontentreception->getCustomercontentreception()) ? false : true);
 
@@ -112,8 +112,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/maquette-envoyee/{id}', name: 'project_webdesignsend_checkbox')]
-    public function projectWebdesignWait(Projects $projectWebdesignSend)
+    #[Route('projet-sites-web/maquette-envoyee/{id}', name: 'project_webdesignsend_checkbox')]
+    public function projectWebdesignWait(WebsiteProject $projectWebdesignSend)
     {
         $projectWebdesignSend->setWebdesignSend(($projectWebdesignSend->getWebdesignSend()) ? false : true);
 
@@ -124,8 +124,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/maquette-validee/{id}', name: 'project_webdesignvalidated_checkbox')]
-    public function projectWebdesignValidated(Projects $projectWebdesignValidated)
+    #[Route('projet-sites-web/maquette-validee/{id}', name: 'project_webdesignvalidated_checkbox')]
+    public function projectWebdesignValidated(WebsiteProject $projectWebdesignValidated)
     {
         $projectWebdesignValidated->setWebdesignvalidated(($projectWebdesignValidated->getWebdesignvalidated()) ? false : true);
 
@@ -136,8 +136,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/nom-de-domaine/{id}', name: 'project_domainname_checkbox')]
-    public function projectWDomainName(Projects $projectDomainname)
+    #[Route('projet-sites-web/nom-de-domaine/{id}', name: 'project_domainname_checkbox')]
+    public function projectWDomainName(WebsiteProject $projectDomainname)
     {
         $projectDomainname->SetDomainname(($projectDomainname->getDomainname()) ? false : true);
 
@@ -148,8 +148,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/integration/{id}', name: 'projects_integration_checkbox')]
-    public function projectIntegration(Projects $projectWebintegration)
+    #[Route('projet-sites-web/integration/{id}', name: 'projects_integration_checkbox')]
+    public function projectIntegration(WebsiteProject $projectWebintegration)
     {
         $projectWebintegration->setWebintegration(($projectWebintegration->getWebintegration()) ? false : true);
 
@@ -160,8 +160,8 @@ class ProjectsController extends AbstractController
         return new Response('true');
     }
 
-    #[Route('projet-en-cours/formation/{id}', name: 'project_webtraining_checkbox')]
-    public function projectWbeTraining(Projects $projectWebtraining)
+    #[Route('projet-sites-web/formation/{id}', name: 'project_webtraining_checkbox')]
+    public function projectWbeTraining(WebsiteProject $projectWebtraining)
     {
         $projectWebtraining->setWebTraining(($projectWebtraining->getWebtraining()) ? false : true);
 

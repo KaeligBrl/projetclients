@@ -4,55 +4,94 @@
 
 {% block body %}
 	{% block content %}
-		<div class="container form-general">
-		<h1 class="text-center color-white">Ajouter un projet</h1>	
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
-		{{ form_start(form_project_add) }}
+		<div class="container-fluid layout-main-offset">
+			<div class="container-custom">
+				<h1 class="text-center mb-3" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Ajouter un projet</h1>
+				<div class="separator mb-4"></div>
 
-		<div class="was-validated is-valid">
-			{% if notification %}
-				<div class="form-success text-center">{{ notification }}
-					<div class="mb-3"></div>
-					<div class="separator"></div>
-					<div class="mb-3"></div>
-					<a href="{{ path('current_project') }}">Retourner à la liste</a>
-				</div>
-			{% endif %}
-				<div class="row">
-					<div class="col">
-							{{ form_row(form_project_add.customer) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.wordpressInstallation) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.online) }}
-							<div class="mb-3"></div>
-					</div>
-					<div class="col">
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.customerbrief) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.customercontentreception) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.webdesignprogress) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.webdesignsend) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.webdesignvalidated) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.webintegration) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.webtraining) }}
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.comingsoon) }}
-
-							<div class="mb-3"></div>
-							{{ form_row(form_project_add.submit) }}
+				{% if notification %}
+					<div class="alert text-center" style="background: rgba(106, 191, 165, 0.2); color: var(--green-light); border-radius: 10px; border: 1px solid var(--green-light); margin-bottom: 20px;">
+						{{ notification }}
+						<div style="margin-top: 15px;">
+							<a href="{{ path('website_project') }}" class="btn btn-submit" style="display: inline-block; text-decoration: none;">Retourner à la liste</a>
 						</div>
 					</div>
-				</div>
-			{{ form_end(form_project_add) }}
+				{% else %}
+					<div class="form-general">
+						{{ form_start(form_project_add, {'attr': {'novalidate': 'novalidate'}}) }}
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group mb-3">
+									{{ form_label(form_project_add.customer, 'Client', {'label_attr': {'class': 'text-white mb-1', 'style': 'font-family: Gotham;'}}) }}
+									{{ form_widget(form_project_add.customer, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form_project_add.customer) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_label(form_project_add.wordpressInstallation, 'Installation WordPress', {'label_attr': {'class': 'text-white mb-1', 'style': 'font-family: Gotham;'}}) }}
+									{{ form_widget(form_project_add.wordpressInstallation, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form_project_add.wordpressInstallation) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_label(form_project_add.online, 'Mise en ligne', {'label_attr': {'class': 'text-white mb-1', 'style': 'font-family: Gotham;'}}) }}
+									{{ form_widget(form_project_add.online, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form_project_add.online) }}
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.customerbrief, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.customerbrief, 'Brief client reçu', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.customercontentreception, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.customercontentreception, 'Contenu client reçu', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.webdesignprogress, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.webdesignprogress, 'Maquette en cours', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.webdesignsend, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.webdesignsend, 'Maquette envoyée', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.webdesignvalidated, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.webdesignvalidated, 'Maquette validée', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.webintegration, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.webintegration, 'Intégration web faite', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-4">
+									{{ form_widget(form_project_add.webtraining, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.webtraining, 'Formation de prise en main', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+
+								<div class="form-group mb-3">
+									{{ form_widget(form_project_add.comingsoon, {'attr': {'class': 'form-check-input'}}) }}
+									{{ form_label(form_project_add.comingsoon, 'Page de maintenance créée', {'label_attr': {'class': 'text-white form-check-label', 'style': 'font-family: Gotham;'}}) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="text-center mt-4">
+							{{ form_widget(form_project_add.submit, {'attr': {'class': 'btn btn-submit w-100', 'style': 'font-family: Gotham; font-size: 1rem; padding: 12px;'}}) }}
+						</div>
+
+						{{ form_end(form_project_add) }}
+					</div>
+				{% endif %}
+			</div>
 		</div>
 	{% endblock %}
 {% endblock %}

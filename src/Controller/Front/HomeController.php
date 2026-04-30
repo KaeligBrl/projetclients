@@ -22,7 +22,7 @@ public function index(AuthenticationUtils $authenticationUtils): Response
     {
 
         if ($this->getUser() instanceof UserInterface === true) {
-            return $this->redirectToRoute('current_project');
+            return $this->redirectToRoute('website_project');
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

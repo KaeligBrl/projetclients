@@ -1,23 +1,39 @@
 {% extends 'base_login_register.html.twig' %}
+
+{% block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
 {% block content %}
-    {%  block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
-	<img class="d-block mx-auto" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo de connexion To Do List">
-	<div class="mb-5"></div>
-	<form class="form-login text-center bg-white" method="post">
-		{% if error %}
-			<div class="message-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br>
-		{% endif %}
-		<div class="form-group mt-4">
-			<input class="input-group-lg mb-3 form-control" type="email" value="{{ last_username }}" name="email" placeholder="Email" required autofocus>
-		</div>
-		<input class="field form-control input-sm" type="password" name="password" placeholder="Mot de passe" required>
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-		<div class="form-group">
-			<input type="submit" name="submit" class="btn-md btn-yellow-login mt-3" value="Connexion">
-		</div>
-		<div id="register-link" class="text-left mt-5">
-			<span class="text-login"> Aie c'est quoi déjà ? - </span><a class="text-login-link" href="{{path('app_forgot_password_request')}}" > Mot de passe oublié</a><br>
-			<span class="text-login"> Pas encore inscrit ? - </span><a class="text-login-link" href="{{path('register')}}"> Inscription</a>
-		</div>
-	</form>
-{%  endblock %}
+	<a href="{{ path('home') }}">
+		<img class="d-block mx-auto mb-4" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo Projets Clients" style="max-height: 70px;">
+	</a>
+
+	<div class="container-custom text-center">
+		<h1 class="mb-1" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Connexion</h1>
+		<div class="separator mb-4"></div>
+
+		<form class="form-general" method="post">
+			{% if error %}
+				<div class="message-error text-center mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
+
+			<div class="form-group mb-3">
+				<input class="form-control" type="email" value="{{ last_username }}" name="email" placeholder="Email" required autofocus>
+			</div>
+
+			<div class="form-group mb-4">
+				<input class="form-control" type="password" name="password" placeholder="Mot de passe" required>
+			</div>
+
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+			<div class="text-center">
+				<button type="submit" class="btn btn-submit w-100" style="font-family: Gotham; font-size: 1rem; padding: 12px;">Connexion</button>
+			</div>
+
+			<div id="register-link" class="text-left mt-4">
+				<span class="text-login">Mot de passe oublié ? </span><a class="text-login-link" href="{{ path('app_forgot_password_request') }}">Réinitialiser</a><br>
+				<span class="text-login">Pas encore inscrit ? </span><a class="text-login-link" href="{{ path('register') }}">Créer un compte</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

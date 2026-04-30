@@ -9,7 +9,7 @@
 
 /* Navbar */
 .activecurrent {color: var(--color-yellow-dark);}
-.active {color: var(--color-yellow)}
+.active {color: var(--color-yellow); font-weight: 700;}
 
 /* Text Border */
 .text-border-admin {font-weight: bold;background: var(--color-blue-dark);color: var(--color-yellow);border-radius: 20px;padding: 8px 25px;margin-right: 20px;}

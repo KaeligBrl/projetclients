@@ -2,7 +2,7 @@
 
 namespace App\Form\Back\Projects;
 
-use App\Entity\Projects;
+use App\Entity\WebsiteProject;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +43,7 @@ class ModifyProjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Projects::class,
+            'data_class' => WebsiteProject::class,
         ]);
     }
 }

@@ -20,7 +20,7 @@ class Customer
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(targetEntity: Projects::class, mappedBy: 'customer')]
+    #[ORM\OneToMany(targetEntity: WebsiteProject::class, mappedBy: 'customer')]
     private $customer;
 
     public function __construct()
@@ -56,14 +56,14 @@ class Customer
     }
 
     /**
-     * @return Collection|Projects[]
+     * @return Collection|WebsiteProject[]
      */
     public function getCustomer(): Collection
     {
         return $this->customer;
     }
 
-    public function addCustomer(Projects $customer): self
+    public function addCustomer(WebsiteProject $customer): self
     {
         if (!$this->customer->contains($customer)) {
             $this->customer[] = $customer;
@@ -73,7 +73,7 @@ class Customer
         return $this;
     }
 
-    public function removeCustomer(Projects $customer): self
+    public function removeCustomer(WebsiteProject $customer): self
     {
         if ($this->customer->removeElement($customer)) {
             // set the owning side to null (unless already changed)

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectsRepository;
+use App\Repository\WebsiteProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: ProjectsRepository::class)]
+#[ORM\Entity(repositoryClass: WebsiteProjectRepository::class)]
 #[UniqueEntity(fields: ['customer'], message: 'Ce client a déjà été ajouté')]
-class Projects
+class WebsiteProject
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

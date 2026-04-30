@@ -1,13 +1,25 @@
-{% extends 'base.html.twig' %}
-{% block title %}Inscription Réussiste - Projets Clients{% endblock %}
-{% block content %}
-<meta http-equiv="refresh" content="5;url=/"/>
-<div class="text-center form-general align-middle">
-	<h2 class="mb-3 color-yellow">Inscription Réussite !</h2>
-	<div class="separator"></div>
-    <div class="mb-3"></div>
-    <p class="color-white">Tu es bien inscrit sur le projet client !</p>
-    <p class="color-white">Tu vas être redirigé sur la page de connexion</p>
+{% extends 'base_login_register.html.twig' %}
 
+{% block title %}Inscription Réussie - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+<meta http-equiv="refresh" content="6;url={{ path('home') }}"/>
+
+<a href="{{ path('home') }}">
+    <img class="d-block mx-auto mb-4" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo Projets Clients" style="max-height: 70px;">
+</a>
+
+<div class="container-custom text-center">
+    <div class="form-general" style="padding: 42px 36px;">
+        <div style="width: 74px; height: 74px; border-radius: 50%; background: var(--color-yellow); color: var(--blue-dark); margin: 0 auto 20px auto; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700;">✓</div>
+
+        <h1 class="mb-2" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Inscription réussie</h1>
+        <div class="separator mb-4"></div>
+
+        <p class="mb-2" style="color: var(--color-white);">Ton compte a bien été créé.</p>
+        <p class="mb-4" style="color: rgba(255,255,255,0.82);">Redirection automatique vers la connexion dans 6 secondes.</p>
+
+        <a href="{{ path('home') }}" class="btn btn-submit w-100" style="font-family: Gotham; font-size: 1rem; padding: 12px;">Aller à la connexion maintenant</a>
+    </div>
 </div>
 {% endblock %}

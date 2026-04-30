@@ -3,7 +3,7 @@ window.onload = () => {
     for (button of customerbrief) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/brief-client/${this.dataset.customerbrief}`)
+            xmhttp.open("get", `/projet-sites-web/brief-client/${this.dataset.customerbrief}`)
             xmhttp.send()
         })
     }
@@ -11,7 +11,7 @@ window.onload = () => {
     for (button of comingsoon) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/coming-soon/${this.dataset.comingsoon}`)
+            xmhttp.open("get", `/projet-sites-web/coming-soon/${this.dataset.comingsoon}`)
             xmhttp.send()
         })
     }
@@ -20,7 +20,7 @@ window.onload = () => {
     for (button of customercontentreception) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/reception-contenu-client/${this.dataset.customercontentreception}`)
+            xmhttp.open("get", `/projet-sites-web/reception-contenu-client/${this.dataset.customercontentreception}`)
             xmhttp.send()
         })
     }
@@ -29,7 +29,7 @@ window.onload = () => {
     for (button of webdesignwait) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/maquette-envoyee/${this.dataset.webdesignsend}`)
+            xmhttp.open("get", `/projet-sites-web/maquette-envoyee/${this.dataset.webdesignsend}`)
             xmhttp.send()
         })
     }
@@ -38,7 +38,7 @@ window.onload = () => {
     for (button of webdesignvalidated) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/maquette-validee/${this.dataset.webdesignvalidated}`)
+            xmhttp.open("get", `/projet-sites-web/maquette-validee/${this.dataset.webdesignvalidated}`)
             xmhttp.send()
         })
     }
@@ -47,7 +47,7 @@ window.onload = () => {
     for (button of domainname) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/nom-de-domaine/${this.dataset.domainname}`)
+            xmhttp.open("get", `/projet-sites-web/nom-de-domaine/${this.dataset.domainname}`)
             xmhttp.send()
         })
     }
@@ -56,7 +56,7 @@ window.onload = () => {
     for (button of webintegration) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/integration/${this.dataset.webintegration}`)
+            xmhttp.open("get", `/projet-sites-web/integration/${this.dataset.webintegration}`)
             xmhttp.send()
         })
     }
@@ -65,7 +65,7 @@ window.onload = () => {
     for (button of webtraining) {
         button.addEventListener("click", function () {
             let xmhttp = new XMLHttpRequest;
-            xmhttp.open("get", `/projet-en-cours/formation/${this.dataset.webtraining}`)
+            xmhttp.open("get", `/projet-sites-web/formation/${this.dataset.webtraining}`)
             xmhttp.send()
         })
     }

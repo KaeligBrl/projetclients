@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Back\Projects;
+namespace App\Form\Front\WebsiteProject;
 
-use App\Entity\Projects;
+use App\Entity\WebsiteProject;
 use App\Entity\Customer;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-class AddProjectType extends AbstractType
+class AddWebsiteProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -94,7 +94,7 @@ class AddProjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Projects::class,
+            'data_class' => WebsiteProject::class,
         ]);
     }
 }
