@@ -6,28 +6,19 @@ use App\Repository\FilterEnterpriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass=FilterEnterpriseRepository::class)
- */
+#[ORM\Entity(repositoryClass: FilterEnterpriseRepository::class)]
 class FilterEnterprise
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
+    #[ORM\Column(type: 'string', length: 50)]
     private $nameEnterpriseType;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="filterEnterprises")
-     */
+    #[ORM\ManyToMany(targetEntity: ListingProjects::class, mappedBy: 'filterEnterprises')]
     private $listingProjects;
     
 

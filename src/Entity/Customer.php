@@ -8,37 +8,24 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass=CustomerRepository::class)
- * @UniqueEntity(
- * fields= {"name"},
- * message= "Le client existe déjà !"
- * )
- * 
- */
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Le client existe déjà !')]
 class Customer
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Projects::class, mappedBy="customer")
-     */
+    #[ORM\OneToMany(targetEntity: Projects::class, mappedBy: 'customer')]
     private $customer;
 
     public function __construct()
     {
         $this->customer = new ArrayCollection();
-        $this->websites = new ArrayCollection();
     }
 
     // /**

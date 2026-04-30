@@ -8,30 +8,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass=FiltersActivitiesRepository::class)
- * @UniqueEntity(
- * fields= {"nameActivities"},
- * message= "Ce filtre a déjà été créé !"
- * )
- */
+#[ORM\Entity(repositoryClass: FiltersActivitiesRepository::class)]
+#[UniqueEntity(fields: ['nameActivities'], message: 'Ce filtre a déjà été créé !')]
 class FiltersActivities
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
+    #[ORM\Column(type: 'string', length: 50)]
     private $nameActivities;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameActivities")
-     */
+    #[ORM\ManyToMany(targetEntity: ListingProjects::class, mappedBy: 'nameActivities')]
     private $listingProjects;
 
     public function __construct()

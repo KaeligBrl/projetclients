@@ -8,30 +8,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass=FiltersWebsitesRepository::class)
- * @UniqueEntity(
- * fields= {"nameWebsites"},
- * message= "Ce filtre a déjà été créé !"
- * )
- */
+#[ORM\Entity(repositoryClass: FiltersWebsitesRepository::class)]
+#[UniqueEntity(fields: ['nameWebsites'], message: 'Ce filtre a déjà été créé !')]
 class FiltersWebsites
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
+    #[ORM\Column(type: 'string', length: 50)]
     private $nameWebsites;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ListingProjects::class, mappedBy="nameWebsites")
-     */
+    #[ORM\ManyToMany(targetEntity: ListingProjects::class, mappedBy: 'nameWebsites')]
     private $listingProjects;
 
     public function __construct()
@@ -68,7 +57,7 @@ class FiltersWebsites
     {
         if (!$this->listingProjects->contains($listingProject)) {
             $this->listingProjects[] = $listingProject;
-            $listingProject->addNameWebsites($this);
+            $listingProject->addNameWebsite($this);
         }
 
         return $this;
@@ -77,7 +66,7 @@ class FiltersWebsites
     public function removeListingProject(ListingProjects $listingProject): self
     {
         if ($this->listingProjects->removeElement($listingProject)) {
-            $listingProject->removeNameWebsites($this);
+            $listingProject->removeNameWebsite($this);
         }
 
         return $this;

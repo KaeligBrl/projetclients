@@ -9,48 +9,32 @@ use Doctrine\Common\Collections\Collection;
 use App\Repository\ListingProjectsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @ORM\Entity(repositoryClass=ListingProjectsRepository::class)
- */
+#[ORM\Entity(repositoryClass: ListingProjectsRepository::class)]
 class ListingProjects
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $enterprise;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $domainName;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FiltersActivities::class, inversedBy="listingProjects")
-     */
+    #[ORM\ManyToMany(targetEntity: FiltersActivities::class, inversedBy: 'listingProjects')]
     private $nameActivities;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FiltersWebsites::class, inversedBy="listingProjects")
-     */
+    #[ORM\ManyToMany(targetEntity: FiltersWebsites::class, inversedBy: 'listingProjects')]
     private $nameWebsites;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FilterEnterprise::class, inversedBy="listingProjects")
-     */
+    #[ORM\ManyToMany(targetEntity: FilterEnterprise::class)]
     private $nameEnterpriseType;
 
     // Ajoutez la relation ManyToMany avec FilterEnterprise
-    /**
-     * @ORM\ManyToMany(targetEntity=FilterEnterprise::class, inversedBy="listingProjects")
-     * @ORM\JoinTable(name="listing_projects_filter_enterprise_type")
-     */
+    #[ORM\ManyToMany(targetEntity: FilterEnterprise::class, inversedBy: 'listingProjects')]
+    #[ORM\JoinTable(name: 'listing_projects_filter_enterprise_type')]
     private $filterEnterprises;
 
     public function __construct()
@@ -119,7 +103,7 @@ class ListingProjects
         return $this;
     }
 
-    public function removeNameActivities(FiltersWebsites $namesActivities): self
+    public function removeNameActivities(FiltersActivities $namesActivities): self
     {
         $this->nameActivities->removeElement($namesActivities);
 

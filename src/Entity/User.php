@@ -10,48 +10,32 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(
- * fields= {"email"},
- * message= "L'email que vous avez entrée est déjà utilisé !"
- * )
- * @ORM\Table(name="user")
- */
+#[ORM\Entity(repositoryClass: "App\\Repository\\UserRepository")]
+#[ORM\Table(name: 'user')]
+#[UniqueEntity(fields: ['email'], message: "L'email que vous avez entrée est déjà utilisé !")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * Assert\Email()
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private $roles = [];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $firstname;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $lastname;
 
     public function getId(): ?int
