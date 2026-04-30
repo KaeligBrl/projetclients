@@ -18,7 +18,7 @@
 <body>
     <header>
     <nav class="navbar-expand-lg navbar-dark pr-2 nav-topbar">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavTopBar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavTopBar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="" role="button"><i class="fa fa-bars nav-toggler-icon" aria-hidden="true"></i></span>
         </button>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavTopBar">
@@ -37,38 +37,54 @@
             <a href="{{ path('website_project') }}">
 		        <img class="d-block mx-auto" src="{{ asset('/assets/images/logo-projet-clients-nav.png') }}" alt="Logo de connexion To Do List">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="" role="button" ><i class="fa fa-bars nav-toggler-icon" aria-hidden="true"></i></span>
             </button>
-            <div class="collapse navbar-collapse bg-blue-dark text-center p-4" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse bg-blue-dark p-4" id="navbarNav">
+                <ul class="navbar-nav me-auto">
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
-                            <li class="nav-item"> 
+                            <li class="nav-item dropdown"> 
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'website_project' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'project_modify' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'project_add' %}active{% endif %}
-                                    navbar-text text-uppercase text-border" href="{{ path('website_project') }}">SITES WEB</a>
-                            </li>
-                            <li class="nav-item"> 
-                                <a class="
+                                    {% if app.request.attributes.get('_route') == 'website_project_add' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'finished_projects' %}active{% endif %}
-                                    navbar-text text-uppercase" href="{{ path('finished_projects') }}">PROJETS FINIS</a>
+                                    navbar-text text-uppercase text-border dropdown-toggle"
+                                    href="#" id="navDropdownSitesWeb" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    SITES WEB
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navDropdownSitesWeb">
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') == 'website_project' %}active{% endif %}" href="{{ path('website_project') }}">
+                                        <i class="fas fa-spinner fa-fw mr-1"></i> En cours
+                                    </a>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') starts with 'finished_projects' %}active{% endif %}" href="{{ path('finished_projects') }}">
+                                        <i class="fas fa-check-circle fa-fw mr-1"></i> Projets finis
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') == 'website_project_add' %}active{% endif %}" href="{{ path('website_project_add') }}">
+                                        <i class="fas fa-plus-circle fa-fw mr-1"></i> Ajouter un projet
+                                    </a>
+                                </div>
                             </li>
                             <li class="nav-item"> 
                                 <a class="
                                     {% if app.request.attributes.get('_route') starts with 'listing_projects' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'listing_projects_add' %}active{% endif %}
-                                    {% if app.request.attributes.get('_route') starts with 'listing_projects_modify' %}active{% endif %}
                                     navbar-text text-uppercase" href="{{ path('listing_projects') }}">LISTE DES PROJETS</a>
                             </li>
+                    {% endif %}
+                {% endif %}
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                {% if app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
                             <li>
                                 <a class="{% if app.request.attributes.get('_route') starts with 'list_customer' %}active{% endif %} navbar-text text-uppercase" title="Aller sur l'administration" href="{{ path('list_customer') }}">Administration</a>
                             </li>
                     {% endif %}
                 {% endif %}
-                </ul> 
+                </ul>
             </div>
         </nav>
             

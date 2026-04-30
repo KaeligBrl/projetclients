@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sites WEB finis - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center color-white">Sites WEB finis</h1>
+	<div class="mb-3"></div>
+	<div class="separator"></div>
+	<div class="row">
+		<div class="col padding-mobile mt-3">
+			{% if projects is empty %}
+				<p class="text-center color-white mt-2">Aucun site WEB fini pour l'instant</p>
+			{% else %}
+				<table class="table mb-5 table-bordered">
+					<thead class="bg-blue-dark-light table-borderless">
+						<tr>
+							<th class="color-yellow text-bold" scope="col">Nom du client</th>
+							<th class="color-yellow text-bold" scope="col">Site internet</th>
+							<th class="color-yellow text-bold" scope="col">Installation WordPress</th>
+							<th class="color-yellow text-bold" scope="col">Mise en ligne</th>
+							<th class="color-yellow text-bold" scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody class="bg-blue-dark">
+						{% for project in projects %}
+							{% if project.finished == true %}
+								<tr>
+									<td class="color-white text-bold">{{ project.customer }}</td>
+									<td class="color-white"><a class="color-white" href="{{ project.domainText }}" target="_blank">{{ project.domainText }}</a></td>
+									<td class="color-white">{% if project.wordpressInstallation is empty %}Non renseigné{% else %}{{ project.wordpressInstallation|date('d-m-Y') }}{% endif %}</td>
+									<td class="color-white">{% if project.online is empty %}Non renseignée{% else %}{{ project.online|date('d-m-Y') }}{% endif %}</td>
+									<td>
+										<a href="{{ path('tocurrentproject', {"id": project.id}) }}" title="Repasser en projet en cours"><i class="color-white fas fa-chevron-left"></i></a>
+										<span class="color-white">|</span>
+										<a href="{{ path('project_modify', {"id": project.id}) }}" title="Modifier"><i class="color-white fas fa-cog"></i></a>
+										<span class="color-white">|</span>
+										<a href="{{ path('project_delete', {"id": project.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un projet')" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+									</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Form\Back\Projects;
+namespace App\Form\Front\WebsiteProject;
 
 use App\Entity\WebsiteProject;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
-class ModifyProjectType extends AbstractType
+class ModifyWebsiteProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,22 +20,25 @@ class ModifyProjectType extends AbstractType
                 'label' => 'Date d\'installation du WordPress',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form-control'],
             ])
-            ->add('domainText', TextType::class, [
+            ->add('domainText', UrlType::class, [
                 'label' => 'Nom de domaine',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('online', DateType::class, [
                 'label' => 'Mise en ligne',
                 'required' => false,
                 'label_attr' => ['class' => 'label-custom'],
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
-                'attr' => ['class' => 'btn-submit'],
+                'attr' => ['class' => 'btn-submit w-100 mt-3'],
             ]);
     }
 
