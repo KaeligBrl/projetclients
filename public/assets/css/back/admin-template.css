@@ -2,7 +2,7 @@
 /* Chnagelog */
 .changelog{margin: 0 25px 25px 0;padding: 20px;background: var(--color-blue-dark); border-radius: 10px;width: 70%;}
 .changelog p{clear: both;color: var(--color-white)}
-.changelog a{color: var(--blue-dark-shebam);}
+.changelog a{color: var(--blue-light);}
 .changelog a:hover{color: var(--color-yellow-dark)}
 .pchangleog{color: var(--color-yellow) !important;}
 .pointer-event{pointer-events: none;}

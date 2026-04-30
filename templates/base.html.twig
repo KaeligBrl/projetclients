@@ -17,18 +17,17 @@
 </head>
 <body>
     <header>
-    <nav class="navbar-expand-lg navbar-dark bg-yellow pr-2">
+    <nav class="navbar-expand-lg navbar-dark pr-2" style="background: var(--blue-light-semi-dark-dark); padding: 6px 16px;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavTopBar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="" role="button" ><i class="fa fa-bars" aria-hidden="true" style="color:#e6e6ff"></i></span>
+            <span class="" role="button"><i class="fa fa-bars" aria-hidden="true" style="color: var(--color-white)"></i></span>
         </button>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavTopBar">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://todo.shebam.fr/" target="new" style="color: var(--color-blue-dark)">&nbsp; Liste des tâches</i></a>
+                        <a class="nav-link" href="https://todo.shebam.fr/" target="new" style="color: var(--blue-light);">&nbsp; Liste des tâches</a>
                     </li>
-                    
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}" style="color: var(--color-blue-dark)"><i class="fas fa-unlock"></i>&nbsp; Déconnexion</i></a>
+                        <a class="nav-link" href="{{ path('app_logout') }}" style="color: var(--color-white);"><i class="fas fa-unlock"></i>&nbsp; Déconnexion</a>
                     </li>
                 </ul>
             </div>

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
@@ -20,7 +20,7 @@ class RegisterController extends AbstractController
         $this->entityManager = $entityManager;
     }
 #[Route("/inscription", name: 'register')]
-public function index(Request $request, UserPasswordEncoderInterface $encoder){
+public function index(Request $request, UserPasswordHasherInterface $encoder){
 
         if ($this->getUser() instanceof UserInterface === true) {
             return $this->redirectToRoute('current_week');
@@ -35,7 +35,7 @@ public function index(Request $request, UserPasswordEncoderInterface $encoder){
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            $password = $encoder->encodePassword($user,$user->getPassword());
+            $password = $encoder->hashPassword($user,$user->getPassword());
             $user->setPassword($password);
 
             $this->entityManager->persist($user);

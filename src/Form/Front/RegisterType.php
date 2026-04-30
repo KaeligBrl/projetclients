@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegisterType extends AbstractType
@@ -70,10 +69,6 @@ class RegisterType extends AbstractType
                         'placeholder' => 'Confirmation du mot de passe'
                     ]
                     ],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'S\'inscrire',
-                'attr' => ['class' => 'btn-md btn-yellow-login mt-3']
             ])
         ;
     }

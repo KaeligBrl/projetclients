@@ -9,11 +9,11 @@
 .form-login input[type="password"] {font-family: 'Gotham';margin-bottom: 10px;border-radius: 20px;color: #939090;padding-left: 30px;}
 .form-login input[type="submit"] {font-family: 'Gotham';font-size: 20px;}
 
-.form-general {background: var(--color-blue-dark);width: 100%;max-width: 550px;padding: 70px;border-radius: 15px;margin: 0 auto;}
+.form-general {background: var(--blue-semi-dark);width: 100%;max-width: 550px;padding: 40px 50px;border-radius: 15px;margin: 0 auto;}
 .form-general .checkbox {font-weight: 400;}
 .form-general .form-control {position: relative;box-sizing: border-box;height: auto;padding: 10px;font-size: 16px;}
 .form-general .form-control:focus {z-index: 2;}
-.form-general input[type="text"],.form-general input[type="email"],.form-general input[type="password"],.form-general input[type="datetime-local"],.form-general input[type="text"]::placeholder,.form-general input[type="email"]::placeholder,.form-general select::placeholder,.form-general select {background: var(--color-black-light);border-radius: 20px;border: none;color: var(--color-white);}
+.form-general input[type="text"],.form-general input[type="email"],.form-general input[type="password"],.form-general input[type="datetime-local"],.form-general input[type="text"]::placeholder,.form-general input[type="email"]::placeholder,.form-general select::placeholder,.form-general select {background: var(--blue-dark);border-radius: 20px;border: none;color: var(--color-white);padding-left: 15px;}
 
 /* Buttons */
 .btn-yellow-login{background: var(--color-yellow);border: none;border-radius: 20px;color: #ffffff;padding:10px 20px;}
