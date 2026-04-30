@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class FinishedProjectsController extends AbstractController
 {
-    #[Route("/projets-finis", name: 'finished_projects')]
+    #[Route("/projets-finis", name: 'website_projects_finished')]
     public function index(WebsiteProjectRepository $projects)
     {
         return $this->render('front/website_project/finished.html.twig', [

@@ -24,7 +24,7 @@ class WebsiteProjectDeleteController extends AbstractController
         $em->remove($projectDelete);
         $em->flush();
 
-        return $this->redirectToRoute('finished_projects');
+        return $this->redirectToRoute('website_projects_finished');
     }
 
 }

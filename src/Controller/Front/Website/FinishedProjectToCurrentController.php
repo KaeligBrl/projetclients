@@ -15,6 +15,6 @@ class FinishedProjectToCurrentController extends AbstractController
     {
         $projectsRepository->setChangeStepsForInProgressProjectsFront($project->getId());
 
-        return $this->redirectToRoute("finished_projects");
+        return $this->redirectToRoute("website_projects_finished");
     }
 }
