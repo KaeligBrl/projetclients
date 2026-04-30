@@ -12,10 +12,10 @@
 			{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
 				{% if projects is empty %}
 				<p class="text-center color-white mt-2">Aucun site web n'a encore été ajouté</p>
-				<p class="text-center color-white mt-2">Ajouter un projet de site web <a href="{{ path('project_add') }}">ici</a></p>
+				<p class="text-center color-white mt-2">Ajouter un projet de site web <a href="{{ path('website_project_add') }}">ici</a></p>
 				{% else %}
 				<div class="d-flex flex-row-reverse">
-					<a href="{{ path('project_add') }}" title="Ajouter un client" type="button" class="btn mb-3">
+					<a href="{{ path('website_project_add') }}" title="Ajouter un client" type="button" class="btn mb-3">
 						<i class="color-white fas fa-plus-circle"></i>
 					</a>
 				</div>
