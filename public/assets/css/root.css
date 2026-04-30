@@ -65,7 +65,8 @@
 .bg-orange{background: var(--color-orange)}
 
 /* Generic */
-body{background: var(--blue-dark);}
+html{min-height: 100%;}
+body{background: var(--blue-dark); min-height: 100vh;}
 .table{text-align: center;}
 table{border-radius: 1em; overflow: hidden;}
 .text-20{font-size: 20px;}
