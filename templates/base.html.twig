@@ -62,13 +62,16 @@
                                     <a class="dropdown-item {% if app.request.attributes.get('_route') starts with 'website_projects_finished' %}active{% endif %}" href="{{ path('website_projects_finished') }}">
                                         <i class="fas fa-check-circle fa-fw mr-1"></i> Projets finis
                                     </a>
-                                    <a class="dropdown-item 
-                                        {% if app.request.attributes.get('_route') starts with 'listing_projects' %}active{% endif %}
-                                        navbar-text" href="{{ path('listing_projects') }}">Liste des sites
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') starts with 'listing_projects' %}active{% endif %}" href="{{ path('listing_projects') }}">
+                                        <i class="fas fa-list fa-fw mr-1"></i> Liste des sites
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item {% if app.request.attributes.get('_route') == 'website_project_add' %}active{% endif %}" href="{{ path('website_project_add') }}">
                                         <i class="fas fa-plus-circle fa-fw mr-1"></i> Ajouter un projet
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') starts with 'website_billing' %}active{% endif %}" href="{{ path('website_billing') }}">
+                                        <i class="fas fa-file-invoice fa-fw mr-1"></i> Facturation
                                     </a>
                                 </div>
                             </li>
