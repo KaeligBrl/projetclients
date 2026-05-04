@@ -1,0 +1,111 @@
+{% extends 'back/base_admin.html.twig' %}
+
+{% block title %}Dashboard — {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    {# ── Cartes de stats ─────────────────────────────── #}
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-xl-3">
+            <a href="{{ path('list_customer') }}" class="admin-stat-card bg-blue-dark-light">
+                <div class="stat-icon">
+                    <i class="fas fa-users color-yellow"></i>
+                </div>
+                <div>
+                    <div class="stat-value">{{ totalCustomers }}</div>
+                    <div class="stat-label">Clients</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-6 col-xl-3">
+            <a href="{{ path('website_project') }}" class="admin-stat-card bg-blue-dark-light">
+                <div class="stat-icon">
+                    <i class="fas fa-spinner color-yellow"></i>
+                </div>
+                <div>
+                    <div class="stat-value">{{ totalInProgress }}</div>
+                    <div class="stat-label">Projets en cours</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-6 col-xl-3">
+            <a href="{{ path('website_projects_finished') }}" class="admin-stat-card bg-blue-dark-light">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle color-yellow"></i>
+                </div>
+                <div>
+                    <div class="stat-value">{{ totalFinished }}</div>
+                    <div class="stat-label">Projets finis</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-6 col-xl-3">
+            <a href="{{ path('website_billing') }}" class="admin-stat-card bg-blue-dark-light">
+                <div class="stat-icon">
+                    <i class="fas fa-file-invoice color-yellow"></i>
+                </div>
+                <div>
+                    <div class="stat-value">{{ totalBillingSent }}</div>
+                    <div class="stat-label">Envoyés en fact.</div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    {# ── Accès rapides ───────────────────────────────── #}
+    <div class="row g-4">
+
+        <div class="col-12 col-lg-4">
+            <h6 class="color-white fw-semibold mb-3">
+                <i class="fas fa-users me-2 color-yellow"></i>Clients
+            </h6>
+            <div class="d-flex flex-column gap-2">
+                <a href="{{ path('list_customer') }}" class="admin-quick-link">
+                    <i class="fas fa-list"></i> Liste des clients
+                </a>
+                <a href="{{ path('add_customer') }}" class="admin-quick-link">
+                    <i class="fas fa-plus-circle"></i> Ajouter un client
+                </a>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <h6 class="color-white fw-semibold mb-3">
+                <i class="fas fa-user-friends me-2 color-yellow"></i>Équipe
+            </h6>
+            <div class="d-flex flex-column gap-2">
+                <a href="{{ path('user_list') }}" class="admin-quick-link">
+                    <i class="fas fa-list"></i> Liste des utilisateurs
+                </a>
+                <a href="{{ path('user_add') }}" class="admin-quick-link">
+                    <i class="fas fa-user-plus"></i> Ajouter un utilisateur
+                </a>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <h6 class="color-white fw-semibold mb-3">
+                <i class="fas fa-globe me-2 color-yellow"></i>Sites web
+            </h6>
+            <div class="d-flex flex-column gap-2">
+                <a href="{{ path('website_project') }}" class="admin-quick-link">
+                    <i class="fas fa-spinner"></i> Projets en cours
+                </a>
+                <a href="{{ path('website_project_add') }}" class="admin-quick-link">
+                    <i class="fas fa-plus-circle"></i> Ajouter un projet
+                </a>
+                <a href="{{ path('website_billing') }}" class="admin-quick-link">
+                    <i class="fas fa-file-invoice"></i> Facturation
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

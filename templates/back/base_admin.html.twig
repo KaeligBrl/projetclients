@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% block title_base %}Projets clients — Admin{% endblock %}{% endblock %}</title>
+    <link rel="icon" href="{{ asset('assets/images/logo-to-do-list-vert.ico') }}" />
+    {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" crossorigin="anonymous">
+        <link href="{{ asset('assets/css/root.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/front/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/motdepasse.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/back/sidebar.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body class="admin-layout">
+
+<div class="admin-wrapper">
+
+    {# ===================================================
+       SIDEBAR
+       =================================================== #}
+    <aside class="admin-sidebar bg-blue-dark">
+
+        {# Brand #}
+        <a class="sidebar-brand" href="{{ path('admin_dashboard') }}">
+            <img src="{{ asset('/assets/images/logo-projet-clients-nav.png') }}" alt="Logo" style="max-height:34px;">
+            <span class="color-yellow fw-bold" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;">Admin</span>
+        </a>
+
+        {# — Dashboard — #}
+        <div class="nav-section">
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'admin_dashboard' ? 'is-active' : '' }}"
+               href="{{ path('admin_dashboard') }}">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </div>
+
+        {# — Clients — #}
+        <div class="nav-section">
+            <div class="nav-section-label color-white">Clients</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'list_customer' or app.request.attributes.get('_route') starts with 'modify_customer' ? 'is-active' : '' }}"
+               href="{{ path('list_customer') }}">
+                <i class="fas fa-users"></i> Liste des clients
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'add_customer' ? 'is-active' : '' }}"
+               href="{{ path('add_customer') }}">
+                <i class="fas fa-plus-circle"></i> Ajouter un client
+            </a>
+        </div>
+
+        {# — Équipe — #}
+        <div class="nav-section">
+            <div class="nav-section-label color-white">Équipe</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'user_list' or app.request.attributes.get('_route') starts with 'user_modify' ? 'is-active' : '' }}"
+               href="{{ path('user_list') }}">
+                <i class="fas fa-user-friends"></i> Liste des utilisateurs
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'user_add' ? 'is-active' : '' }}"
+               href="{{ path('user_add') }}">
+                <i class="fas fa-user-plus"></i> Ajouter un utilisateur
+            </a>
+        </div>
+
+        {# — Sites web — #}
+        <div class="nav-section">
+            <div class="nav-section-label color-white">Sites web</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'website_project' ? 'is-active' : '' }}"
+               href="{{ path('website_project') }}">
+                <i class="fas fa-spinner"></i> En cours
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'website_projects_finished' ? 'is-active' : '' }}"
+               href="{{ path('website_projects_finished') }}">
+                <i class="fas fa-check-circle"></i> Projets finis
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'listing_projects' ? 'is-active' : '' }}"
+               href="{{ path('listing_projects') }}">
+                <i class="fas fa-list"></i> Liste des sites
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'website_project_add' ? 'is-active' : '' }}"
+               href="{{ path('website_project_add') }}">
+                <i class="fas fa-plus-circle"></i> Ajouter un projet
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'website_billing' ? 'is-active' : '' }}"
+               href="{{ path('website_billing') }}">
+                <i class="fas fa-file-invoice"></i> Facturation
+            </a>
+        </div>
+
+        {# — Pied de sidebar — #}
+        <div class="sidebar-footer">
+            <a class="sidebar-link" href="{{ path('app_logout') }}">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </div>
+
+    </aside>
+
+    {# ===================================================
+       CONTENU PRINCIPAL
+       =================================================== #}
+    <div class="admin-main">
+
+        {# Topbar #}
+        <header class="admin-topbar bg-blue-dark-light">
+            <span class="topbar-title color-white">
+                {% block page_title %}Administration{% endblock %}
+            </span>
+            <div class="d-flex align-items-center gap-3">
+                {% if app.user %}
+                    <span class="color-white" style="font-size:.85rem;">
+                        <i class="fas fa-user-circle me-1"></i>{{ app.user.userIdentifier }}
+                    </span>
+                {% endif %}
+                <a href="{{ path('website_project') }}" class="btn btn-sm btn-outline-light">
+                    <i class="fas fa-arrow-left me-1"></i> Front
+                </a>
+            </div>
+        </header>
+
+        {# Contenu de la page #}
+        <div class="admin-page-content">
+            {% block body %}
+                {% block content %}{% endblock %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+</div>
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% endblock %}
+
+</body>
+</html>

@@ -82,7 +82,7 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
                             <li>
-                                <a class="{% if app.request.attributes.get('_route') starts with 'list_customer' %}active{% endif %} navbar-text text-uppercase" title="Aller sur l'administration" href="{{ path('list_customer') }}">Administration</a>
+                                <a class="{% if app.request.attributes.get('_route') starts with 'list_customer' %}active{% endif %} {% if app.request.attributes.get('_route') starts with 'admin' %}active{% endif %} navbar-text text-uppercase" title="Aller sur l'administration" href="{{ path('admin_dashboard') }}">Administration</a>
                             </li>
                     {% endif %}
                 {% endif %}
