@@ -1,0 +1,154 @@
+{% extends 'back/base_admin.html.twig' %}
+{% block page_title %}Paramètres{% endblock %}
+{% block title %}Paramètres - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-white mb-3">Paramètres</h1>
+    <div class="separator mb-4"></div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {# Onglets — style initial rendu côté serveur, JS ne fait que le permuter #}
+    <ul class="nav mb-4" id="settingsTabNav" style="border-bottom: 2px solid var(--blue-semi-dark); gap:.5rem;">
+        <li class="nav-item">
+            <button type="button" data-tab="website"
+                    class="settings-tab-btn"
+                    data-style-active="background:#FFD600;color:#00263A;"
+                    data-style-inactive="background:#023D5C;color:#ffffff;"
+                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#FFD600; color:#00263A;">
+                <i class="fas fa-globe me-1"></i> Sites web
+            </button>
+        </li>
+        <li class="nav-item">
+            <button type="button" data-tab="visual_identity"
+                    class="settings-tab-btn"
+                    data-style-active="background:#FFD600;color:#00263A;"
+                    data-style-inactive="background:#023D5C;color:#ffffff;"
+                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#023D5C; color:#ffffff;">
+                <i class="fas fa-paint-brush me-1"></i> Identité visuelle
+            </button>
+        </li>
+    </ul>
+
+    {# Bandeau variables disponibles #}
+    <div class="mb-4 px-3 py-2 rounded d-flex align-items-center gap-3 flex-wrap"
+         style="background: var(--color-blue-dark-light); border-left: 3px solid var(--color-yellow);">
+        <span class="color-yellow fw-bold" style="font-size:.85rem;"><i class="fas fa-info-circle me-1"></i>Variables disponibles dans sujet &amp; message :</span>
+        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{client}</code>
+        <span class="color-white" style="font-size:.8rem;">nom du client</span>
+        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{section}</code>
+        <span class="color-white" style="font-size:.8rem;">section du projet</span>
+    </div>
+
+    {# ── Panneau Sites web ── #}
+    <div id="tab-website" class="settings-tab-panel">
+        {% for setting in websiteSettings %}
+            {{ _self.settingCard(setting, 'website') }}
+        {% endfor %}
+    </div>
+
+    {# ── Panneau Identité visuelle ── #}
+    <div id="tab-visual_identity" class="settings-tab-panel">
+        {% for setting in visualIdentitySettings %}
+            {{ _self.settingCard(setting, 'visual_identity') }}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{# ── Macro carte formulaire ── #}
+{% macro settingCard(setting, tab) %}
+    <div class="mb-3 rounded overflow-hidden" style="border: 1px solid var(--blue-semi-dark);">
+        <div class="d-flex align-items-center px-3 py-2" style="background: var(--color-blue-dark-light); border-bottom: 1px solid var(--blue-semi-dark);">
+            <i class="fas fa-envelope me-2 color-yellow"></i>
+            <span class="color-yellow fw-bold">{{ setting.label }}</span>
+            {% if setting.recipientEmail %}
+                <span class="ms-auto" style="font-size:.78rem; color: var(--color-white); opacity:.7;">
+                    <i class="fas fa-check-circle me-1" style="color:#4caf50;"></i>Configuré
+                </span>
+            {% else %}
+                <span class="ms-auto" style="font-size:.78rem; color: #ff9800;">
+                    <i class="fas fa-exclamation-circle me-1"></i>Non configuré
+                </span>
+            {% endif %}
+        </div>
+        <div class="p-3" style="background: var(--color-blue-dark);">
+            <form method="post" action="{{ path('admin_settings') }}">
+                <input type="hidden" name="id" value="{{ setting.id }}">
+                <input type="hidden" name="tab" value="{{ tab }}">
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                            <i class="fas fa-at me-1 color-yellow"></i>Adresse email destinataire
+                        </label>
+                        <input type="email" name="recipientEmail" class="form-control"
+                               style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff;"
+                               value="{{ setting.recipientEmail ?? '' }}"
+                               placeholder="ex: admin@monentreprise.fr">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                            <i class="fas fa-tag me-1 color-yellow"></i>Sujet de l'email
+                        </label>
+                        <input type="text" name="subject" class="form-control"
+                               style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff;"
+                               value="{{ setting.subject ?? '' }}"
+                               placeholder="ex: Acompte reçu — {client}">
+                    </div>
+                    <div class="col-12">
+                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                            <i class="fas fa-align-left me-1 color-yellow"></i>Corps du message
+                        </label>
+                        <textarea name="messageBody" class="form-control" rows="4"
+                                  style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff; resize:vertical;"
+                                  placeholder="ex: Bonjour,&#10;L'acompte pour le projet {client} ({section}) a été reçu. Merci de procéder à la facturation.">{{ setting.messageBody ?? '' }}</textarea>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-sm"
+                                style="background: var(--color-yellow); color: var(--color-blue-dark); font-weight:600; border:none;">
+                            <i class="fas fa-save me-1"></i> Sauvegarder
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    (function () {
+        var BASE_BTN = 'display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; ';
+        var ACTIVE   = BASE_BTN + 'background:#FFD600; color:#00263A;';
+        var INACTIVE = BASE_BTN + 'background:#023D5C; color:#ffffff;';
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.settings-tab-panel').forEach(function (panel) {
+                panel.style.display = panel.id === 'tab-' + tabName ? '' : 'none';
+            });
+            document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
+                btn.style.cssText = btn.dataset.tab === tabName ? ACTIVE : INACTIVE;
+            });
+            var url = new URL(window.location);
+            url.searchParams.set('tab', tabName);
+            history.replaceState(null, '', url);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var params  = new URLSearchParams(window.location.search);
+            var initial = params.get('tab') || 'website';
+            switchTab(initial);
+
+            document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    switchTab(btn.dataset.tab);
+                });
+            });
+        });
+    })();
+    </script>
+{% endblock %}

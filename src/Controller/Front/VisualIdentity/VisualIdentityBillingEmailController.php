@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Controller\Front\VisualIdentity;
+
+use App\Entity\VisualIdentityBilling;
+use App\Repository\EmailSettingRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Attribute\Route;
+
+class VisualIdentityBillingEmailController extends AbstractController
+{
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private MailerInterface $mailer,
+    ) {}
+
+    #[Route('/facturation-identite-visuelle/envoyer-email/{id}', name: 'vi_billing_send_email')]
+    public function send(VisualIdentityBilling $billing, EmailSettingRepository $settingRepository): Response
+    {
+        $clientName = $billing->getVisualIdentityProject()->getCustomer()?->getName() ?? 'Client';
+
+        $checksMap = [
+            'deposit' => $billing->getDeposit(),
+            'status'  => $billing->getStatus(),
+        ];
+
+        $sent = 0;
+        foreach ($checksMap as $key => $checked) {
+            if (!$checked) {
+                continue;
+            }
+            $setting = $settingRepository->findOneBy(['section' => 'visual_identity', 'checkboxKey' => $key]);
+            if (!$setting || !$setting->getRecipientEmail()) {
+                continue;
+            }
+
+            $body = str_replace(
+                ['{client}', '{section}'],
+                [$clientName, 'Identité visuelle'],
+                $setting->getMessageBody() ?? ''
+            );
+
+            $email = (new Email())
+                ->from('noreply@projetsclients.local')
+                ->to($setting->getRecipientEmail())
+                ->subject(str_replace('{client}', $clientName, $setting->getSubject() ?? '(sans sujet)'))
+                ->text($body);
+
+            $this->mailer->send($email);
+            $sent++;
+        }
+
+        $this->addFlash('success', $sent > 0 ? "$sent email(s) envoyé(s) pour $clientName." : "Aucun email configuré pour les cases cochées.");
+
+        return $this->redirectToRoute('visual_identity_billing');
+    }
+}

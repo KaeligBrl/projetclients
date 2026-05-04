@@ -88,6 +88,36 @@
             </a>
         </div>
 
+        {# — Identité visuelle — #}
+        <div class="nav-section">
+            <div class="nav-section-label color-white">Identité visuelle</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_project' ? 'is-active' : '' }}"
+               href="{{ path('visual_identity_project') }}">
+                <i class="fas fa-spinner"></i> En cours
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_finished' ? 'is-active' : '' }}"
+               href="{{ path('visual_identity_finished') }}">
+                <i class="fas fa-check-circle"></i> Projets finis
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_add' ? 'is-active' : '' }}"
+               href="{{ path('visual_identity_add') }}">
+                <i class="fas fa-plus-circle"></i> Ajouter un projet
+            </a>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'visual_identity_billing' ? 'is-active' : '' }}"
+               href="{{ path('visual_identity_billing') }}">
+                <i class="fas fa-file-invoice"></i> Facturation
+            </a>
+        </div>
+
+        {# — Paramètres — #}
+        <div class="nav-section">
+            <div class="nav-section-label color-white">Paramètres</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'admin_settings' ? 'is-active' : '' }}"
+               href="{{ path('admin_settings') }}">
+                <i class="fas fa-cog"></i> Emails facturation
+            </a>
+        </div>
+
         {# — Pied de sidebar — #}
         <div class="sidebar-footer">
             <a class="sidebar-link" href="{{ path('app_logout') }}">

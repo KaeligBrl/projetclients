@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un projet identité visuelle - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+	<div class="container-custom">
+		<h1 class="text-center mb-3" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Ajouter un projet identité visuelle</h1>
+		<div class="separator mb-4"></div>
+
+		{% if notification %}
+			<div class="alert text-center" style="background: rgba(106, 191, 165, 0.2); color: var(--green-light); border-radius: 10px; border: 1px solid var(--green-light); margin-bottom: 20px;">
+				{{ notification }}
+				<div style="margin-top: 15px;">
+					<a href="{{ path('visual_identity_project') }}" class="btn btn-submit" style="display: inline-block; text-decoration: none;">Retourner à la liste</a>
+				</div>
+			</div>
+		{% else %}
+			<div class="form-general">
+				{{ form_start(form_project_add, {'attr': {'novalidate': 'novalidate'}}) }}
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group mb-3">
+							{{ form_label(form_project_add.customer, 'Client', {'label_attr': {'class': 'text-white mb-1', 'style': 'font-family: Gotham;'}}) }}
+							{{ form_widget(form_project_add.customer, {'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form_project_add.customer) }}
+						</div>
+					</div>
+				</div>
+				{{ form_row(form_project_add.submit) }}
+				{{ form_end(form_project_add) }}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -75,6 +75,31 @@
                                     </a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="
+                                    {% if app.request.attributes.get('_route') starts with 'visual_identity' %}active{% endif %}
+                                    navbar-text text-uppercase text-border dropdown-toggle"
+                                    href="#" id="navDropdownVisualIdentity" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    IDENTITÉ VISUELLE
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navDropdownVisualIdentity">
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') == 'visual_identity_project' %}active{% endif %}" href="{{ path('visual_identity_project') }}">
+                                        <i class="fas fa-spinner fa-fw mr-1"></i> En cours
+                                    </a>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') == 'visual_identity_finished' %}active{% endif %}" href="{{ path('visual_identity_finished') }}">
+                                        <i class="fas fa-check-circle fa-fw mr-1"></i> Projets finis
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') == 'visual_identity_add' %}active{% endif %}" href="{{ path('visual_identity_add') }}">
+                                        <i class="fas fa-plus-circle fa-fw mr-1"></i> Ajouter un projet
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item {% if app.request.attributes.get('_route') starts with 'visual_identity_billing' %}active{% endif %}" href="{{ path('visual_identity_billing') }}">
+                                        <i class="fas fa-file-invoice fa-fw mr-1"></i> Facturation
+                                    </a>
+                                </div>
+                            </li>
                     {% endif %}
                 {% endif %}
                 </ul>
@@ -104,6 +129,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/bootstrap-table.js') }}"></script>
     <script src="{{ asset('assets/js/checkbox.js') }}"></script>
+    <script src="{{ asset('assets/js/billing_checkbox.js') }}"></script>
+    <script src="{{ asset('assets/js/visual_identity_checkbox.js') }}"></script>
+    <script src="{{ asset('assets/js/visual_identity_billing_checkbox.js') }}"></script>
 {% endblock %}
 
 </body>
