@@ -41,24 +41,20 @@
                 <thead style="background:#023D5C;">
                     <tr>
                         <th class="color-yellow align-middle" rowspan="2">Client</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Acompte</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Maquette</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Formation</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Envoi admin</th>
+                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Acompte</th>
+                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Maquette</th>
+                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Formation</th>
+                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Envoi admin</th>
                     </tr>
                     <tr style="background:#012d45;">
                         <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
                         <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
                         <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
                         <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
                         <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
                         <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
                         <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
                         <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
                     </tr>
                 </thead>
                 <tbody style="background:#00263A;">
@@ -75,15 +71,7 @@
                                 <input type="checkbox" class="form-check-input admin-toggle"
                                     {{ billing.depositInvoiced ? 'checked' : '' }}
                                     {{ not billing.deposit ? 'disabled' : '' }}
-                                    data-url="/admin/facturation-sites-web/acompte-facture/{{ billing.id }}"
-                                    data-next-cb-selector="[data-dep-paid-{{ billing.id }}]">
-                            </td>
-                            <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input admin-toggle"
-                                    {{ billing.depositPaid ? 'checked' : '' }}
-                                    {{ not billing.depositInvoiced ? 'disabled' : '' }}
-                                    data-dep-paid-{{ billing.id }}="1"
-                                    data-url="/admin/facturation-sites-web/acompte-paye/{{ billing.id }}">
+                                    data-url="/admin/facturation-sites-web/acompte-facture/{{ billing.id }}">
                             </td>
                             {# Maquette #}
                             <td class="text-center align-middle">
@@ -93,15 +81,7 @@
                                 <input type="checkbox" class="form-check-input admin-toggle"
                                     {{ billing.mockupSentInvoiced ? 'checked' : '' }}
                                     {{ not billing.mockupSent ? 'disabled' : '' }}
-                                    data-url="/admin/facturation-sites-web/maquette-facturee/{{ billing.id }}"
-                                    data-next-cb-selector="[data-mok-paid-{{ billing.id }}]">
-                            </td>
-                            <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input admin-toggle"
-                                    {{ billing.mockupSentPaid ? 'checked' : '' }}
-                                    {{ not billing.mockupSentInvoiced ? 'disabled' : '' }}
-                                    data-mok-paid-{{ billing.id }}="1"
-                                    data-url="/admin/facturation-sites-web/maquette-payee/{{ billing.id }}">
+                                    data-url="/admin/facturation-sites-web/maquette-facturee/{{ billing.id }}">
                             </td>
                             {# Formation #}
                             <td class="text-center align-middle">
@@ -111,15 +91,7 @@
                                 <input type="checkbox" class="form-check-input admin-toggle"
                                     {{ billing.onboardingTrainingInvoiced ? 'checked' : '' }}
                                     {{ not billing.onboardingTraining ? 'disabled' : '' }}
-                                    data-url="/admin/facturation-sites-web/formation-facturee/{{ billing.id }}"
-                                    data-next-cb-selector="[data-trn-paid-{{ billing.id }}]">
-                            </td>
-                            <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input admin-toggle"
-                                    {{ billing.onboardingTrainingPaid ? 'checked' : '' }}
-                                    {{ not billing.onboardingTrainingInvoiced ? 'disabled' : '' }}
-                                    data-trn-paid-{{ billing.id }}="1"
-                                    data-url="/admin/facturation-sites-web/formation-payee/{{ billing.id }}">
+                                    data-url="/admin/facturation-sites-web/formation-facturee/{{ billing.id }}">
                             </td>
                             {# Envoi admin #}
                             <td class="text-center align-middle">
@@ -129,15 +101,7 @@
                                 <input type="checkbox" class="form-check-input admin-toggle"
                                     {{ billing.statusInvoiced ? 'checked' : '' }}
                                     {{ not billing.status ? 'disabled' : '' }}
-                                    data-url="/admin/facturation-sites-web/admin-facture/{{ billing.id }}"
-                                    data-next-cb-selector="[data-sta-paid-{{ billing.id }}]">
-                            </td>
-                            <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input admin-toggle"
-                                    {{ billing.statusPaid ? 'checked' : '' }}
-                                    {{ not billing.statusInvoiced ? 'disabled' : '' }}
-                                    data-sta-paid-{{ billing.id }}="1"
-                                    data-url="/admin/facturation-sites-web/admin-paye/{{ billing.id }}">
+                                    data-url="/admin/facturation-sites-web/admin-facture/{{ billing.id }}">
                             </td>
                         </tr>
                     {% endfor %}

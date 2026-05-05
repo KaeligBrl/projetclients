@@ -71,5 +71,3 @@ window.addEventListener("load", function () {
         enforceVisualIdentityChain();
     });
 });
-
-});

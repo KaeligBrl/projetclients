@@ -25,9 +25,8 @@ window.addEventListener("load", function () {
         const deposit = row.querySelector(".billing-deposit");
         const mockupSent = row.querySelector(".billing-mockup-sent");
         const onboardingTraining = row.querySelector(".billing-onboarding-training");
-        const status = row.querySelector(".billing-status");
 
-        if (!deposit || !mockupSent || !onboardingTraining || !status) {
+        if (!deposit || !mockupSent || !onboardingTraining) {
             return;
         }
 
@@ -41,11 +40,6 @@ window.addEventListener("load", function () {
                 previous: mockupSent,
                 current: onboardingTraining,
                 endpoint: `/facturation-sites-web/formation/${onboardingTraining.dataset.billingOnboardingTraining}`,
-            },
-            {
-                previous: onboardingTraining,
-                current: status,
-                endpoint: `/facturation-sites-web/envoi-administratif/${status.dataset.billingStatus}`,
             },
         ];
 
@@ -66,9 +60,8 @@ window.addEventListener("load", function () {
         const deposit = row.querySelector(".billing-deposit");
         const mockupSent = row.querySelector(".billing-mockup-sent");
         const onboardingTraining = row.querySelector(".billing-onboarding-training");
-        const status = row.querySelector(".billing-status");
 
-        if (!deposit || !mockupSent || !onboardingTraining || !status) {
+        if (!deposit || !mockupSent || !onboardingTraining) {
             return;
         }
 
@@ -96,20 +89,8 @@ window.addEventListener("load", function () {
             enforceWebsiteChain(row);
         });
 
-        status.addEventListener("click", function () {
-            if (!isMailEnabled(status)) {
-                return;
-            }
-            toggleOnServer(`/facturation-sites-web/envoi-administratif/${status.dataset.billingStatus}`);
-            enforceWebsiteChain(row);
-        });
-
         setLockedStyle(deposit, false);
         enforceWebsiteChain(row);
     });
 });
 
-        setLockedStyle(deposit, false);
-        enforceWebsiteChain(row);
-    });
-});

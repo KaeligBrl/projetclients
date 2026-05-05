@@ -14,7 +14,7 @@
 	{% endif %}
 	<div class="alert mt-3 mb-3" role="alert" style="background:#023D5C; border-left: 3px solid #FFD600; color:#fff;">
 		<i class="fas fa-info-circle me-1" style="color:#FFD600;"></i>
-		Les colonnes <strong>Facturé</strong> et <strong>Payé</strong> sont remplies par le service administratif. Vous recevrez un email automatique à chaque étape.
+		La colonne <strong>Facturé</strong> est remplie par le service administratif. Vous recevrez un email automatique à chaque étape.
 	</div>
 	<div class="row">
 		<div class="col padding-mobile">
@@ -27,24 +27,18 @@
 						<thead class="bg-blue-dark-light table-borderless">
 							<tr>
 								<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Acompte</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Maquette envoyée</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Formation</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Envoyé au service admin</th>
+								<th class="color-yellow text-bold text-center" colspan="2">Acompte</th>
+								<th class="color-yellow text-bold text-center" colspan="2">Maquette envoyée</th>
+								<th class="color-yellow text-bold text-center" colspan="2">Formation</th>
+
 							</tr>
 							<tr style="background:#012d45;">
 								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
 								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
 								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
 								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
 								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
 								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
-								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
 							</tr>
 						</thead>
 						<tbody class="bg-blue-dark">
@@ -62,9 +56,6 @@
 									<td class="text-center align-middle">
 										<input type="checkbox" class="form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
 									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.depositPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
 									{# Maquette #}
 									<td class="text-center align-middle">
 										<input type="checkbox"
@@ -75,9 +66,6 @@
 									</td>
 									<td class="text-center align-middle">
 										<input type="checkbox" class="form-check-input" {{ billing.mockupSentInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.mockupSentPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
 									</td>
 									{# Formation #}
 									<td class="text-center align-middle">
@@ -90,23 +78,7 @@
 									<td class="text-center align-middle">
 										<input type="checkbox" class="form-check-input" {{ billing.onboardingTrainingInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
 									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.onboardingTrainingPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
-									{# Envoi admin #}
-									<td class="text-center align-middle">
-										<input type="checkbox"
-											class="billing-status form-check-input"
-											{{ billing.status ? 'checked' : '' }}
-											data-mail-enabled="{{ mailEnabled.status ? '1' : '0' }}"
-											data-billing-status="{{ billing.id }}">
-									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.statusInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.statusPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
+	
 								</tr>
 							{% endfor %}
 						</tbody>
@@ -119,3 +91,7 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/website_billing_checkbox.js') }}"></script>
+{% endblock %}
