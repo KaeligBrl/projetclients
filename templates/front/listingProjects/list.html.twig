@@ -4,53 +4,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css">
-    <style>
-        /* ── Tom Select ── */
-        .ts-wrapper { --ts-pr-min: 2rem; }
-        .ts-wrapper .ts-control {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.18);
-            border-radius: 20px;
-            padding: 8px 15px;
-            box-shadow: none;
-            min-height: 44px;
-        }
-        .ts-wrapper.focus .ts-control,
-        .ts-wrapper .ts-control:focus-within {
-            border: 1px solid var(--color-yellow);
-            box-shadow: 0 0 0 2px rgba(255,214,0,.2);
-            outline: none;
-        }
-        .ts-wrapper .ts-control .item {
-            background: var(--color-yellow);
-            color: var(--blue-dark);
-            font-weight: 700;
-            border-radius: 999px;
-            padding: 2px 10px;
-            border: none;
-        }
-        .ts-wrapper .ts-control .item .remove {
-            border-left: 1px solid rgba(0,38,58,.3);
-            color: var(--blue-dark);
-        }
-        .ts-wrapper .ts-control input { color: #ffffff; }
-        .ts-wrapper .ts-control input::placeholder { color: rgba(255,255,255,.45); }
-        .ts-wrapper .ts-dropdown {
-            background: #011f2f;
-            border: 1px solid #395c6e;
-            border-radius: 12px;
-            margin-top: 4px;
-            box-shadow: 0 8px 24px rgba(0,0,0,.45);
-            overflow: hidden;
-        }
-        .ts-wrapper .ts-dropdown .option { color: #d0dce4; padding: 9px 15px; transition: background .12s; }
-        .ts-wrapper .ts-dropdown .option:hover,
-        .ts-wrapper .ts-dropdown .option.active { background: var(--color-yellow); color: var(--blue-dark); font-weight: 600; }
-        .ts-wrapper .ts-dropdown .create { color: var(--color-yellow) !important; font-style: italic; }
-        .filter-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--color-yellow); margin-bottom: .4rem; display: block; }
-        .listing-filters { background: #011f2f; border-radius: .75rem; padding: 1.25rem 1.5rem; }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/front/tom-select-theme.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -141,11 +96,6 @@
         window.LISTING_MODIFY_PATH  = "{{ path('listing_projects_modify', {id: '__ID__'}) }}";
         window.LISTING_DELETE_PATH  = "{{ path('listing_projects_detete', {id: '__ID__'}) }}";
         window.IS_ADMIN             = {{ is_granted('ROLE_ADMIN') ? 'true' : 'false' }};
-        window.FILTER_CREATE_URLS   = {
-            activity:   "{{ path('listing_filter_create_activity') }}",
-            website:    "{{ path('listing_filter_create_website') }}",
-            enterprise: "{{ path('listing_filter_create_enterprise') }}"
-        };
     </script>
     <script src="{{ asset('assets/js/listing_projects.js') }}"></script>
 {% endblock %}

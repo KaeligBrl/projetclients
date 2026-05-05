@@ -77,14 +77,14 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('Aucun jeton de rÃ©initialisation du mot de passe trouvÃ© dans l\'URL ou dans la session.');
+            throw $this->createNotFoundException('Aucun jeton de réinitialisation du mot de passe trouvé dans l\'URL ou dans la session.');
         }
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'Un problÃ¨me est survenu lors de la validation de votre demande de rÃ©initialisation - %s',
+                'Un problème est survenu lors de la validation de votre demande de réinitialisation - %s',
                 $e->getReason()
             ));
 
@@ -149,9 +149,9 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('contact@shebam.fr', 'RÃ©initialiser le mot de passe'))
+            ->from(new Address('contact@shebam.fr', 'Réinitialiser le mot de passe'))
             ->to($user->getEmail())
-            ->subject('Lien de rÃ©initialisation du mot de passe - To do')
+            ->subject('Lien de réinitialisation du mot de passe - To do')
             ->htmlTemplate('front/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

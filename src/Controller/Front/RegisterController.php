@@ -40,7 +40,7 @@ public function index(Request $request, UserPasswordHasherInterface $encoder){
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $notification = 'Tu es dÃ©sormais inscris sur le site';
+            $notification = 'Tu es désormais inscrit sur le site.';
             return $this->redirectToRoute('register_message_success');
 
     }

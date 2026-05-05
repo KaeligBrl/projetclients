@@ -4,81 +4,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css">
-    <style>
-        /* ── Tom Select ── */
-        .ts-wrapper { --ts-pr-min: 2rem; }
-        /* Annule Bootstrap .form-control sur .ts-wrapper */
-        .ts-wrapper {
-            background: transparent !important;
-            background-color: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
-        .ts-wrapper .ts-control,
-        .ts-wrapper.single .ts-control,
-        .ts-wrapper.multi .ts-control,
-        .form-general .ts-wrapper .ts-control {
-            background: transparent !important;
-            background-color: transparent !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
-            border-radius: 20px !important;
-            color: #ffffff !important;
-            box-shadow: none !important;
-            min-height: 44px;
-            padding: 8px 15px;
-        }
-        .ts-wrapper.focus .ts-control,
-        .ts-wrapper .ts-control:focus-within,
-        .form-general .ts-wrapper.focus .ts-control {
-            border: 1px solid var(--color-yellow) !important;
-            box-shadow: 0 0 0 2px rgba(255,214,0,.2) !important;
-        }
-        .ts-wrapper .ts-control .item {
-            background: var(--color-yellow) !important;
-            color: var(--blue-dark) !important;
-            font-weight: 700;
-            border-radius: 999px;
-            padding: 2px 10px;
-            border: none;
-        }
-        .ts-wrapper .ts-control .item .remove {
-            border-left: 1px solid rgba(0,38,58,.3);
-            color: var(--blue-dark);
-        }
-        .ts-wrapper .ts-control input,
-        .ts-wrapper .ts-control input[type="text"] {
-            background: transparent !important;
-            background-color: transparent !important;
-            border: none !important;
-            border-radius: 0 !important;
-            padding-left: 4px !important;
-            color: #ffffff !important;
-            caret-color: #ffffff !important;
-            box-shadow: none !important;
-        }
-        .ts-wrapper .ts-control input::placeholder { color: rgba(255,255,255,.45); }
-        .ts-wrapper .ts-dropdown {
-            background: #011f2f !important;
-            border: 1px solid #395c6e;
-            border-radius: 12px;
-            margin-top: 4px;
-            box-shadow: 0 8px 24px rgba(0,0,0,.45);
-            overflow: hidden;
-        }
-        .ts-wrapper .ts-dropdown .option {
-            color: #d0dce4;
-            padding: 9px 15px;
-            transition: background .12s;
-        }
-        .ts-wrapper .ts-dropdown .option:hover,
-        .ts-wrapper .ts-dropdown .option.active {
-            background: var(--color-yellow) !important;
-            color: var(--blue-dark) !important;
-            font-weight: 600;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/front/tom-select-theme.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -96,10 +23,12 @@
 			<div class="mb-3"></div>
 			<div class="separator"></div>
 			<div class="mb-5"></div>
-			{{ form_start(form_listingCustomer_add) }}
+			{% if no_available_customers %}
+				<p class="color-yellow text-center">Tous les clients ont déjà été ajoutés.</p>
+			{% else %}
+				{{ form_start(form_listingCustomer_add) }}
 				<div>
-				{{ form_row(form_listingCustomer_add.enterprise) }}
-				{{ form_row(form_listingCustomer_add.domainname) }}
+				{{ form_row(form_listingCustomer_add.customer) }}
 				<div class="mb-3"></div>
 				<p class="text-left color-yellow">Secteur d'activité</p>
 				{{ form_row(form_listingCustomer_add.name_activities) }}
@@ -112,7 +41,8 @@
 				<div class="mb-3"></div>
 				{{ form_row(form_listingCustomer_add.submit) }}
 				</div>
-			{{ form_end(form_listingCustomer_add) }}
+				{{ form_end(form_listingCustomer_add) }}
+			{% endif %}
 		</div>
 	{% endblock %}
 	</div>
@@ -122,12 +52,11 @@
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     <script>
-        document.querySelectorAll('.tom-select-field').forEach(function (el) {
-            el.closest('.mb-3, p + div, div') && el.parentElement.classList.add('ts-field-wrapper');
-            new TomSelect(el, {
-                plugins: ['remove_button'],
-                placeholder: 'Sélectionner…',
-            });
-        });
+        window.FILTER_CREATE_URLS = {
+            activity:   "{{ path('listing_filter_create_activity') }}",
+            website:    "{{ path('listing_filter_create_website') }}",
+            enterprise: "{{ path('listing_filter_create_enterprise') }}"
+        };
     </script>
+    <script src="{{ asset('assets/js/tom-select-form.js') }}"></script>
 {% endblock %}

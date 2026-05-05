@@ -2,6 +2,7 @@
 
 namespace App\Form\Front\listingProjects;
 
+use App\Entity\Customer;
 use App\Entity\FiltersWebsites;
 use App\Entity\ListingProjects;
 use App\Entity\FiltersActivities;
@@ -11,8 +12,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -21,15 +20,19 @@ class ModifyListingProjectsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('enterprise', TextType::class, [
-                'label' => 'Nom de l\'entreprise :',
+            ->add('customer', EntityType::class, [
+                'label' => 'Client :',
                 'required' => true,
                 'label_attr' => ['class' => 'color-yellow'],
-            ])
-            ->add('domainname', TextType::class, [
-                'label' => 'Nom de domaine :',
-                'required' => true,
-                'label_attr' => ['class' => 'color-yellow'],
+                'class' => Customer::class,
+                'choice_label' => fn (Customer $c) => $c->getName(),
+                'expanded' => false,
+                'multiple' => false,
+                'placeholder' => 'Sélectionner un client…',
+                'attr' => ['class' => 'tom-select-field'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+                },
             ])
             ->add('name_activities', EntityType::class, [
                 'required' => false,
@@ -38,7 +41,7 @@ class ModifyListingProjectsType extends AbstractType
                 'class' => FiltersActivities::class,
                 'expanded' => false,
                 'multiple' => true,
-                'attr' => ['class' => 'tom-select-field'],
+                'attr' => ['class' => 'tom-select-field', 'data-create-type' => 'activity'],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.nameActivities', 'ASC');
                 },
@@ -50,7 +53,7 @@ class ModifyListingProjectsType extends AbstractType
                 'class' => FilterEnterprise::class,
                 'expanded' => false,
                 'multiple' => true,
-                'attr' => ['class' => 'tom-select-field'],
+                'attr' => ['class' => 'tom-select-field', 'data-create-type' => 'enterprise'],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.nameEnterpriseType', 'ASC');
                 },
@@ -63,7 +66,7 @@ class ModifyListingProjectsType extends AbstractType
                 'class' => FiltersWebsites::class,
                 'expanded' => false,
                 'multiple' => true,
-                'attr' => ['class' => 'tom-select-field'],
+                'attr' => ['class' => 'tom-select-field', 'data-create-type' => 'website'],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.nameWebsites', 'ASC');
                 },

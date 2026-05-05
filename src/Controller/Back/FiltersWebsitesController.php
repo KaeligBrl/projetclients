@@ -40,7 +40,7 @@ class FiltersWebsitesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($filterWebsiteAdd);
             $this->entityManager->flush();
-            $notification = 'Le filtre a bien Ã©tÃ© ajoutÃ©';
+            $notification = 'Le filtre a bien été ajouté.';
             $filterWebsiteAdd = new FiltersWebsites();
             $form = $this->createForm(AddFilterType::class, $filterWebsiteAdd);
         }
@@ -61,7 +61,7 @@ class FiltersWebsitesController extends AbstractController
             $filtersWebsitesModify = $form->getData();
             $this->entityManager->persist($filtersWebsitesModify);
             $this->entityManager->flush();
-            $notication = "Le filtre a Ã©tÃ© mis Ã  jour";
+            $notication = "Le filtre a été mis à jour.";
             $filtersWebsitesModify = new FiltersWebsites();
             $filtersWebsitesModify = $form->getData($filtersWebsitesModify);
             $form = $this->createForm(ModifyFilterType::class, $filtersWebsitesModify);

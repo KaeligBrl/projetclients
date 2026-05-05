@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Customer;
 use App\Entity\FilterEnterprise;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\FiltersActivities;
@@ -17,11 +18,15 @@ class ListingProjects
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $enterprise;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $domainName;
+
+    #[ORM\ManyToOne(targetEntity: Customer::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Customer $customer = null;
 
     #[ORM\ManyToMany(targetEntity: FiltersActivities::class, inversedBy: 'listingProjects')]
     private $nameActivities;
@@ -143,6 +148,18 @@ class ListingProjects
     public function setDomainName($domainName)
     {
         $this->domainName = $domainName;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
 
         return $this;
     }

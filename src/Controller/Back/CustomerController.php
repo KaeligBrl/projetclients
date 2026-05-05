@@ -50,7 +50,7 @@ class CustomerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($customerAdd);
             $this->entityManager->flush();
-            $notification = 'Le client a bien Ã©tÃ© ajoutÃ©';
+            $notification = 'Le client a bien été ajouté.';
             $customerAdd = new Customer();
             $form = $this->createForm(AddCustomerType::class, $customerAdd);
         }

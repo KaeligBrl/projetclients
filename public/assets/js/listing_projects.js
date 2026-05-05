@@ -3,51 +3,25 @@ window.addEventListener('load', function () {
     const modifyPath   = window.LISTING_MODIFY_PATH;
     const deletePath   = window.LISTING_DELETE_PATH;
     const isAdmin      = window.IS_ADMIN;
-    const createUrls   = window.FILTER_CREATE_URLS;
 
     const tbody    = document.getElementById('listing-tbody');
     const noResults= document.getElementById('no-results');
     const resetBtn = document.getElementById('reset-filters');
 
-    // ── Helper : create a filter option via AJAX ─────────────────
-    function createRemoteOption(type, input, callback) {
-        const body = new FormData();
-        body.append('name', input);
-
-        fetch(createUrls[type], { method: 'POST', body: body })
-            .then(function (r) {
-                if (!r.ok) { callback(); return; }
-                return r.json();
-            })
-            .then(function (data) {
-                if (!data || data.error) { callback(); return; }
-                callback({ value: String(data.id), text: data.name });
-            })
-            .catch(function () { callback(); });
-    }
-
-    // ── Tom Select instances ─────────────────────────────────────
-    function makeTomSelect(id, type) {
+    // ── Tom Select instances ───────────────────────────────
+    function makeTomSelect(id) {
         return new TomSelect('#' + id, {
             plugins: ['remove_button'],
             persist: false,
-            createOnBlur: false,
-            create: function (input, callback) {
-                createRemoteOption(type, input, callback);
-            },
+            create: false,
             onItemAdd:    function () { fetchResults(); updateResetBtn(tsActivity, tsWebsite, tsEnterprise); },
-            onItemRemove: function () { fetchResults(); updateResetBtn(tsActivity, tsWebsite, tsEnterprise); },
-            render: {
-                option_create: function (data) {
-                    return '<div class="create">Créer "<strong>' + escHtml(data.input) + '</strong>"</div>';
-                }
-            }
+            onItemRemove: function () { fetchResults(); updateResetBtn(tsActivity, tsWebsite, tsEnterprise); }
         });
     }
 
-    const tsActivity   = makeTomSelect('ts-activity',   'activity');
-    const tsWebsite    = makeTomSelect('ts-website',    'website');
-    const tsEnterprise = makeTomSelect('ts-enterprise', 'enterprise');
+    const tsActivity   = makeTomSelect('ts-activity');
+    const tsWebsite    = makeTomSelect('ts-website');
+    const tsEnterprise = makeTomSelect('ts-enterprise');
 
     // ── Reset ─────────────────────────────────────────────────────
     resetBtn.addEventListener('click', function () {
@@ -98,9 +72,9 @@ window.addEventListener('load', function () {
                   + escHtml(row.domain_name) + '</a>'
                 : '<span style="opacity:.5">Non renseigné</span>';
 
-            const activity   = row.nameActivity       || '<span style="opacity:.5">—</span>';
-            const website    = row.nameWebsite         || '<span style="opacity:.5">—</span>';
-            const enterprise = row.nameEnterpriseType  || '<span style="opacity:.5">—</span>';
+            const activity   = row.nameActivity      ? escHtml(row.nameActivity)      : '';
+            const website    = row.nameWebsite        ? escHtml(row.nameWebsite)        : '';
+            const enterprise = row.nameEnterpriseType ? escHtml(row.nameEnterpriseType) : '';
 
             const actionCell = isAdmin
                 ? '<td>'
@@ -115,9 +89,9 @@ window.addEventListener('load', function () {
             return '<tr>'
                 + '<td class="color-white fw-bold align-middle">' + escHtml(row.enterprise) + '</td>'
                 + '<td class="color-white align-middle">' + domain + '</td>'
-                + '<td class="color-white align-middle">' + escHtml(activity) + '</td>'
-                + '<td class="color-white align-middle">' + escHtml(website) + '</td>'
-                + '<td class="color-white align-middle">' + escHtml(enterprise) + '</td>'
+                + '<td class="color-white align-middle">' + activity + '</td>'
+                + '<td class="color-white align-middle">' + website + '</td>'
+                + '<td class="color-white align-middle">' + enterprise + '</td>'
                 + actionCell
                 + '</tr>';
         }).join('');

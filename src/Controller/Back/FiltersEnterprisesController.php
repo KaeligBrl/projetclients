@@ -41,7 +41,7 @@ class FiltersEnterprisesController extends AbstractController
 
             $this->entityManager->persist($filterEnterpriseAdd);
             $this->entityManager->flush();
-            $notification = 'Le filtre a bien Ã©tÃ© ajoutÃ©';
+            $notification = 'Le filtre a bien été ajouté.';
             $filterEnterpriseAdd = new FilterEnterprise();
             $form = $this->createForm(AddFilterType::class, $filterEnterpriseAdd);
         }
@@ -63,7 +63,7 @@ class FiltersEnterprisesController extends AbstractController
             $filtersEnterprisesModify = $form->getData();
             $this->entityManager->persist($filtersEnterprisesModify);
             $this->entityManager->flush();
-            $notication = "Le filtre a Ã©tÃ© mis Ã  jour";
+            $notication = "Le filtre a été mis à jour.";
             $filtersEnterprisesModify = new FilterEnterprise();
             $filtersEnterprisesModify = $form->getData($filtersEnterprisesModify);
             $form = $this->createForm(ModifyFilterType::class, $filtersEnterprisesModify);

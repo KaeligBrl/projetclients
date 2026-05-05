@@ -40,7 +40,7 @@ class FiltersActivitesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($filterAdd);
             $this->entityManager->flush();
-            $notification = 'Le filtre a bien Ã©tÃ© ajoutÃ©';
+            $notification = 'Le filtre a bien été ajouté.';
             $filterAdd = new FiltersActivities();
             $form = $this->createForm(AddFilterType::class, $filterAdd);
         }
@@ -61,7 +61,7 @@ class FiltersActivitesController extends AbstractController
             $filterModify = $form->getData();
             $this->entityManager->persist($filterModify);
             $this->entityManager->flush();
-            $notication = "Le filtre a Ã©tÃ© mis Ã  jour";
+            $notication = "Le filtre a été mis à jour.";
             $filterModify = new FiltersActivities();
             $filterModify = $form->getData($filterModify);
             $form = $this->createForm(ModifyFilterType::class, $filterModify);

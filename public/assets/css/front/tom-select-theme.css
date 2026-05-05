@@ -1,0 +1,117 @@
+/* ── Tom Select – thème sombre projet ── */
+.ts-wrapper { --ts-pr-min: 2rem; }
+
+/* Annule le fond blanc Bootstrap (.form-control ajouté par Tom Select) */
+.ts-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.ts-wrapper .ts-control,
+.ts-wrapper.single .ts-control,
+.ts-wrapper.multi .ts-control {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 20px !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    min-height: 44px;
+    padding: 8px 15px;
+}
+
+.ts-wrapper.focus .ts-control,
+.ts-wrapper .ts-control:focus-within {
+    border: 1px solid var(--color-yellow) !important;
+    box-shadow: 0 0 0 2px rgba(255, 214, 0, 0.2) !important;
+}
+
+.ts-wrapper .ts-control .item {
+    background: var(--color-yellow) !important;
+    color: var(--blue-dark) !important;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 2px 10px;
+    border: none;
+}
+
+.ts-wrapper .ts-control .item .remove {
+    border-left: 1px solid rgba(0, 38, 58, 0.3);
+    color: var(--blue-dark);
+}
+
+.ts-wrapper .ts-control input,
+.ts-wrapper .ts-control input[type="text"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding-left: 4px !important;
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.ts-wrapper .ts-control input::placeholder { color: rgba(255, 255, 255, 0.45); }
+
+.ts-wrapper .ts-dropdown {
+    background: #011f2f !important;
+    border: 1px solid #395c6e;
+    border-radius: 12px;
+    margin-top: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+
+.ts-wrapper .ts-dropdown .option {
+    color: #d0dce4;
+    padding: 9px 15px;
+    transition: background 0.12s;
+}
+
+.ts-wrapper .ts-dropdown .option:hover,
+.ts-wrapper .ts-dropdown .option.active {
+    background: var(--color-yellow) !important;
+    color: var(--blue-dark) !important;
+    font-weight: 600;
+}
+
+.ts-wrapper .ts-dropdown .create {
+    color: var(--color-yellow) !important;
+    font-style: italic;
+}
+
+/* ── Étiquettes de section (modify) ── */
+.field-section { margin-bottom: 1.25rem; }
+.field-section .field-label,
+.field-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-yellow);
+    margin-bottom: 0.4rem;
+}
+.field-label i { font-size: 0.9rem; opacity: 0.8; }
+
+/* ── Filtres de la liste ── */
+.filter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-yellow);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+.listing-filters {
+    background: #011f2f;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+}
