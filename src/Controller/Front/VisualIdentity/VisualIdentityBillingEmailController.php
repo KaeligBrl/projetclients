@@ -21,7 +21,7 @@ class VisualIdentityBillingEmailController extends AbstractController
     #[Route('/facturation-identite-visuelle/envoyer-email/{id}', name: 'vi_billing_send_email')]
     public function send(VisualIdentityBilling $billing, EmailSettingRepository $settingRepository): Response
     {
-        $clientName = $billing->getVisualIdentityProject()->getCustomer()?->getName() ?? 'Client';
+        $clientName = $billing->getVisualIdentityProject()->getCustomer()?->getEntreprise() ?? 'Client';
 
         $checksMap = [
             'deposit' => $billing->getDeposit(),

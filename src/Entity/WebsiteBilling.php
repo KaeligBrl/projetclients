@@ -48,6 +48,9 @@ class WebsiteBilling
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $statusInvoiced = false;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $paid = false;
+
 
     public function getId(): ?int
     {
@@ -140,4 +143,7 @@ class WebsiteBilling
 
     public function getStatusInvoiced(): ?bool { return $this->statusInvoiced; }
     public function setStatusInvoiced(bool $v): static { $this->statusInvoiced = $v; return $this; }
+
+    public function getPaid(): ?bool { return $this->paid; }
+    public function setPaid(bool $paid): static { $this->paid = $paid; return $this; }
 }

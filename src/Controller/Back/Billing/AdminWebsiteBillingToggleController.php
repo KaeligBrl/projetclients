@@ -25,7 +25,7 @@ class AdminWebsiteBillingToggleController extends AbstractController
         if (!$setting || !$setting->getRecipientEmail()) {
             return;
         }
-        $clientName = $billing->getWebsiteProject()->getCustomer()?->getName() ?? 'Client';
+        $clientName = $billing->getWebsiteProject()->getCustomer()?->getEntreprise() ?? 'Client';
         $body = str_replace(
             ['{client}', '{section}'],
             [$clientName, 'Sites web'],

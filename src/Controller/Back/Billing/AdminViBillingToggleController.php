@@ -25,7 +25,7 @@ class AdminViBillingToggleController extends AbstractController
         if (!$setting || !$setting->getRecipientEmail()) {
             return;
         }
-        $clientName = $billing->getVisualIdentityProject()->getCustomer()?->getName() ?? 'Client';
+        $clientName = $billing->getVisualIdentityProject()->getCustomer()?->getEntreprise() ?? 'Client';
         $body = str_replace(
             ['{client}', '{section}'],
             [$clientName, 'Identité visuelle'],

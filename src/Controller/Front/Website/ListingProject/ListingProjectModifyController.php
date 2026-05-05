@@ -33,7 +33,7 @@ class ListingProjectModifyController extends AbstractController
             $listingProjectModify = $form->getData();
             $customer = $listingProjectModify->getCustomer();
             if ($customer) {
-                $listingProjectModify->setEnterprise($customer->getName());
+                $listingProjectModify->setEnterprise($customer->getEntreprise());
                 $wp = $this->websiteProjectRepo->findOneBy(['customer' => $customer]);
                 if ($wp && $wp->getDomainText()) {
                     $listingProjectModify->setDomainName($wp->getDomainText());

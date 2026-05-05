@@ -25,7 +25,7 @@ class ModifyListingProjectsType extends AbstractType
                 'required' => true,
                 'label_attr' => ['class' => 'color-yellow'],
                 'class' => Customer::class,
-                'choice_label' => fn (Customer $c) => $c->getName(),
+                'choice_label' => fn (Customer $c) => $c->getEntreprise(),
                 'expanded' => false,
                 'multiple' => false,
                 'placeholder' => 'Sélectionner un client…',

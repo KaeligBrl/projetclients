@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Controller\Back;
 
@@ -26,7 +26,6 @@ class CustomerController extends AbstractController
     #[Route('clients', name: 'list_customer')]
     public function listCustomers(CustomerRepository $customerAdmin): Response
     {
-        //Count Customer
         $em = $this->entityManager;
         $repoCustomer = $em->getRepository(Customer::class);
         $totalCustomer = $repoCustomer->createQueryBuilder('a')
@@ -35,7 +34,7 @@ class CustomerController extends AbstractController
             ->getSingleScalarResult();
 
         return $this->render('back/customer/list.html.twig', [
-            'customer' => $customerAdmin->findBy(array(), array('name' => 'ASC')),
+            'customer' => $customerAdmin->findBy(array(), array('entreprise' => 'ASC')),
             'totalCustomer' => $totalCustomer
         ]);
     }
@@ -81,8 +80,8 @@ class CustomerController extends AbstractController
             $customerModify = $form->getData();
             $this->entityManager->persist($customerModify);
             $this->entityManager->flush();
-            $notification = 'Client mise Ã  jour !';
-            $form = $this->createForm(ModifyCustomerType::class, $customerModify);
+            $this->addFlash('success', 'Client mis à jour !');
+            return $this->redirectToRoute('modify_customer', ['id' => $customerModify->getId()]);
         }
 
         return $this->render('back/customer/modify.html.twig', [
@@ -92,9 +91,3 @@ class CustomerController extends AbstractController
         ]);
     }
 }
-
-
-
-
-
-

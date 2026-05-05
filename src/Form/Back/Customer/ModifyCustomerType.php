@@ -14,13 +14,17 @@ class ModifyCustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('entreprise', TextType::class, array(
                 'required' => true,
-                'label' => 'Nom du client',
+                'label' => 'Entreprise',
             ))
             ->add('firstname', TextType::class, [
                 'required' => false,
                 'label' => 'Prénom',
+            ])
+            ->add('lastname', TextType::class, [
+                'required' => false,
+                'label' => 'Nom',
             ])
             ->add('address', TextType::class, [
                 'required' => false,

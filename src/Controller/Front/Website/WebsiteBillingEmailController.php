@@ -21,7 +21,7 @@ class WebsiteBillingEmailController extends AbstractController
     #[Route('/facturation-sites-web/envoyer-email/{id}', name: 'website_billing_send_email')]
     public function send(WebsiteBilling $billing, EmailSettingRepository $settingRepository): Response
     {
-        $clientName = $billing->getWebsiteProject()->getCustomer()?->getName() ?? 'Client';
+        $clientName = $billing->getWebsiteProject()->getCustomer()?->getEntreprise() ?? 'Client';
 
         $checksMap = [
             'deposit'             => $billing->getDeposit(),

@@ -28,12 +28,24 @@ class WebsiteBillingCheckboxController extends AbstractController
         if (!$setting || !$setting->getRecipientEmail()) {
             return;
         }
-        $clientName = $billing->getWebsiteProject()->getCustomer()?->getName() ?? 'Client';
-        $body = str_replace(
-            ['{client}', '{section}'],
-            [$clientName, 'Sites web'],
-            $setting->getMessageBody() ?? ''
-        );
+        $customer = $billing->getWebsiteProject()->getCustomer();
+        $clientName = $customer?->getEntreprise() ?? 'Client';
+
+        $search = ['{client}', '{section}'];
+        $replace = [$clientName, 'Sites web'];
+
+        if ($checkboxKey === 'deposit') {
+            $search  = array_merge($search,  ['{firstname}', '{lastname}', '{address}', '{postalCode}', '{tva}']);
+            $replace = array_merge($replace, [
+                $customer?->getFirstname() ?? '',
+                $customer?->getLastname() ?? '',
+                $customer?->getAddress()   ?? '',
+                $customer?->getPostalCode() ?? '',
+                $customer?->getTva()       ?? '',
+            ]);
+        }
+
+        $body = str_replace($search, $replace, $setting->getMessageBody() ?? '');
         $email = (new Email())
             ->from('noreply@projetsclients.local')
             ->to($setting->getRecipientEmail())

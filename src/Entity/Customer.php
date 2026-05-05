@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-#[UniqueEntity(fields: ['name'], message: 'Le client existe déjà !')]
+#[UniqueEntity(fields: ['entreprise'], message: 'Le client existe déjà !')]
 class Customer
 {
     #[ORM\Id]
@@ -17,11 +17,14 @@ class Customer
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    #[ORM\Column(type: 'string', length: 255, name: 'entreprise')]
+    private $entreprise;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $firstname = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $lastname = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $address = null;
@@ -50,14 +53,14 @@ class Customer
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getEntreprise(): ?string
     {
-        return $this->name;
+        return $this->entreprise;
     }
 
-    public function setName(string $name): self
+    public function setEntreprise(string $entreprise): self
     {
-        $this->name = $name;
+        $this->entreprise = $entreprise;
 
         return $this;
     }
@@ -70,6 +73,18 @@ class Customer
     public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): self
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -112,7 +127,7 @@ class Customer
 
     public function __toString()
     {
-    return $this->name;
+        return $this->entreprise;
     }
 
     /**

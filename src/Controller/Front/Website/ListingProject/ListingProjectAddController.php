@@ -44,7 +44,7 @@ class ListingProjectAddController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $customer = $listingCustomerAdd->getCustomer();
             if ($customer) {
-                $listingCustomerAdd->setEnterprise($customer->getName());
+                $listingCustomerAdd->setEnterprise($customer->getEntreprise());
                 $wp = $this->websiteProjectRepo->findOneBy(['customer' => $customer]);
                 if ($wp && $wp->getDomainText()) {
                     $listingCustomerAdd->setDomainName($wp->getDomainText());

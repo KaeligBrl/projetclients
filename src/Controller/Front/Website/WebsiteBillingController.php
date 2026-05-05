@@ -30,7 +30,7 @@ class WebsiteBillingController extends AbstractController
             if (!$billing) {
                 $billing = new WebsiteBilling();
                 $billing->setWebsiteProject($project);
-                $billing->setLabel($project->getCustomer()?->getName() ?? '');
+                $billing->setLabel($project->getCustomer()?->getEntreprise() ?? '');
                 $this->entityManager->persist($billing);
             }
         }

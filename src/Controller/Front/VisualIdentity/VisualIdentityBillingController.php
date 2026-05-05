@@ -30,7 +30,7 @@ class VisualIdentityBillingController extends AbstractController
             if (!$billing) {
                 $billing = new VisualIdentityBilling();
                 $billing->setVisualIdentityProject($project);
-                $billing->setLabel($project->getCustomer()?->getName() ?? '');
+                $billing->setLabel($project->getCustomer()?->getEntreprise() ?? '');
                 $this->entityManager->persist($billing);
             }
         }
