@@ -31,46 +31,43 @@ class AddListingProjectsType extends AbstractType
                 'required' => true,
                 'label_attr' => ['class' => 'color-yellow'],
             ])
-            ->add('name_activities', EntityType::class, array(
-                'required' => true,
+            ->add('name_activities', EntityType::class, [
+                'required' => false,
                 'label' => false,
                 'choice_label' => fn (FiltersActivities $filter) => $filter->getNameActivities(),
                 'class' => FiltersActivities::class,
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
-                'label_attr' => ['class' => 'color-white'],
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                    ->orderBy('c.nameActivities', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
-            },
-            ))
-            ->add('nameEnterpriseType', EntityType::class, array(
-                'required' => true,
+                'attr' => ['class' => 'tom-select-field'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->orderBy('c.nameActivities', 'ASC');
+                },
+            ])
+            ->add('nameEnterpriseType', EntityType::class, [
+                'required' => false,
                 'label' => false,
                 'choice_label' => fn (FilterEnterprise $filter) => $filter->getNameEnterpriseType(),
                 'class' => FilterEnterprise::class,
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
-                'label_attr' => ['class' => 'color-white'],
+                'attr' => ['class' => 'tom-select-field'],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.nameEnterpriseType', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                    return $er->createQueryBuilder('c')->orderBy('c.nameEnterpriseType', 'ASC');
                 },
-            ))
+            ])
 
-            ->add('nameWebsites', EntityType::class, array(
-                'required' => true,
+            ->add('nameWebsites', EntityType::class, [
+                'required' => false,
                 'label' => false,
                 'choice_label' => fn (FiltersWebsites $filter) => $filter->getNameWebsites(),
                 'class' => FiltersWebsites::class,
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
-                'label_attr' => ['class' => 'color-white'],
+                'attr' => ['class' => 'tom-select-field'],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.nameWebsites', 'ASC'); // Remplacez 'nom' par le nom de l'attribut que vous voulez trier
+                    return $er->createQueryBuilder('c')->orderBy('c.nameWebsites', 'ASC');
                 },
-            ))
+            ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',

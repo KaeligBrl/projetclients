@@ -1,159 +1,152 @@
 {% extends 'base.html.twig' %}
 
-{%  block title %}Listes des projets - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block title %}Liste des projets - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css">
+    <style>
+        /* ── Tom Select ── */
+        .ts-wrapper { --ts-pr-min: 2rem; }
+        .ts-wrapper .ts-control {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 20px;
+            padding: 8px 15px;
+            box-shadow: none;
+            min-height: 44px;
+        }
+        .ts-wrapper.focus .ts-control,
+        .ts-wrapper .ts-control:focus-within {
+            border: 1px solid var(--color-yellow);
+            box-shadow: 0 0 0 2px rgba(255,214,0,.2);
+            outline: none;
+        }
+        .ts-wrapper .ts-control .item {
+            background: var(--color-yellow);
+            color: var(--blue-dark);
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 2px 10px;
+            border: none;
+        }
+        .ts-wrapper .ts-control .item .remove {
+            border-left: 1px solid rgba(0,38,58,.3);
+            color: var(--blue-dark);
+        }
+        .ts-wrapper .ts-control input { color: #ffffff; }
+        .ts-wrapper .ts-control input::placeholder { color: rgba(255,255,255,.45); }
+        .ts-wrapper .ts-dropdown {
+            background: #011f2f;
+            border: 1px solid #395c6e;
+            border-radius: 12px;
+            margin-top: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.45);
+            overflow: hidden;
+        }
+        .ts-wrapper .ts-dropdown .option { color: #d0dce4; padding: 9px 15px; transition: background .12s; }
+        .ts-wrapper .ts-dropdown .option:hover,
+        .ts-wrapper .ts-dropdown .option.active { background: var(--color-yellow); color: var(--blue-dark); font-weight: 600; }
+        .ts-wrapper .ts-dropdown .create { color: var(--color-yellow) !important; font-style: italic; }
+        .filter-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--color-yellow); margin-bottom: .4rem; display: block; }
+        .listing-filters { background: #011f2f; border-radius: .75rem; padding: 1.25rem 1.5rem; }
+    </style>
+{% endblock %}
 
 {% block content %}
+<div class="container py-4">
 
+    <h1 class="text-center color-white mb-1">Liste des projets</h1>
+    <p class="color-white text-center mb-3" style="opacity:.7; font-size:.9rem;">
+        {{ project_count }} site{{ project_count > 1 ? 's' : '' }} référencé{{ project_count > 1 ? 's' : '' }}
+    </p>
+    <div class="separator mb-4"></div>
 
-		<div class="container">
-		<div class="mb-5"></div>
-		<h1 class="text-center color-white">Liste des projets</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ path('listing_projects_add') }}" class="btn btn-sm fw-bold"
+           style="background:#FFD600;color:#00263A;">
+            <i class="fas fa-plus-circle me-1"></i> Ajouter un site
+        </a>
+    </div>
+    {% endif %}
 
-		{% if project_count > 1 %}
-			<p class="color-white text-center">{{ project_count }} sites internet ont été créés.</p>
-		{% else %}
-			<p class="color-white text-center">{{ project_count }} site internet a été créé.</p>
-		{% endif %}
+    {# ── Filtres Tom Select ── #}
+    <div class="listing-filters mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="filter-label">Activité</label>
+                <select id="ts-activity" multiple placeholder="Filtrer par activité…">
+                    {% for f in filters %}
+                    <option value="{{ f.id }}">{{ f.nameActivities }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="filter-label">Type de site</label>
+                <select id="ts-website" multiple placeholder="Filtrer par type de site…">
+                    {% for f in filterWebsites %}
+                    <option value="{{ f.id }}">{{ f.nameWebsites }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="filter-label">Type d'entreprise</label>
+                <select id="ts-enterprise" multiple placeholder="Filtrer par entreprise…">
+                    {% for f in filterEnterprises %}
+                    <option value="{{ f.id }}">{{ f.nameEnterpriseType }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="mt-2">
+            <button type="button" id="reset-filters" class="btn btn-sm btn-outline-light" style="display:none;">
+                <i class="fas fa-times me-1"></i> Réinitialiser
+            </button>
+        </div>
+    </div>
 
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
-			<div class="d-flex flex-row-reverse justify-content-center">
-				<a href="{{ path('filter_enterprise_add') }}" title="Ajouter un filtre entreprise" type="button" class="btn-submit mb-3">
-					Ajouter un filtre entreprise
-				</a>
-				<div class="mr-3"></div>
-				<a href="{{ path('filter_website_type_add') }}" title="Ajouter un filtre type de site" type="button"
-					class="btn-submit mb-3">
-					Ajouter un filtre type de site
-				</a>
-				<div class="mr-3"></div>
-				<a href="{{ path('filter_activitie_add') }}" title="Ajouter un filtre activité" type="button" class="btn-submit mb-3">
-					Ajouter un filtre activité
-				</a>
-				<div class="mr-3"></div>
-				<a href="{{ path('listing_projects_add') }}" title="Ajouter un site" type="button" class="btn-submit mb-3">
-					Ajouter un site
-				</a>
-			</div>
-        	<nav class="rounded-pill verta navbar navbar-expand-lg mt-3 mb-3">
-				<button class="navbar-toggler" type="button"data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="" role="button" ><i class="fa fa-bars" aria-hidden="true" style="color:#e6e6ff"></i></span>
-				</button>
-				<div class="collapse navbar-collapse bg-blue-dark text-center p-4 rounded-pill d-flex justify-content-center" id="navbarNav">
-					<ul class="navbar-nav">
-						<select id="selectFilters" class="form-control">
-							<option value="">Choisir une activité</option>
-							{% for filter in filters %}
-								<option class="checkFilter" value="{{filter.id}}">{{filter.nameActivities}}</option>
-							{% endfor %}
-						</select>
-						<div class="mr-3"></div>
+    {# ── Tableau ── #}
+    <div class="table-responsive">
+        <table class="table table-bordered mb-5" id="listing-table">
+            <thead class="bg-blue-dark-light">
+                <tr>
+                    <th class="color-yellow">Entreprise</th>
+                    <th class="color-yellow">Site internet</th>
+                    <th class="color-yellow">Activité</th>
+                    <th class="color-yellow">Type de site</th>
+                    <th class="color-yellow">Type d'entreprise</th>
+                    {% if is_granted('ROLE_ADMIN') %}<th class="color-yellow">Action</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody id="listing-tbody" class="bg-blue-dark">
+                <tr><td colspan="6" class="text-center color-white py-4">
+                    <i class="fas fa-spinner fa-spin me-2"></i> Chargement…
+                </td></tr>
+            </tbody>
+        </table>
+        <p id="no-results" class="text-center color-white mt-3" style="display:none;">
+            Aucun résultat pour ces filtres.
+        </p>
+    </div>
 
-						<select id="selectFiltersFa" class="form-control">
-							<option value="">Choisir un type de site</option>
-							{% for filterWebsite in filterWebsites %}
-							<option class="checkFilter" value="{{filterWebsite.id}}">{{filterWebsite.nameWebsites}}</option>
-							{% endfor %}
-						</select>
-						<div class="mr-3"></div>
-						<select id="selectFiltersFe" class="form-control">
-							<option value="">Choisir un type d'entreprise</option>
-							{% for filterEnterprise in filterEnterprises %}
-							<option class="checkFilter" value="{{filterEnterprise.id}}">{{filterEnterprise.NameEnterpriseType}}</option>
-							{% endfor %}
-						</select>
-						<div class="mr-3"></div>
-					</ul>
-					<button class="btn-submit" onclick="validate()">Filtrer</button>
-				</div>
-			</nav>
-
-			<table class="table mb-5 table-bordered" data-toggle="table" data-search="true" >
-				<thead class="bg-blue-dark-light table-borderless">
-					<tr>
-						<th class="color-yellow" scope="col">Entreprise</th>
-						<th class="color-yellow" scope="col">Site internet</th>
-						<th class="color-yellow" scope="col">Secteur d'activité</th>
-						<th class="color-yellow" scope="col">Type de site</th>
-						<th class="color-yellow" scope="col">Type d'entreprise</th>
-						<th class="color-yellow" scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody class="bg-blue-dark align-middle">
-					{% for listingProject in listingProjects %}
-						<tr>
-							<td class="verta color-white">{{ listingProject.enterprise}}</td>
-							
-							<td class="verta color-white">
-								{% if listingProject.domain_name is empty %}
-									<span>Non renseigné</span>
-								{% else %}
-									<a class="color-white" href="{{ listingProject.domain_name }}" target="new">{{ listingProject.domain_name}}
-								{% endif %}
-							</td>
-							<td class="verta color-white">
-								{% if listingProject.nameActivity is empty %}
-									<span>Non renseigné</span>
-								{% else %}
-									{{listingProject.nameActivity}}
-								{% endif %}
-							</td>
-							<td class="verta color-white">
-							{% if listingProject.nameWebsite is empty %}
-								<span>Non renseigné</span>
-							{% else %}
-								{{listingProject.nameWebsite}}
-							{% endif %}
-							</td>
-							<td class="verta color-white">
-								{% if listingProject.nameEnterpriseType is empty %}
-								<span>Non renseigné</span>
-								{% else %}
-								{{ listingProject.nameEnterpriseType|nl2br }}
-								{% endif %}
-							</td>
-							<td>
-								<a href="{{ path('listing_projects_modify', {"id": listingProject.id}) }}"><i class=" color-white fas fa-cog"></i></a>
-								<span class="color-white">|</span>
-								<a href="{{ path('listing_projects_detete', {"id": listingProject.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un projet')" title="Supprimer"><i class=" color-white fas fa-trash"></i></a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-		<script>
-			const currentFilters = '{{currentFilters}}';
-			const currentFiltersFa = '{{currentFiltersFa}}';
-			const currentFiltersFe = '{{currentFiltersFe}}';
-
-			const selectFilters = document.querySelector('#selectFilters')
-			const selectFiltersFa = document.querySelector('#selectFiltersFa')
-			const selectFiltersFe = document.querySelector('#selectFiltersFe')
-
-			selectFilters.value = currentFilters;
-			selectFiltersFa.value = currentFiltersFa;
-			selectFiltersFe.value = currentFiltersFe;
-
-		function validate() {
-			const selectFilters = document.querySelector('#selectFilters').value;
-			const selectFiltersFa = document.querySelector('#selectFiltersFa').value;
-			const selectFiltersFe = document.querySelector('#selectFiltersFe').value;
-
-			// Récupérer l'URL actuelle
-			let url = new URL(window.location.href);
-
-			// Mettre à jour les paramètres de requête avec les nouvelles valeurs sélectionnées
-			url.searchParams.set('filters', selectFilters);
-			url.searchParams.set('filtersFa', selectFiltersFa);
-			url.searchParams.set('filtersFe', selectFiltersFe);
-
-			// Recharger la page avec les nouveaux paramètres de filtre
-			window.location.href = url;
-		}
-
-		</script>
-	</body>
-</html>
+</div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script>
+        window.LISTING_SEARCH_URL   = "{{ path('listing_projects_search') }}";
+        window.LISTING_MODIFY_PATH  = "{{ path('listing_projects_modify', {id: '__ID__'}) }}";
+        window.LISTING_DELETE_PATH  = "{{ path('listing_projects_detete', {id: '__ID__'}) }}";
+        window.IS_ADMIN             = {{ is_granted('ROLE_ADMIN') ? 'true' : 'false' }};
+        window.FILTER_CREATE_URLS   = {
+            activity:   "{{ path('listing_filter_create_activity') }}",
+            website:    "{{ path('listing_filter_create_website') }}",
+            enterprise: "{{ path('listing_filter_create_enterprise') }}"
+        };
+    </script>
+    <script src="{{ asset('assets/js/listing_projects.js') }}"></script>
+{% endblock %}
+

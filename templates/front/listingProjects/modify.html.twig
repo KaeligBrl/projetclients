@@ -2,6 +2,98 @@
 
 {% block title %}Modifier le projet - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css">
+    <style>
+        /* ── Tom Select ── */
+        .ts-wrapper { --ts-pr-min: 2rem; }
+        /* Annule Bootstrap .form-control sur .ts-wrapper */
+        .ts-wrapper {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+        .ts-wrapper .ts-control,
+        .ts-wrapper.single .ts-control,
+        .ts-wrapper.multi .ts-control,
+        .form-general .ts-wrapper .ts-control {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: 1px solid rgba(255,255,255,0.18) !important;
+            border-radius: 20px !important;
+            color: #ffffff !important;
+            box-shadow: none !important;
+            min-height: 44px;
+            padding: 8px 15px;
+        }
+        .ts-wrapper.focus .ts-control,
+        .ts-wrapper .ts-control:focus-within,
+        .form-general .ts-wrapper.focus .ts-control {
+            border: 1px solid var(--color-yellow) !important;
+            box-shadow: 0 0 0 2px rgba(255,214,0,.2) !important;
+        }
+        .ts-wrapper .ts-control .item {
+            background: var(--color-yellow) !important;
+            color: var(--blue-dark) !important;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 2px 10px;
+            border: none;
+        }
+        .ts-wrapper .ts-control .item .remove {
+            border-left: 1px solid rgba(0,38,58,.3);
+            color: var(--blue-dark);
+        }
+        .ts-wrapper .ts-control input,
+        .ts-wrapper .ts-control input[type="text"] {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding-left: 4px !important;
+            color: #ffffff !important;
+            caret-color: #ffffff !important;
+            box-shadow: none !important;
+        }
+        .ts-wrapper .ts-control input::placeholder { color: rgba(255,255,255,.45); }
+        .ts-wrapper .ts-dropdown {
+            background: #011f2f !important;
+            border: 1px solid #395c6e;
+            border-radius: 12px;
+            margin-top: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.45);
+            overflow: hidden;
+        }
+        .ts-wrapper .ts-dropdown .option {
+            color: #d0dce4;
+            padding: 9px 15px;
+            transition: background .12s;
+        }
+        .ts-wrapper .ts-dropdown .option:hover,
+        .ts-wrapper .ts-dropdown .option.active {
+            background: var(--color-yellow) !important;
+            color: var(--blue-dark) !important;
+            font-weight: 600;
+        }
+        .field-section { margin-bottom: 1.25rem; }
+        .field-section .field-label {
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--color-yellow);
+            margin-bottom: .4rem;
+        }
+        .field-section .field-label i { font-size: .9rem; opacity: .8; }
+    </style>
+{% endblock %}
+
 {% block body %}
 	{% block content %}
 		{% if notification %}
@@ -13,28 +105,56 @@
 		<div class="mb-3"></div>
 		{% endif %}
 		<div class="form-general">
-			<h1 class="text-center color-white text-capitalize">Modification du projet <i class="fas fa-arrow-right"></i> {{listingCustomer.enterprise}}</h1>	
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
+			<h1 class="text-center color-white mb-1">Modifier <span class="color-yellow">{{ listingCustomer.enterprise }}</span></h1>
+			<div class="separator mb-4"></div>
 			{{ form_start(form_listing_project_modify) }}
-				<div>
-				{{ form_row(form_listing_project_modify.enterprise) }}
-				{{ form_row(form_listing_project_modify.domainname) }}
-				<div class="mb-3"></div>
-				<p class="text-left color-yellow">Secteur activité</p>
-				{{ form_row(form_listing_project_modify.name_activities) }}
-				<div class="mb-3"></div>
-				<p class="text-left color-yellow">Type de site</p>
-				{{ form_row(form_listing_project_modify.nameWebsites) }}
-				<div class="mb-3"></div>
-				<p class="text-left color-yellow">Type d'entreprise</p>
-				{{ form_row(form_listing_project_modify.nameEnterpriseType) }}
-				<div class="mb-3"></div>
-				{{ form_row(form_listing_project_modify.submit) }}
+
+				<div class="row g-3 mb-3">
+					<div class="col-md-6">
+						<div class="field-label" style="display:flex;align-items:center;gap:.45rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-yellow);margin-bottom:.4rem;"><i class="fas fa-building"></i> Entreprise</div>
+						{{ form_widget(form_listing_project_modify.enterprise, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="col-md-6">
+						<div class="field-label" style="display:flex;align-items:center;gap:.45rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-yellow);margin-bottom:.4rem;"><i class="fas fa-globe"></i> Nom de domaine</div>
+						{{ form_widget(form_listing_project_modify.domainname, {'attr': {'class': 'form-control'}}) }}
+					</div>
 				</div>
+
+				<div class="row g-3 mb-4">
+					<div class="col-md-4 field-section">
+						<div class="field-label"><i class="fas fa-tag"></i> Secteur d'activité</div>
+						{{ form_widget(form_listing_project_modify.name_activities) }}
+					</div>
+					<div class="col-md-4 field-section">
+						<div class="field-label"><i class="fas fa-laptop-code"></i> Type de site</div>
+						{{ form_widget(form_listing_project_modify.nameWebsites) }}
+					</div>
+					<div class="col-md-4 field-section">
+						<div class="field-label"><i class="fas fa-briefcase"></i> Type d'entreprise</div>
+						{{ form_widget(form_listing_project_modify.nameEnterpriseType) }}
+					</div>
+				</div>
+
+				<div class="text-center">
+					{{ form_widget(form_listing_project_modify.submit) }}
+				</div>
+
 			{{ form_end(form_listing_project_modify) }}
 		</div>
 	{% endblock %}
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script>
+        document.querySelectorAll('.tom-select-field').forEach(function (el) {
+            el.closest('.mb-3, p + div, div') && el.parentElement.classList.add('ts-field-wrapper');
+            new TomSelect(el, {
+                plugins: ['remove_button'],
+                placeholder: 'Sélectionner…',
+            });
+        });
+    </script>
 {% endblock %}

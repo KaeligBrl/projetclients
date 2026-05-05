@@ -19,49 +19,41 @@ class ListingProjectsRepository extends ServiceEntityRepository
         parent::__construct($registry, ListingProjects::class);
     }
 
-    public function findListingProjectByParam($idsLpf, $idsFa, $idsFe)
+    public function findListingProjectByParam(?array $idsActivity, ?array $idsWebsite, ?array $idsEnterprise): array
     {
-        // Convert arrays to comma-separated strings if they are arrays
-        $idsLpf = is_array($idsLpf) ? implode(',', $idsLpf) : $idsLpf;
-        $idsFa = is_array($idsFa) ? implode(',', $idsFa) : $idsFa;
-        $idsFe = is_array($idsFe) ? implode(',', $idsFe) : $idsFe;
+        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        // Start building the base query
-        $req = "
-            SELECT lp.id, lp.enterprise, lp.domain_name, 
-                GROUP_CONCAT(DISTINCT fa.name_activities SEPARATOR ', ') AS nameActivity,
-                GROUP_CONCAT(DISTINCT fw.name_websites SEPARATOR ', ') AS nameWebsite,
-                GROUP_CONCAT(DISTINCT fe.name_enterprise_type SEPARATOR ', ') AS nameEnterpriseType
-            FROM Listing_Projects lp
-            LEFT JOIN listing_projects_filters_activities lpf ON lpf.listing_projects_id = lp.id
-            LEFT JOIN filters_activities fa ON fa.id = lpf.filters_activities_id
-            LEFT JOIN listing_projects_filters_websites lpfw ON lpfw.listing_projects_id = lp.id
-            LEFT JOIN filters_websites fw ON fw.id = lpfw.filters_websites_id
-            LEFT JOIN listing_projects_filter_enterprise lpfe ON lpfe.listing_projects_id = lp.id
-            LEFT JOIN filter_enterprise fe ON fe.id = lpfe.filter_enterprise_id
-        ";
+        $qb->select(
+                'lp.id',
+                'lp.enterprise',
+                'lp.domain_name',
+                "GROUP_CONCAT(DISTINCT fa.name_activities ORDER BY fa.name_activities SEPARATOR ', ') AS nameActivity",
+                "GROUP_CONCAT(DISTINCT fw.name_websites ORDER BY fw.name_websites SEPARATOR ', ') AS nameWebsite",
+                "GROUP_CONCAT(DISTINCT fe.name_enterprise_type ORDER BY fe.name_enterprise_type SEPARATOR ', ') AS nameEnterpriseType"
+            )
+            ->from('listing_projects', 'lp')
+            ->leftJoin('lp', 'listing_projects_filters_activities', 'lpfa', 'lpfa.listing_projects_id = lp.id')
+            ->leftJoin('lpfa', 'filters_activities', 'fa', 'fa.id = lpfa.filters_activities_id')
+            ->leftJoin('lp', 'listing_projects_filters_websites', 'lpfw', 'lpfw.listing_projects_id = lp.id')
+            ->leftJoin('lpfw', 'filters_websites', 'fw', 'fw.id = lpfw.filters_websites_id')
+            ->leftJoin('lp', 'listing_projects_filter_enterprise', 'lpfe', 'lpfe.listing_projects_id = lp.id')
+            ->leftJoin('lpfe', 'filter_enterprise', 'fe', 'fe.id = lpfe.filter_enterprise_id')
+            ->groupBy('lp.id')
+            ->orderBy('lp.enterprise', 'ASC');
 
-        // Append the WHERE clause based on the filters provided
-        $conditions = [];
-        if ($idsLpf) {
-            $conditions[] = "lpf.filters_activities_id IN ($idsLpf)";
+        if (!empty($idsActivity)) {
+            $qb->andWhere('lpfa.filters_activities_id IN (:idsActivity)')
+               ->setParameter('idsActivity', $idsActivity, \Doctrine\DBAL\ArrayParameterType::INTEGER);
         }
-        if ($idsFa) {
-            $conditions[] = "lpfw.filters_websites_id IN ($idsFa)";
+        if (!empty($idsWebsite)) {
+            $qb->andWhere('lpfw.filters_websites_id IN (:idsWebsite)')
+               ->setParameter('idsWebsite', $idsWebsite, \Doctrine\DBAL\ArrayParameterType::INTEGER);
         }
-        if ($idsFe) {
-            $conditions[] = "lpfe.filter_enterprise_id IN ($idsFe)";
-        }
-
-        if (count($conditions) > 0) {
-            $req .= " WHERE " . implode(' AND ', $conditions);
+        if (!empty($idsEnterprise)) {
+            $qb->andWhere('lpfe.filter_enterprise_id IN (:idsEnterprise)')
+               ->setParameter('idsEnterprise', $idsEnterprise, \Doctrine\DBAL\ArrayParameterType::INTEGER);
         }
 
-        // Append GROUP BY and ORDER BY clauses
-        $req .= " GROUP BY lp.id ORDER BY lp.enterprise ASC";
-
-        $query = $this->getEntityManager()->getConnection()->prepare($req);
-
-        return $query->executeQuery()->fetchAllAssociative();
+        return $qb->executeQuery()->fetchAllAssociative();
     }
 }
