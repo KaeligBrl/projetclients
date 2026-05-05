@@ -11,14 +11,17 @@ window.addEventListener("load", function () {
 
     function setLockedStyle(checkbox, isLockedByChain) {
         const isLockedByMail = !isMailEnabled(checkbox);
-        const isLocked = isLockedByChain || isLockedByMail;
+        const isLockedByRole = !!checkbox._adminOnly;
+        const isLocked = isLockedByChain || isLockedByMail || isLockedByRole;
 
         checkbox.disabled = isLocked;
         checkbox.style.opacity = isLocked ? "0.35" : "1";
         checkbox.style.cursor = isLocked ? "not-allowed" : "pointer";
-        checkbox.title = isLockedByMail
-            ? "Aucun email configuré pour cette étape."
-            : "";
+        checkbox.title = isLockedByRole
+            ? "Réservé au service administratif."
+            : isLockedByMail
+                ? "Aucun email configuré pour cette étape."
+                : "";
     }
 
     function enforceWebsiteChain(row) {
@@ -71,6 +74,7 @@ window.addEventListener("load", function () {
             }
             toggleOnServer(`/facturation-sites-web/acompte/${deposit.dataset.billingDeposit}`);
             enforceWebsiteChain(row);
+            enforceInvoicedState();
         });
 
         mockupSent.addEventListener("click", function () {
@@ -79,6 +83,7 @@ window.addEventListener("load", function () {
             }
             toggleOnServer(`/facturation-sites-web/maquette-envoyee/${mockupSent.dataset.billingMockupSent}`);
             enforceWebsiteChain(row);
+            enforceInvoicedState();
         });
 
         onboardingTraining.addEventListener("click", function () {
@@ -87,10 +92,50 @@ window.addEventListener("load", function () {
             }
             toggleOnServer(`/facturation-sites-web/formation/${onboardingTraining.dataset.billingOnboardingTraining}`);
             enforceWebsiteChain(row);
+            enforceInvoicedState();
         });
+
+        const depositInvoiced = row.querySelector(".billing-deposit-invoiced");
+        const mockupInvoiced = row.querySelector(".billing-mockup-invoiced");
+        const trainingInvoiced = row.querySelector(".billing-training-invoiced");
+
+        function setInvoicedLocked(checkbox, isLocked) {
+            if (!checkbox) return;
+            checkbox.disabled = isLocked;
+            checkbox.style.opacity = isLocked ? "0.35" : "1";
+            checkbox.style.cursor = isLocked ? "not-allowed" : "pointer";
+            checkbox.title = isLocked ? "Demande de facturation non effectuée." : "";
+        }
+
+        function enforceInvoicedState() {
+            setInvoicedLocked(depositInvoiced, !deposit.checked);
+            setInvoicedLocked(mockupInvoiced, !mockupSent.checked);
+            setInvoicedLocked(trainingInvoiced, !onboardingTraining.checked);
+        }
+
+        if (depositInvoiced) {
+            depositInvoiced.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/acompte-facture/${depositInvoiced.dataset.billingDepositInvoiced}`);
+            });
+        }
+        if (mockupInvoiced) {
+            mockupInvoiced.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/maquette-facturee/${mockupInvoiced.dataset.billingMockupInvoiced}`);
+            });
+        }
+        if (trainingInvoiced) {
+            trainingInvoiced.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/formation-facturee/${trainingInvoiced.dataset.billingTrainingInvoiced}`);
+            });
+        }
+
+        deposit._adminOnly = deposit.disabled;
+        mockupSent._adminOnly = mockupSent.disabled;
+        onboardingTraining._adminOnly = onboardingTraining.disabled;
 
         setLockedStyle(deposit, false);
         enforceWebsiteChain(row);
+        enforceInvoicedState();
     });
 });
 

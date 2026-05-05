@@ -11,14 +11,17 @@ window.addEventListener("load", function () {
 
     function setLockedStyle(checkbox, isLockedByChain) {
         const isLockedByMail = !isMailEnabled(checkbox);
-        const isLocked = isLockedByChain || isLockedByMail;
+        const isLockedByRole = !!checkbox._adminOnly;
+        const isLocked = isLockedByChain || isLockedByMail || isLockedByRole;
 
         checkbox.disabled = isLocked;
         checkbox.style.opacity = isLocked ? "0.35" : "1";
         checkbox.style.cursor = isLocked ? "not-allowed" : "pointer";
-        checkbox.title = isLockedByMail
-            ? "Aucun email configuré pour cette étape."
-            : "";
+        checkbox.title = isLockedByRole
+            ? "Réservé au service administratif."
+            : isLockedByMail
+                ? "Aucun email configuré pour cette étape."
+                : "";
     }
 
     const rows = document.querySelectorAll("tbody tr");
@@ -57,6 +60,7 @@ window.addEventListener("load", function () {
             }
             toggleOnServer(`/facturation-identite-visuelle/acompte/${deposit.dataset.viBillingDeposit}`);
             enforceVisualIdentityChain();
+            enforceInvoicedState();
         });
 
         status.addEventListener("click", function () {
@@ -65,9 +69,53 @@ window.addEventListener("load", function () {
             }
             toggleOnServer(`/facturation-identite-visuelle/envoi-administratif/${status.dataset.viBillingStatus}`);
             enforceVisualIdentityChain();
+            enforceInvoicedState();
         });
+
+        const depositInvoiced = row.querySelector(".vi-billing-deposit-invoiced");
+        const depositPaid     = row.querySelector(".vi-billing-deposit-paid");
+        const statusInvoiced  = row.querySelector(".vi-billing-status-invoiced");
+        const statusPaid      = row.querySelector(".vi-billing-status-paid");
+
+        function setInvoicedLocked(checkbox, isLocked) {
+            if (!checkbox) return;
+            checkbox.disabled = isLocked;
+            checkbox.style.opacity = isLocked ? "0.35" : "1";
+            checkbox.style.cursor = isLocked ? "not-allowed" : "pointer";
+            checkbox.title = isLocked ? "Demande de facturation non effectuée." : "";
+        }
+
+        function enforceInvoicedState() {
+            setInvoicedLocked(depositInvoiced, !deposit.checked);
+            setInvoicedLocked(statusInvoiced, !status.checked);
+        }
+
+        if (depositInvoiced) {
+            depositInvoiced.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-identite-visuelle/acompte-facture/${depositInvoiced.dataset.viBillingDepositInvoiced}`);
+            });
+        }
+        if (depositPaid) {
+            depositPaid.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-identite-visuelle/acompte-paye/${depositPaid.dataset.viBillingDepositPaid}`);
+            });
+        }
+        if (statusInvoiced) {
+            statusInvoiced.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-identite-visuelle/admin-facture/${statusInvoiced.dataset.viBillingStatusInvoiced}`);
+            });
+        }
+        if (statusPaid) {
+            statusPaid.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-identite-visuelle/admin-paye/${statusPaid.dataset.viBillingStatusPaid}`);
+            });
+        }
+
+        deposit._adminOnly = deposit.disabled;
+        status._adminOnly = status.disabled;
 
         setLockedStyle(deposit, false);
         enforceVisualIdentityChain();
+        enforceInvoicedState();
     });
 });

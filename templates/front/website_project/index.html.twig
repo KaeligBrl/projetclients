@@ -9,16 +9,20 @@
 	<div class="separator"></div>
 	<div class="row">
 		<div class="col padding-mobile">
-			{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_COMPTA') %}
 				{% if projects is empty %}
 				<p class="text-center color-white mt-2">Aucun site web n'a encore été ajouté</p>
+				{% if is_granted('ROLE_ADMIN') %}
 				<p class="text-center color-white mt-2">Ajouter un projet de site web <a href="{{ path('website_project_add') }}">ici</a></p>
+				{% endif %}
 				{% else %}
+				{% if is_granted('ROLE_ADMIN') %}
 				<div class="d-flex flex-row-reverse">
 					<a href="{{ path('website_project_add') }}" title="Ajouter un client" type="button" class="btn mb-3">
 						<i class="color-white fas fa-plus-circle"></i>
 					</a>
 				</div>
+				{% endif %}
 						<table class="table mb-5 table-bordered">
 							<thead class="bg-blue-dark-light table-borderless">
 								<tr>

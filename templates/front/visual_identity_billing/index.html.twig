@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+﻿{% extends 'base.html.twig' %}
 
 {% block title %}Facturation identité visuelle - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
@@ -14,11 +14,17 @@
 	{% endif %}
 	<div class="alert mt-3 mb-3" role="alert" style="background:#023D5C; border-left: 3px solid #FFD600; color:#fff;">
 		<i class="fas fa-info-circle me-1" style="color:#FFD600;"></i>
-		Les colonnes <strong>Facturé</strong> et <strong>Payé</strong> sont remplies par le service administratif. Vous recevrez un email automatique à chaque étape.
+		{% if is_granted('ROLE_ADMIN') %}
+			La colonne <strong>Facturé</strong> est à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
+		{% else %}
+			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> une fois la facture émise.
+			<br><small style="opacity:.8;">Les cases griseśes ne sont pas encore disponibles — attendez la demande de Shebam.
+</small>
+		{% endif %}
 	</div>
 	<div class="row">
 		<div class="col padding-mobile">
-			{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_COMPTA') %}
 				{% if billings is empty %}
 					<p class="text-center color-white mt-2">Aucun projet trouvé.</p>
 				{% else %}
@@ -27,16 +33,14 @@
 						<thead class="bg-blue-dark-light table-borderless">
 							<tr>
 								<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Acompte</th>
-								<th class="color-yellow text-bold text-center" colspan="3">Envoyé au service admin</th>
+							<th class="color-yellow text-bold text-center" colspan="2">Acompte</th>
+							<th class="color-yellow text-bold text-center" colspan="2">Envoyé au service admin</th>
 							</tr>
 							<tr style="background:#012d45;">
-								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
+								<th class="color-white text-center" style="font-size:.75rem;" title="Cocher déclenche un email au client">Demander la facturation</th>
 								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
-								<th class="color-white text-center" style="font-size:.75rem;">Vous</th>
+								<th class="color-white text-center" style="font-size:.75rem;" title="Cocher déclenche un email au client">Demander la facturation</th>
 								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
 							</tr>
 						</thead>
 						<tbody class="bg-blue-dark">
@@ -47,29 +51,22 @@
 									<td class="text-center align-middle">
 										<input type="checkbox"
 											class="vi-billing-deposit form-check-input"
-											{{ billing.deposit ? 'checked' : '' }}
-											data-mail-enabled="{{ mailEnabled.deposit ? '1' : '0' }}"
+											{{ billing.deposit ? 'checked' : '' }}									{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}											data-mail-enabled="{{ mailEnabled.deposit ? '1' : '0' }}"
 											data-vi-billing-deposit="{{ billing.id }}">
 									</td>
 									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
+										<input type="checkbox" class="vi-billing-deposit-invoiced form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} data-vi-billing-deposit-invoiced="{{ billing.id }}">
 									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.depositPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
+
 									{# Envoi admin #}
 									<td class="text-center align-middle">
 										<input type="checkbox"
 											class="vi-billing-status form-check-input"
-											{{ billing.status ? 'checked' : '' }}
-											data-mail-enabled="{{ mailEnabled.status ? '1' : '0' }}"
+											{{ billing.status ? 'checked' : '' }}									{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}											data-mail-enabled="{{ mailEnabled.status ? '1' : '0' }}"
 											data-vi-billing-status="{{ billing.id }}">
 									</td>
 									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.statusInvoiced ? 'checked' : '' }} disabled title="Coché par le service admin">
-									</td>
-									<td class="text-center align-middle">
-										<input type="checkbox" class="form-check-input" {{ billing.statusPaid ? 'checked' : '' }} disabled title="Coché par le service admin">
+										<input type="checkbox" class="vi-billing-status-invoiced form-check-input" {{ billing.statusInvoiced ? 'checked' : '' }} data-vi-billing-status-invoiced="{{ billing.id }}">
 									</td>
 								</tr>
 							{% endfor %}
@@ -87,3 +84,5 @@
     {{ parent() }}
     <script src="{{ asset('assets/js/visual_identity_billing_checkbox.js') }}"></script>
 {% endblock %}
+
+

@@ -30,13 +30,22 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_COMPTA]
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/projet-sites-web, roles: ROLE_ADMIN }
+        - { path: ^/admin/facturation, roles: ROLE_COMPTA }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/projets-finis, roles: ROLE_ADMIN }
-        - { path: ^/liste-des-projets, roles: ROLE_ADMIN }
+        - { path: ^/basculer-vers-projets-finis, roles: ROLE_ADMIN }
+        - { path: ^/generation-de-l-archive, roles: ROLE_ADMIN }
+        - { path: ^/projet-sites-web, roles: ROLE_COMPTA }
+        - { path: ^/identite-visuelle, roles: ROLE_COMPTA }
+        - { path: ^/liste-des-projets, roles: ROLE_COMPTA }
+        - { path: ^/facturation-sites-web, roles: ROLE_COMPTA }
+        - { path: ^/facturation-identite-visuelle, roles: ROLE_COMPTA }
 
 when@test:
     security:
