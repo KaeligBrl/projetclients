@@ -39,86 +39,49 @@
 
         {# — Clients — #}
         <div class="nav-section">
-            <div class="nav-section-label color-white">Clients</div>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'list_customer' or app.request.attributes.get('_route') starts with 'modify_customer' ? 'is-active' : '' }}"
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'list_customer' or app.request.attributes.get('_route') starts with 'modify_customer' or app.request.attributes.get('_route') == 'add_customer' ? 'is-active' : '' }}"
                href="{{ path('list_customer') }}">
-                <i class="fas fa-users"></i> Liste des clients
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'add_customer' ? 'is-active' : '' }}"
-               href="{{ path('add_customer') }}">
-                <i class="fas fa-plus-circle"></i> Ajouter un client
+                <i class="fas fa-users"></i> Clients
             </a>
         </div>
 
         {# — Équipe — #}
         <div class="nav-section">
-            <div class="nav-section-label color-white">Équipe</div>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'user_list' or app.request.attributes.get('_route') starts with 'user_modify' ? 'is-active' : '' }}"
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'user_list' or app.request.attributes.get('_route') starts with 'user_modify' or app.request.attributes.get('_route') == 'user_add' ? 'is-active' : '' }}"
                href="{{ path('user_list') }}">
-                <i class="fas fa-user-friends"></i> Liste des utilisateurs
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'user_add' ? 'is-active' : '' }}"
-               href="{{ path('user_add') }}">
-                <i class="fas fa-user-plus"></i> Ajouter un utilisateur
+                <i class="fas fa-user-friends"></i> Équipe
             </a>
         </div>
 
         {# — Sites web — #}
         <div class="nav-section">
-            <div class="nav-section-label color-white">Sites web</div>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'website_project' ? 'is-active' : '' }}"
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'website_project' or app.request.attributes.get('_route') starts with 'website_projects_finished' or app.request.attributes.get('_route') starts with 'listing_projects' or app.request.attributes.get('_route') starts with 'website_billing' ? 'is-active' : '' }}"
                href="{{ path('website_project') }}">
-                <i class="fas fa-spinner"></i> En cours
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'website_projects_finished' ? 'is-active' : '' }}"
-               href="{{ path('website_projects_finished') }}">
-                <i class="fas fa-check-circle"></i> Projets finis
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'listing_projects' ? 'is-active' : '' }}"
-               href="{{ path('listing_projects') }}">
-                <i class="fas fa-list"></i> Liste des sites
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'website_project_add' ? 'is-active' : '' }}"
-               href="{{ path('website_project_add') }}">
-                <i class="fas fa-plus-circle"></i> Ajouter un projet
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'website_billing' ? 'is-active' : '' }}"
-               href="{{ path('website_billing') }}">
-                <i class="fas fa-file-invoice"></i> Facturation
+                <i class="fas fa-globe"></i> Sites web
             </a>
         </div>
 
         {# — Identité visuelle — #}
         <div class="nav-section">
-            <div class="nav-section-label color-white">Identité visuelle</div>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_project' ? 'is-active' : '' }}"
+            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'visual_identity' ? 'is-active' : '' }}"
                href="{{ path('visual_identity_project') }}">
-                <i class="fas fa-spinner"></i> En cours
+                <i class="fas fa-paint-brush"></i> Identité visuelle
             </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_finished' ? 'is-active' : '' }}"
-               href="{{ path('visual_identity_finished') }}">
-                <i class="fas fa-check-circle"></i> Projets finis
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'visual_identity_add' ? 'is-active' : '' }}"
-               href="{{ path('visual_identity_add') }}">
-                <i class="fas fa-plus-circle"></i> Ajouter un projet
-            </a>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'visual_identity_billing' ? 'is-active' : '' }}"
-               href="{{ path('visual_identity_billing') }}">
-                <i class="fas fa-file-invoice"></i> Facturation
+        </div>
+
+        {# — Facturation — #}
+        <div class="nav-section">
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'admin_billing' ? 'is-active' : '' }}"
+               href="{{ path('admin_billing') }}">
+                <i class="fas fa-file-invoice-dollar"></i> Facturation
             </a>
         </div>
 
         {# — Paramètres — #}
         <div class="nav-section">
-            <div class="nav-section-label color-white">Paramètres</div>
-            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'admin_billing' ? 'is-active' : '' }}"
-               href="{{ path('admin_billing') }}">
-                <i class="fas fa-file-invoice-dollar"></i> Facturation admin
-            </a>
             <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'admin_settings' ? 'is-active' : '' }}"
                href="{{ path('admin_settings') }}">
-                <i class="fas fa-cog"></i> Emails facturation
+                <i class="fas fa-cog"></i> Paramètres
             </a>
         </div>
 
