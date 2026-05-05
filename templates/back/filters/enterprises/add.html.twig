@@ -1,29 +1,22 @@
-{% extends 'back/index.html.twig' %}
+{% extends 'back/base_admin.html.twig' %}
+{% block page_title %}Ajouter un filtre entreprise{% endblock %}
+{% block title %}Ajouter un filtre entreprise - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
-{% block title %}Ajouter un filtre entreprise- {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
-
-{% block body %}
-	{% block content %}
-
-		<h1 class="text-center color-white">Ajouter un filtre</h1>	
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="mb-3"></div>
-		{% if notification %}
-			<div class="form-success text-center text-bold">
-				{{ notification }}<br>
-				<a href="{{ path('filters_enterprises') }}">Retourner à la liste des filtres</a>
-			</div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
-		{% endif %}
-		<div class="form-general">
-		<div class="was-validated is-valid">
-			<div class="form-group">
-			{{ form_start(form_filter_enterprise_add) }}
-				{{ form_row(form_filter_enterprise_add.nameEnterpriseType) }}
-				{{ form_row(form_filter_enterprise_add.submit) }}
-			{{ form_end(form_filter_enterprise_add) }}
-		</div>
-	{% endblock %}
+{% block content %}
+    <h1 class="color-white mb-3">Ajouter un filtre</h1>
+    <div class="separator mb-4"></div>
+    {% if notification %}
+        <div class="form-success text-center text-bold mb-3">
+            {{ notification }}<br>
+            <a href="{{ path('filters_enterprises') }}">Retourner à la liste des filtres</a>
+        </div>
+    {% endif %}
+    <div class="form-general">
+        <div class="form-group">
+            {{ form_start(form_filter_enterprise_add) }}
+                {{ form_row(form_filter_enterprise_add.nameEnterpriseType) }}
+                {{ form_row(form_filter_enterprise_add.submit) }}
+            {{ form_end(form_filter_enterprise_add) }}
+        </div>
+    </div>
 {% endblock %}
