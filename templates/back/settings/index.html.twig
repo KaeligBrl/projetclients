@@ -61,8 +61,8 @@
 
 {# ── Macro carte formulaire ── #}
 {% macro settingCard(setting, tab) %}
-    <div class="mb-3 rounded overflow-hidden" style="border: 1px solid var(--blue-semi-dark);">
-        <div class="d-flex align-items-center px-3 py-2" style="background: var(--color-blue-dark-light); border-bottom: 1px solid var(--blue-semi-dark);">
+    <div class="mb-3 rounded overflow-hidden" style="border: 1px solid #395c6e;">
+        <div class="d-flex align-items-center px-3 py-2" style="background: #023D5C; border-bottom: 1px solid #395c6e;">
             <i class="fas fa-envelope me-2 color-yellow"></i>
             <span class="color-yellow fw-bold">{{ setting.label }}</span>
             {% if setting.recipientEmail %}
@@ -75,7 +75,7 @@
                 </span>
             {% endif %}
         </div>
-        <div class="p-3" style="background: var(--color-blue-dark);">
+        <div class="p-3" style="background: #00263A;">
             <form method="post" action="{{ path('admin_settings') }}">
                 <input type="hidden" name="id" value="{{ setting.id }}">
                 <input type="hidden" name="tab" value="{{ tab }}">
@@ -84,8 +84,8 @@
                         <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
                             <i class="fas fa-at me-1 color-yellow"></i>Adresse email destinataire
                         </label>
-                        <input type="email" name="recipientEmail" class="form-control"
-                               style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff;"
+                        <input type="email" name="recipientEmail" class="form-control settings-form-control"
+                               style="background: #023D5C; border-color: #395c6e; color: #fff;"
                                value="{{ setting.recipientEmail ?? '' }}"
                                placeholder="ex: admin@monentreprise.fr">
                     </div>
@@ -93,8 +93,8 @@
                         <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
                             <i class="fas fa-tag me-1 color-yellow"></i>Sujet de l'email
                         </label>
-                        <input type="text" name="subject" class="form-control"
-                               style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff;"
+                        <input type="text" name="subject" class="form-control settings-form-control"
+                               style="background: #023D5C; border-color: #395c6e; color: #fff;"
                                value="{{ setting.subject ?? '' }}"
                                placeholder="ex: Acompte reçu — {client}">
                     </div>
@@ -102,8 +102,8 @@
                         <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
                             <i class="fas fa-align-left me-1 color-yellow"></i>Corps du message
                         </label>
-                        <textarea name="messageBody" class="form-control" rows="4"
-                                  style="background: var(--color-blue-dark-light); border-color: var(--blue-semi-dark); color: #fff; resize:vertical;"
+                        <textarea name="messageBody" class="form-control settings-form-control" rows="4"
+                                  style="background: #023D5C; border-color: #395c6e; color: #fff; resize:vertical;"
                                   placeholder="ex: Bonjour,&#10;L'acompte pour le projet {client} ({section}) a été reçu. Merci de procéder à la facturation.">{{ setting.messageBody ?? '' }}</textarea>
                     </div>
                     <div class="col-12 text-end">
@@ -120,6 +120,10 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <style>
+    .settings-form-control::placeholder { color: rgba(255,255,255,0.35); }
+    .settings-form-control:focus { outline: none; box-shadow: 0 0 0 2px rgba(255,214,0,0.35); border-color: #FFD600 !important; }
+    </style>
     <script>
     (function () {
         var BASE_BTN = 'display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; ';

@@ -27,6 +27,24 @@ class VisualIdentityBilling
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $status = false;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $invoiced = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $paid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $depositInvoiced = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $depositPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $statusInvoiced = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $statusPaid = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,4 +97,22 @@ class VisualIdentityBilling
 
         return $this;
     }
+
+    public function getInvoiced(): ?bool { return $this->invoiced; }
+    public function setInvoiced(bool $invoiced): static { $this->invoiced = $invoiced; return $this; }
+
+    public function getPaid(): ?bool { return $this->paid; }
+    public function setPaid(bool $paid): static { $this->paid = $paid; return $this; }
+
+    public function getDepositInvoiced(): ?bool { return $this->depositInvoiced; }
+    public function setDepositInvoiced(bool $v): static { $this->depositInvoiced = $v; return $this; }
+
+    public function getDepositPaid(): ?bool { return $this->depositPaid; }
+    public function setDepositPaid(bool $v): static { $this->depositPaid = $v; return $this; }
+
+    public function getStatusInvoiced(): ?bool { return $this->statusInvoiced; }
+    public function setStatusInvoiced(bool $v): static { $this->statusInvoiced = $v; return $this; }
+
+    public function getStatusPaid(): ?bool { return $this->statusPaid; }
+    public function setStatusPaid(bool $v): static { $this->statusPaid = $v; return $this; }
 }

@@ -49,6 +49,7 @@
                                     {% if app.request.attributes.get('_route') starts with 'website_project' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'project_modify' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') == 'website_project_add' %}active{% endif %}
+                                    {% if app.request.attributes.get('_route') starts with 'website_billing' %}active{% endif %}
                                     {% if app.request.attributes.get('_route') starts with 'website_projects_finished' %}active{% endif %}
                                     navbar-text text-uppercase text-border dropdown-toggle"
                                     href="#" id="navDropdownSitesWeb" role="button"

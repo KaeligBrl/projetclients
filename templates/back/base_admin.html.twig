@@ -112,6 +112,10 @@
         {# — Paramètres — #}
         <div class="nav-section">
             <div class="nav-section-label color-white">Paramètres</div>
+            <a class="sidebar-link {{ app.request.attributes.get('_route') == 'admin_billing' ? 'is-active' : '' }}"
+               href="{{ path('admin_billing') }}">
+                <i class="fas fa-file-invoice-dollar"></i> Facturation admin
+            </a>
             <a class="sidebar-link {{ app.request.attributes.get('_route') starts with 'admin_settings' ? 'is-active' : '' }}"
                href="{{ path('admin_settings') }}">
                 <i class="fas fa-cog"></i> Emails facturation

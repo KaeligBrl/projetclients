@@ -3,6 +3,7 @@
 namespace App\Controller\Front\VisualIdentity;
 
 use App\Entity\VisualIdentityBilling;
+use App\Repository\EmailSettingRepository;
 use App\Repository\VisualIdentityBillingRepository;
 use App\Repository\VisualIdentityProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +21,7 @@ class VisualIdentityBillingController extends AbstractController
     public function index(
         VisualIdentityProjectRepository $projectRepository,
         VisualIdentityBillingRepository $billingRepository,
+        EmailSettingRepository $emailSettingRepository,
     ): Response {
         $projects = $projectRepository->findBy([], ['id' => 'ASC']);
 
@@ -36,8 +38,25 @@ class VisualIdentityBillingController extends AbstractController
 
         $billings = $billingRepository->findBy([], ['id' => 'ASC']);
 
+        $mailEnabled = [
+            'deposit' => false,
+            'status' => false,
+        ];
+
+        foreach ($emailSettingRepository->findBySection('visual_identity') as $setting) {
+            $key = $setting->getCheckboxKey();
+            if ($key === null || !array_key_exists($key, $mailEnabled)) {
+                continue;
+            }
+            $mailEnabled[$key] = !empty(trim((string) $setting->getRecipientEmail()));
+        }
+
+        $hasUnavailableSteps = in_array(false, $mailEnabled, true);
+
         return $this->render('front/visual_identity_billing/index.html.twig', [
             'billings' => $billings,
+            'mailEnabled' => $mailEnabled,
+            'hasUnavailableSteps' => $hasUnavailableSteps,
         ]);
     }
 }

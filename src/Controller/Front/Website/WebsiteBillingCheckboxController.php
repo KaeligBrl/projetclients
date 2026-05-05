@@ -85,4 +85,26 @@ class WebsiteBillingCheckboxController extends AbstractController
 
         return new Response('true');
     }
+
+    #[Route('/facturation-sites-web/facture/{id}', name: 'website_billing_invoiced_checkbox')]
+    public function toggleInvoiced(WebsiteBilling $billing): Response
+    {
+        $newValue = !$billing->getInvoiced();
+        $billing->setInvoiced($newValue);
+        $this->entityManager->flush();
+        $this->sendEmailIfConfigured($billing, 'invoiced', $newValue);
+
+        return new Response('true');
+    }
+
+    #[Route('/facturation-sites-web/paye/{id}', name: 'website_billing_paid_checkbox')]
+    public function togglePaid(WebsiteBilling $billing): Response
+    {
+        $newValue = !$billing->getPaid();
+        $billing->setPaid($newValue);
+        $this->entityManager->flush();
+        $this->sendEmailIfConfigured($billing, 'paid', $newValue);
+
+        return new Response('true');
+    }
 }

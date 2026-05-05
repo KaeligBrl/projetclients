@@ -3,6 +3,7 @@
 namespace App\Controller\Front\Website;
 
 use App\Entity\WebsiteBilling;
+use App\Repository\EmailSettingRepository;
 use App\Repository\WebsiteBillingRepository;
 use App\Repository\WebsiteProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +21,7 @@ class WebsiteBillingController extends AbstractController
     public function index(
         WebsiteProjectRepository $projectRepository,
         WebsiteBillingRepository $billingRepository,
+        EmailSettingRepository $emailSettingRepository,
     ): Response {
         $projects = $projectRepository->findBy([], ['id' => 'ASC']);
 
@@ -36,8 +38,27 @@ class WebsiteBillingController extends AbstractController
 
         $billings = $billingRepository->findBy([], ['id' => 'ASC']);
 
+        $mailEnabled = [
+            'deposit' => false,
+            'mockup_sent' => false,
+            'onboarding_training' => false,
+            'status' => false,
+        ];
+
+        foreach ($emailSettingRepository->findBySection('website') as $setting) {
+            $key = $setting->getCheckboxKey();
+            if ($key === null || !array_key_exists($key, $mailEnabled)) {
+                continue;
+            }
+            $mailEnabled[$key] = !empty(trim((string) $setting->getRecipientEmail()));
+        }
+
+        $hasUnavailableSteps = in_array(false, $mailEnabled, true);
+
         return $this->render('front/website_billing/index.html.twig', [
             'billings' => $billings,
+            'mailEnabled' => $mailEnabled,
+            'hasUnavailableSteps' => $hasUnavailableSteps,
         ]);
     }
 }

@@ -63,4 +63,26 @@ class VisualIdentityBillingCheckboxController extends AbstractController
 
         return new Response('true');
     }
+
+    #[Route('/facturation-identite-visuelle/facture/{id}', name: 'vi_billing_invoiced_checkbox')]
+    public function toggleInvoiced(VisualIdentityBilling $billing): Response
+    {
+        $newValue = !$billing->getInvoiced();
+        $billing->setInvoiced($newValue);
+        $this->entityManager->flush();
+        $this->sendEmailIfConfigured($billing, 'invoiced', $newValue);
+
+        return new Response('true');
+    }
+
+    #[Route('/facturation-identite-visuelle/paye/{id}', name: 'vi_billing_paid_checkbox')]
+    public function togglePaid(VisualIdentityBilling $billing): Response
+    {
+        $newValue = !$billing->getPaid();
+        $billing->setPaid($newValue);
+        $this->entityManager->flush();
+        $this->sendEmailIfConfigured($billing, 'paid', $newValue);
+
+        return new Response('true');
+    }
 }
