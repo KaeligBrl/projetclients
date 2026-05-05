@@ -1,30 +1,27 @@
-{% extends 'back/base_admin.html.twig' %}
+﻿{% extends 'back/base_admin.html.twig' %}
 {% block page_title %}Modifier un client{% endblock %}
 
 {% block title %}Modifier le client - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
-{% block body %}
-	{% block content %}
-		{% if notification %}
-			<div class="form-success text-center text-bold">
-				{{ notification }}<br>
-				<a href="{{ path('list_customer') }}">Retourner sur la liste des clients</a>
-			</div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
-		{% endif %}
-		<div class="form-back">
-		<h1 class="form-title text-center color-white">Modification du client <br><i class="fas fa-arrow-right"></i> {{customer.name}}</h1>		
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="mb-5"></div>
-			{{ form_start(form_customer_modify) }}
-				<div>
-					{{ form_row(form_customer_modify.name) }}
-					{{ form_row(form_customer_modify.submit) }}
-				</div>
-			{{ form_end(form_customer_modify) }}
-		</div>
-	{% endblock %}
-	</div>
+{% block content %}
+    <h1 class="color-white mb-3">Modifier le client — {{ customer.name }}</h1>
+    <div class="separator mb-4"></div>
+    {% if notification %}
+        <div class="form-success text-center text-bold mb-3">
+            {{ notification }}<br>
+            <a href="{{ path('list_customer') }}">Retourner sur la liste des clients</a>
+        </div>
+    {% endif %}
+    <div class="form-general">
+        {{ form_start(form_customer_modify) }}
+        <div class="form-group">
+            {{ form_row(form_customer_modify.name) }}
+            {{ form_row(form_customer_modify.firstname) }}
+            {{ form_row(form_customer_modify.address) }}
+            {{ form_row(form_customer_modify.postalCode) }}
+            {{ form_row(form_customer_modify.tva) }}
+        </div>
+        <div class="mt-3">{{ form_row(form_customer_modify.submit) }}</div>
+        {{ form_end(form_customer_modify) }}
+    </div>
 {% endblock %}

@@ -1,42 +1,47 @@
-{% extends 'back/base_admin.html.twig' %}
+﻿{% extends 'back/base_admin.html.twig' %}
 {% block page_title %}Liste des clients{% endblock %}
 
 {% block title %}Clients - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
-{% block body %}
-	{% block content %}
-		<div class="container">
-		<h1 class="text-center color-white">Clients</h1>	
-		<div class="mb-3"></div>
-		<div class="separator"></div>
-		<div class="d-flex flex-row-reverse">
-			<a href="{{ path('add_customer') }}" title="Ajouter un filtre" type="button" class="btn mb-3">
-				<i class="color-white fas fa-plus-circle"></i>
-			</a>
-		</div>
-			<table id="testaa" class="table table-bordered" data-toggle="table" data-pagination="true" data-search="true">
-				<thead class="bg-blue-dark-light">
-					<tr>
-						<th class="color-yellow" scope="col">En cours</th>
-                        <th class="color-yellow" scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody class="bg-blue-dark table-borderless">
-					{% for customer in customer %}
-						<tr>
-							<td class="color-white text-bold">{{customer.name}}</td>
-							<td>
-								<a class="color-yellow" href="{{ path('modify_customer', {"id": customer.id}) }}"><i class="fas fa-cog"></i></a>&nbsp;
-								
-								<a class="color-yellow" href="{{ path('delete_customer', {"id": customer.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un client. Vous êtes sur ?')"><i class="fas fa-trash"></i></a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<p class="text-center text-bold color-white">Si tu supprimes un client, penses à verifier avant si un projet ne lui est pas attribué.</p>
-		</div>
-	{% endblock %}
+{% block content %}
+<h1 class="color-white mb-3">Clients</h1>
+<div class="separator mb-4"></div>
+{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+<div class="d-flex flex-row-reverse mb-3">
+<a href="{{ path('add_customer') }}" class="btn btn-sm" style="background:#FFD600;color:#00263A;font-weight:600;">
+<i class="fas fa-plus-circle me-1"></i> Ajouter
+</a>
+</div>
+<div class="table-responsive">
+<table class="table table-bordered mb-5">
+<thead class="bg-blue-dark-light">
+<tr>
+<th class="color-yellow text-bold">Nom</th>
+<th class="color-yellow text-bold">Prénom</th>
+<th class="color-yellow text-bold">Adresse</th>
+<th class="color-yellow text-bold">Code postal</th>
+<th class="color-yellow text-bold">N° TVA</th>
+<th class="color-yellow text-bold">Action</th>
+</tr>
+</thead>
+<tbody class="bg-blue-dark">
+{% for customer in customer %}
+<tr>
+<td class="color-white text-bold">{{ customer.name }}</td>
+<td class="color-white">{{ customer.firstname }}</td>
+<td class="color-white">{{ customer.address }}</td>
+<td class="color-white">{{ customer.postalCode }}</td>
+<td class="color-white">{{ customer.tva }}</td>
+<td>
+<a href="{{ path('modify_customer', {"id": customer.id}) }}" title="Modifier"><i class="color-yellow fas fa-cog"></i></a>
+<span class="color-yellow">|</span>
+<a href="{{ path('delete_customer', {"id": customer.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un client. Vous êtes sûr ?')" title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+<p class="text-center text-bold color-white">Si tu supprimes un client, penses à vérifier avant si un projet ne lui est pas attribué.</p>
+{% endif %}
 {% endblock %}
-
-

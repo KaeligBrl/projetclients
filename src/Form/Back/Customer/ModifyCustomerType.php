@@ -18,6 +18,22 @@ class ModifyCustomerType extends AbstractType
                 'required' => true,
                 'label' => 'Nom du client',
             ))
+            ->add('firstname', TextType::class, [
+                'required' => false,
+                'label' => 'Prénom',
+            ])
+            ->add('address', TextType::class, [
+                'required' => false,
+                'label' => 'Adresse',
+            ])
+            ->add('postalCode', TextType::class, [
+                'required' => false,
+                'label' => 'Code postal',
+            ])
+            ->add('tva', TextType::class, [
+                'required' => false,
+                'label' => 'N° TVA',
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn-submit'],
