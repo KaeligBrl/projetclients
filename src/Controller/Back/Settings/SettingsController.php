@@ -2,6 +2,7 @@
 
 namespace App\Controller\Back\Settings;
 
+use App\Entity\EmailSetting;
 use App\Repository\EmailSettingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,14 +29,9 @@ class SettingsController extends AbstractController
             $recipientEmail = $request->request->get('recipientEmail');
             $subject        = $request->request->get('subject');
             $messageBody    = $request->request->get('messageBody');
-            $tab            = $request->request->get('tab', 'website');
-            $mailTab        = $request->request->get('mailTab', 'compta');
-
+            $tab = $request->request->get('tab', 'website');
             if (!in_array($tab, ['website', 'visual_identity'], true)) {
                 $tab = 'website';
-            }
-            if (!in_array($mailTab, ['compta', 'admin'], true)) {
-                $mailTab = 'compta';
             }
 
             $setting = $repository->find((int) $id);
@@ -47,23 +43,42 @@ class SettingsController extends AbstractController
                 $this->addFlash('success', 'Configuration sauvegardée.');
             }
 
-            return $this->redirectToRoute('admin_settings', ['tab' => $tab, 'mailTab' => $mailTab]);
+            return $this->redirectToRoute('admin_settings', ['tab' => $tab]);
         }
 
+        $this->seedMissingSettings($repository);
+
         $activeTab = $request->query->get('tab', 'website');
-        $activeMailTab = $request->query->get('mailTab', 'compta');
         if (!in_array($activeTab, ['website', 'visual_identity'], true)) {
             $activeTab = 'website';
-        }
-        if (!in_array($activeMailTab, ['compta', 'admin'], true)) {
-            $activeMailTab = 'compta';
         }
 
         return $this->render('back/settings/index.html.twig', [
             'websiteSettings'        => $repository->findBySection('website'),
             'visualIdentitySettings' => $repository->findBySection('visual_identity'),
             'activeTab'              => $activeTab,
-            'activeMailTab'          => $activeMailTab,
         ]);
+    }
+
+    private function seedMissingSettings(EmailSettingRepository $repository): void
+    {
+        $missing = [
+            ['section' => 'visual_identity', 'key' => 'logo_validation'],
+            ['section' => 'visual_identity', 'key' => 'logo_validation_invoiced'],
+            ['section' => 'visual_identity', 'key' => 'logo_validation_paid'],
+        ];
+        $flushed = false;
+        foreach ($missing as $item) {
+            if (!$repository->findOneBy(['section' => $item['section'], 'checkboxKey' => $item['key']])) {
+                $s = new EmailSetting();
+                $s->setSection($item['section']);
+                $s->setCheckboxKey($item['key']);
+                $this->entityManager->persist($s);
+                $flushed = true;
+            }
+        }
+        if ($flushed) {
+            $this->entityManager->flush();
+        }
     }
 }

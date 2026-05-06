@@ -173,6 +173,17 @@ td,td a {color: var(--color-white);}
 .settings-mail-tab-nav {border-bottom: 1px solid #395c6e;gap: .5rem;}
 .settings-mail-tab-btn {display: inline-block;padding: .35rem .9rem;border-radius: .35rem .35rem 0 0;font-weight: 600;font-size: .82rem;border: none;cursor: pointer;background: #023D5C;color: #ffffff;}
 .settings-mail-tab-btn--active {background: #FFD600;color: #00263A;}
+.settings-metier-tab-nav {display: flex;flex-wrap: wrap;gap: .4rem;border-bottom: 2px solid #395c6e;padding-bottom: 0;}
+.settings-metier-btn {display: inline-flex;align-items: center;padding: .45rem 1rem;border-radius: .4rem .4rem 0 0;font-weight: 600;font-size: .8rem;border: none;cursor: pointer;background: #023D5C;color: #aac6d4;transition: background .15s,color .15s;white-space: nowrap;}
+.settings-metier-btn:hover {background: #035075;color: #fff;}
+.settings-metier-btn--active {background: #023D5C;color: #FFD600;border-bottom: 2px solid #FFD600;margin-bottom: -2px;}
+.settings-audience-badge {font-size: .72rem;font-weight: 700;padding: .2rem .55rem;border-radius: .3rem;white-space: nowrap;}
+.settings-audience-badge--compta {background: rgba(255,214,0,.15);color: #FFD600;border: 1px solid rgba(255,214,0,.35);}
+.settings-audience-badge--equipe {background: rgba(76,184,224,.12);color: #4cb8e0;border: 1px solid rgba(76,184,224,.3);}
+.settings-group-header {display: flex;align-items: center;gap: .75rem;padding: .65rem 1.1rem;border-radius: .4rem;font-weight: 700;font-size: .95rem;}
+.settings-group-header--compta {background: rgba(255,214,0,.1);border-left: 4px solid #FFD600;color: #FFD600;}
+.settings-group-header--equipe {background: rgba(76,184,224,.08);border-left: 4px solid #4cb8e0;color: #4cb8e0;}
+.settings-group-sub {font-size: .73rem;font-weight: 400;opacity: .75;}
 .settings-card {border: 1px solid #395c6e;}
 .settings-card-header {background: #023D5C;border-bottom: 1px solid #395c6e;}
 .settings-card-header-title {font-size: .82rem;opacity: .85;}

@@ -12,7 +12,7 @@
     {% endfor %}
 
     {# Onglets — style initial rendu côté serveur, JS ne fait que le permuter #}
-    <ul class="nav mb-4 settings-tab-nav" id="settingsTabNav" data-initial-mail-tab="{{ activeMailTab|default('compta') }}">
+    <ul class="nav mb-4 settings-tab-nav" id="settingsTabNav">
         <li class="nav-item">
             <button type="button" data-tab="website"
                     class="settings-tab-btn{% if activeTab == 'website' %} settings-tab-btn--active{% endif %}">
@@ -49,125 +49,126 @@
 
     {# ── Panneau Sites web ── #}
     <div id="tab-website" class="settings-tab-panel{% if activeTab != 'website' %} is-hidden{% endif %}">
-        <ul class="nav mb-3 settings-mail-tab-nav">
+        {% set wsLookup = {} %}
+        {% for s in websiteSettings %}{% set wsLookup = wsLookup|merge({(s.checkboxKey): s}) %}{% endfor %}
+        {% set wsGroups = [
+            {id: 'deposit',  label: '1. Acompte / Devis signé',           icon: 'fas fa-handshake',       keys: ['deposit',            'deposit_invoiced',            'deposit_paid']},
+            {id: 'mockup',   label: '2. Maquettes envoyées',               icon: 'fas fa-drafting-compass', keys: ['mockup_sent',         'mockup_sent_invoiced',         'mockup_sent_paid']},
+            {id: 'training', label: '3. Formation / Mise en ligne / Solde',icon: 'fas fa-graduation-cap',  keys: ['onboarding_training', 'onboarding_training_invoiced', 'onboarding_training_paid']},
+            {id: 'status',   label: 'Transmis compta',                     icon: 'fas fa-paper-plane',     keys: ['status',              'status_invoiced',              'status_paid']},
+            {id: 'global',   label: 'Facturation globale',                 icon: 'fas fa-globe',           keys: ['invoiced',            'paid']},
+        ] %}
+        <ul class="nav mb-4 settings-metier-tab-nav" data-section="website">
+            {% for group in wsGroups %}
             <li class="nav-item">
                 <button type="button"
-                        class="settings-mail-tab-btn"
-                        data-parent="website"
-                        data-mail-tab="compta">
-                    <i class="fas fa-file-invoice-dollar me-1"></i>Email vers compta
+                        class="settings-metier-btn{% if loop.first %} settings-metier-btn--active{% endif %}"
+                        data-section="website" data-step="{{ group.id }}">
+                    <i class="{{ group.icon }} me-1"></i>{{ group.label }}
                 </button>
             </li>
-            <li class="nav-item">
-                <button type="button"
-                        class="settings-mail-tab-btn"
-                        data-parent="website"
-                        data-mail-tab="admin">
-                    <i class="fas fa-user-shield me-1"></i>Email vers équipe
-                </button>
-            </li>
+            {% endfor %}
         </ul>
-
-        <div class="settings-mail-tab-panel{% if activeMailTab != 'compta' %} is-hidden{% endif %}" data-parent="website" data-mail-tab="compta">
-            {% for setting in websiteSettings %}
-                {% if not (setting.checkboxKey ends with '_invoiced') and not (setting.checkboxKey ends with '_paid') %}
-                    {{ _self.settingCard(setting, 'website', activeMailTab) }}
+        {% for group in wsGroups %}
+        <div class="settings-metier-panel{% if not loop.first %} is-hidden{% endif %}" data-section="website" data-step="{{ group.id }}">
+            {% for key in group.keys %}
+                {% if wsLookup[key] is defined %}
+                    {% set aud = (key ends with '_invoiced' or key ends with '_paid') ? 'equipe' : 'compta' %}
+                    {{ _self.settingCard(wsLookup[key], 'website', aud) }}
                 {% endif %}
             {% endfor %}
         </div>
-
-        <div class="settings-mail-tab-panel{% if activeMailTab != 'admin' %} is-hidden{% endif %}" data-parent="website" data-mail-tab="admin">
-            {% for setting in websiteSettings %}
-                {% if (setting.checkboxKey ends with '_invoiced') or (setting.checkboxKey ends with '_paid') %}
-                    {{ _self.settingCard(setting, 'website', activeMailTab) }}
-                {% endif %}
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 
     {# ── Panneau Identité visuelle ── #}
     <div id="tab-visual_identity" class="settings-tab-panel{% if activeTab != 'visual_identity' %} is-hidden{% endif %}">
-        <ul class="nav mb-3 settings-mail-tab-nav">
+        {% set viLookup = {} %}
+        {% for s in visualIdentitySettings %}{% set viLookup = viLookup|merge({(s.checkboxKey): s}) %}{% endfor %}
+        {% set viGroups = [
+            {id: 'deposit', label: '1. Acompte / Devis signé',           icon: 'fas fa-handshake',       keys: ['deposit',          'deposit_invoiced',          'deposit_paid']},
+            {id: 'logo',    label: '2. Validation du logo',               icon: 'fas fa-paint-brush',     keys: ['logo_validation',  'logo_validation_invoiced',  'logo_validation_paid']},
+            {id: 'status',  label: '3. Charte graphique / Solde restant', icon: 'fas fa-drafting-compass', keys: ['status',           'status_invoiced',           'status_paid']},
+            {id: 'global',  label: 'Facturation globale',                 icon: 'fas fa-globe',           keys: ['invoiced',         'paid']},
+        ] %}
+        <ul class="nav mb-4 settings-metier-tab-nav" data-section="visual_identity">
+            {% for group in viGroups %}
             <li class="nav-item">
                 <button type="button"
-                        class="settings-mail-tab-btn"
-                        data-parent="visual_identity"
-                        data-mail-tab="compta">
-                    <i class="fas fa-file-invoice-dollar me-1"></i>Email vers compta
+                        class="settings-metier-btn{% if loop.first %} settings-metier-btn--active{% endif %}"
+                        data-section="visual_identity" data-step="{{ group.id }}">
+                    <i class="{{ group.icon }} me-1"></i>{{ group.label }}
                 </button>
             </li>
-            <li class="nav-item">
-                <button type="button"
-                        class="settings-mail-tab-btn"
-                        data-parent="visual_identity"
-                        data-mail-tab="admin">
-                    <i class="fas fa-user-shield me-1"></i>Email vers équipe
-                </button>
-            </li>
+            {% endfor %}
         </ul>
-
-        <div class="settings-mail-tab-panel" data-parent="visual_identity" data-mail-tab="compta">
-            {% for setting in visualIdentitySettings %}
-                {% if not (setting.checkboxKey ends with '_invoiced') and not (setting.checkboxKey ends with '_paid') %}
-                    {{ _self.settingCard(setting, 'visual_identity', activeMailTab) }}
+        {% for group in viGroups %}
+        <div class="settings-metier-panel{% if not loop.first %} is-hidden{% endif %}" data-section="visual_identity" data-step="{{ group.id }}">
+            {% for key in group.keys %}
+                {% if viLookup[key] is defined %}
+                    {% set aud = (key ends with '_invoiced' or key ends with '_paid') ? 'equipe' : 'compta' %}
+                    {{ _self.settingCard(viLookup[key], 'visual_identity', aud) }}
                 {% endif %}
             {% endfor %}
         </div>
-
-        <div class="settings-mail-tab-panel" data-parent="visual_identity" data-mail-tab="admin">
-            {% for setting in visualIdentitySettings %}
-                {% if (setting.checkboxKey ends with '_invoiced') or (setting.checkboxKey ends with '_paid') %}
-                    {{ _self.settingCard(setting, 'visual_identity', activeMailTab) }}
-                {% endif %}
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
 
 {# ── Macro carte formulaire ── #}
-{% macro settingCard(setting, tab, mailTab) %}
+{% macro settingCard(setting, tab, audience) %}
     {% set labelsFr = {
         'website': {
-            'deposit': '1. Acompte / Devis signé',
-            'mockup_sent': '2. Maquettes envoyées',
-            'onboarding_training': '3. Formation de prise / Mise en ligne / Solde restant',
-            'status': 'Transmis au service compta',
-            'invoiced': 'Facturation globale',
-            'paid': 'Paiement global',
-            'deposit_invoiced': 'Acompte facturé',
-            'deposit_paid': 'Acompte payé',
-            'mockup_sent_invoiced': 'Maquettes facturées',
-            'mockup_sent_paid': 'Maquettes payées',
-            'onboarding_training_invoiced': 'Formation facturée',
-            'onboarding_training_paid': 'Formation payée',
-            'status_invoiced': 'Solde facturé',
-            'status_paid': 'Solde payé'
+            'deposit': "Email déclenché par l'équipe à la signature",
+            'mockup_sent': "Email déclenché à l'envoi des maquettes",
+            'onboarding_training': "Email déclenché à la formation / mise en ligne",
+            'status': "Email déclenché à la transmission compta",
+            'invoiced': "Email de confirmation de facturation globale",
+            'paid': "Email de confirmation de paiement global",
+            'deposit_invoiced': "Email compta → équipe : acompte facturé",
+            'deposit_paid': "Email compta → équipe : acompte payé",
+            'mockup_sent_invoiced': "Email compta → équipe : maquettes facturées",
+            'mockup_sent_paid': "Email compta → équipe : maquettes payées",
+            'onboarding_training_invoiced': "Email compta → équipe : formation facturée",
+            'onboarding_training_paid': "Email compta → équipe : formation payée",
+            'status_invoiced': "Email compta → équipe : solde facturé",
+            'status_paid': "Email compta → équipe : solde payé"
         },
         'visual_identity': {
-            'deposit': '1. Acompte / Devis signé',
-            'status': '2. Validation du logo',
-            'invoiced': 'Facturation globale',
-            'paid': 'Paiement global',
-            'status_invoiced': '3. Charte graphique / Support / Solde restant (facturé)',
-            'status_paid': '3. Charte graphique / Support / Solde restant (payé)',
-            'deposit_invoiced': 'Acompte facturé',
-            'deposit_paid': 'Acompte payé'
+            'deposit': "Email déclenché par l'équipe à la signature",
+            'logo_validation': "Email déclenché à la demande de validation du logo",
+            'status': "Email déclenché à la demande charte / solde",
+            'invoiced': "Email de confirmation de facturation globale",
+            'paid': "Email de confirmation de paiement global",
+            'deposit_invoiced': "Email compta → équipe : acompte facturé",
+            'deposit_paid': "Email compta → équipe : acompte payé",
+            'logo_validation_invoiced': "Email compta → équipe : validation du logo facturée",
+            'logo_validation_paid': "Email compta → équipe : validation du logo payée",
+            'status_invoiced': "Email compta → équipe : charte / solde facturé",
+            'status_paid': "Email compta → équipe : charte / solde payé"
         }
     } %}
-    <div class="mb-1 d-flex align-items-center justify-content-between">
-        <span class="color-yellow fw-bold">{{ labelsFr[tab][setting.checkboxKey] ?? (setting.checkboxKey|replace({'_': ' '})|capitalize) }}</span>
-    </div>
+    {% set desc = labelsFr[tab][setting.checkboxKey] ?? (setting.checkboxKey|replace({'_': ' '})|capitalize) %}
     <div class="mb-3 rounded overflow-hidden settings-card">
-        <div class="d-flex align-items-center px-3 py-2 settings-card-header">
-            <i class="fas fa-envelope me-2 color-yellow"></i>
-            <span class="color-white settings-card-header-title">Configuration de l'email</span>
+        <div class="d-flex align-items-center gap-2 px-3 py-2 settings-card-header">
+            <i class="fas fa-envelope color-yellow"></i>
+            <span class="color-white settings-card-header-title flex-grow-1">{{ desc }}</span>
+            {% if audience == 'compta' %}
+                <span class="settings-audience-badge settings-audience-badge--compta">
+                    <i class="fas fa-file-invoice-dollar me-1"></i>→ Compta
+                </span>
+            {% else %}
+                <span class="settings-audience-badge settings-audience-badge--equipe">
+                    <i class="fas fa-user-shield me-1"></i>→ Équipe
+                </span>
+            {% endif %}
             {% if setting.recipientEmail %}
-                <span class="ms-auto settings-status settings-status--configured">
+                <span class="settings-status settings-status--configured ms-1">
                     <i class="fas fa-check-circle me-1 settings-icon-ok"></i>Configuré
                 </span>
             {% else %}
-                <span class="ms-auto settings-status settings-status--missing">
+                <span class="settings-status settings-status--missing ms-1">
                     <i class="fas fa-exclamation-circle me-1"></i>Non configuré
                 </span>
             {% endif %}
@@ -176,7 +177,6 @@
             <form method="post" action="{{ path('admin_settings') }}">
                 <input type="hidden" name="id" value="{{ setting.id }}">
                 <input type="hidden" name="tab" value="{{ tab }}">
-                <input type="hidden" name="mailTab" value="{{ mailTab }}">
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
                         <label class="color-white mb-1 d-block settings-field-label">
@@ -199,7 +199,7 @@
                             <i class="fas fa-align-left me-1 color-yellow"></i>Corps du message
                         </label>
                         <textarea name="messageBody" class="form-control settings-form-control" rows="4"
-                                  placeholder="ex: Bonjour,&#10;L'acompte pour le projet {client} ({section}) a été reçu. Merci de procéder à la facturation.">{{ setting.messageBody ?? '' }}</textarea>
+                                  placeholder="ex: Bonjour,&#10;L'acompte pour le projet {client} ({section}) a été reçu.">{{ setting.messageBody ?? '' }}</textarea>
                     </div>
                     <div class="col-12 text-end">
                         <button type="submit" class="btn btn-sm settings-save-btn">

@@ -1,62 +1,69 @@
 (function () {
+    var initialized = false;
+
     function switchTab(tabName) {
         document.querySelectorAll('.settings-tab-panel').forEach(function (panel) {
             panel.classList.toggle('is-hidden', panel.id !== 'tab-' + tabName);
         });
-
         document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
             btn.classList.toggle('settings-tab-btn--active', btn.dataset.tab === tabName);
         });
-
         var url = new URL(window.location);
         url.searchParams.set('tab', tabName);
+        url.searchParams.delete('step');
         history.replaceState(null, '', url);
     }
 
-    function switchMailTab(parent, mailTabName) {
-        document.querySelectorAll('.settings-mail-tab-panel').forEach(function (panel) {
-            if (panel.dataset.parent === parent) {
-                panel.classList.toggle('is-hidden', panel.dataset.mailTab !== mailTabName);
+    function switchMetierTab(section, stepId) {
+        document.querySelectorAll('.settings-metier-panel').forEach(function (panel) {
+            if (panel.dataset.section === section) {
+                panel.classList.toggle('is-hidden', panel.dataset.step !== stepId);
             }
         });
-
-        document.querySelectorAll('.settings-mail-tab-btn').forEach(function (btn) {
-            if (btn.dataset.parent === parent) {
-                btn.classList.toggle('settings-mail-tab-btn--active', btn.dataset.mailTab === mailTabName);
+        document.querySelectorAll('.settings-metier-btn').forEach(function (btn) {
+            if (btn.dataset.section === section) {
+                btn.classList.toggle('settings-metier-btn--active', btn.dataset.step === stepId);
             }
-        });
-
-        document.querySelectorAll('#tab-' + parent + ' input[name="mailTab"]').forEach(function (input) {
-            input.value = mailTabName;
         });
 
         var url = new URL(window.location);
-        url.searchParams.set('mailTab', mailTabName);
+        url.searchParams.set('step', stepId);
         history.replaceState(null, '', url);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function initSettingsTabs() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
+
         var params = new URLSearchParams(window.location.search);
-        var initial = params.get('tab') || 'website';
+        switchTab(params.get('tab') || 'website');
+        var initialStep = params.get('step');
+        if (initialStep) {
+            switchMetierTab('website', initialStep);
+            switchMetierTab('visual_identity', initialStep);
+        }
 
-        var tabNav = document.getElementById('settingsTabNav');
-        var fallbackMail = tabNav && tabNav.dataset.initialMailTab ? tabNav.dataset.initialMailTab : 'compta';
-        var initialMail = params.get('mailTab') || fallbackMail;
+        document.addEventListener('click', function (event) {
+            var sectionBtn = event.target.closest('.settings-tab-btn');
+            if (sectionBtn) {
+                event.preventDefault();
+                switchTab(sectionBtn.dataset.tab);
+                return;
+            }
 
-        switchTab(initial);
-        switchMailTab('website', initialMail);
-        switchMailTab('visual_identity', initialMail);
-
-        document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                switchTab(btn.dataset.tab);
-            });
+            var metierBtn = event.target.closest('.settings-metier-btn');
+            if (metierBtn) {
+                event.preventDefault();
+                switchMetierTab(metierBtn.dataset.section, metierBtn.dataset.step);
+            }
         });
+    }
 
-        document.querySelectorAll('.settings-mail-tab-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                switchMailTab(btn.dataset.parent, btn.dataset.mailTab);
-            });
-        });
-    });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSettingsTabs);
+    } else {
+        initSettingsTabs();
+    }
 })();
