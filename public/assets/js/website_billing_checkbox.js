@@ -10,6 +10,10 @@ window.addEventListener("load", function () {
     }
 
     function setLockedStyle(checkbox, isLockedByChain) {
+        if (!checkbox) {
+            return;
+        }
+
         const isLockedByMail = !isMailEnabled(checkbox);
         const isLockedByRole = !!checkbox._adminOnly;
         const isLocked = isLockedByChain || isLockedByMail || isLockedByRole;
@@ -98,6 +102,9 @@ window.addEventListener("load", function () {
         const depositInvoiced = row.querySelector(".billing-deposit-invoiced");
         const mockupInvoiced = row.querySelector(".billing-mockup-invoiced");
         const trainingInvoiced = row.querySelector(".billing-training-invoiced");
+        const depositPaid = row.querySelector(".billing-deposit-paid");
+        const mockupPaid = row.querySelector(".billing-mockup-paid");
+        const trainingPaid = row.querySelector(".billing-training-paid");
 
         function setInvoicedLocked(checkbox, isLocked) {
             if (!checkbox) return;
@@ -107,10 +114,29 @@ window.addEventListener("load", function () {
             checkbox.title = isLocked ? "Demande de facturation non effectuée." : "";
         }
 
+        function setPaidLocked(checkbox, isLocked) {
+            if (!checkbox) return;
+
+            const isLockedByRole = checkbox.dataset.roleRequired === "admin" && checkbox._adminOnly;
+            const nextLocked = isLocked || isLockedByRole;
+
+            checkbox.disabled = nextLocked;
+            checkbox.style.opacity = nextLocked ? "0.35" : "1";
+            checkbox.style.cursor = nextLocked ? "not-allowed" : "pointer";
+            checkbox.title = isLockedByRole
+                ? "Réservé au service administratif."
+                : nextLocked
+                    ? "Facturation non effectuée."
+                    : "";
+        }
+
         function enforceInvoicedState() {
             setInvoicedLocked(depositInvoiced, !deposit.checked);
             setInvoicedLocked(mockupInvoiced, !mockupSent.checked);
             setInvoicedLocked(trainingInvoiced, !onboardingTraining.checked);
+            setPaidLocked(depositPaid, !depositInvoiced || !depositInvoiced.checked);
+            setPaidLocked(mockupPaid, !mockupInvoiced || !mockupInvoiced.checked);
+            setPaidLocked(trainingPaid, !trainingInvoiced || !trainingInvoiced.checked);
         }
 
         if (depositInvoiced) {
@@ -128,10 +154,34 @@ window.addEventListener("load", function () {
                 toggleOnServer(`/admin/facturation-sites-web/formation-facturee/${trainingInvoiced.dataset.billingTrainingInvoiced}`);
             });
         }
+        if (depositPaid) {
+            depositPaid.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/acompte-paye/${depositPaid.dataset.billingDepositPaid}`);
+            });
+        }
+        if (mockupPaid) {
+            mockupPaid.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/maquette-payee/${mockupPaid.dataset.billingMockupPaid}`);
+            });
+        }
+        if (trainingPaid) {
+            trainingPaid.addEventListener("click", function () {
+                toggleOnServer(`/admin/facturation-sites-web/formation-payee/${trainingPaid.dataset.billingTrainingPaid}`);
+            });
+        }
 
         deposit._adminOnly = deposit.disabled;
         mockupSent._adminOnly = mockupSent.disabled;
         onboardingTraining._adminOnly = onboardingTraining.disabled;
+        if (depositPaid) {
+            depositPaid._adminOnly = depositPaid.dataset.roleRequired === "admin" && depositPaid.disabled;
+        }
+        if (mockupPaid) {
+            mockupPaid._adminOnly = mockupPaid.dataset.roleRequired === "admin" && mockupPaid.disabled;
+        }
+        if (trainingPaid) {
+            trainingPaid._adminOnly = trainingPaid.dataset.roleRequired === "admin" && trainingPaid.disabled;
+        }
 
         setLockedStyle(deposit, false);
         enforceWebsiteChain(row);

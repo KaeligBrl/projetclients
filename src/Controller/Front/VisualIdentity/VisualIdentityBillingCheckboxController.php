@@ -64,6 +64,17 @@ class VisualIdentityBillingCheckboxController extends AbstractController
         return new Response('true');
     }
 
+    #[Route('/facturation-identite-visuelle/validation-logo/{id}', name: 'vi_billing_logo_validation_checkbox')]
+    public function toggleLogoValidation(VisualIdentityBilling $billing): Response
+    {
+        $newValue = !$billing->getLogoValidation();
+        $billing->setLogoValidation($newValue);
+        $this->entityManager->flush();
+        $this->sendEmailIfConfigured($billing, 'logo_validation', $newValue);
+
+        return new Response('true');
+    }
+
     #[Route('/facturation-identite-visuelle/envoi-administratif/{id}', name: 'vi_billing_status_checkbox')]
     public function toggleStatus(VisualIdentityBilling $billing): Response
     {

@@ -27,12 +27,6 @@ class EmailSetting
     #[ORM\Column(type: 'string', length: 50, name: 'checkbox_key')]
     private ?string $checkboxKey = null;
 
-    /**
-     * Libellé lisible (ex: "Acompte", "Envoyé au service admin")
-     */
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $label = null;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $recipientEmail = null;
 
@@ -49,9 +43,6 @@ class EmailSetting
 
     public function getCheckboxKey(): ?string { return $this->checkboxKey; }
     public function setCheckboxKey(string $checkboxKey): static { $this->checkboxKey = $checkboxKey; return $this; }
-
-    public function getLabel(): ?string { return $this->label; }
-    public function setLabel(string $label): static { $this->label = $label; return $this; }
 
     public function getRecipientEmail(): ?string { return $this->recipientEmail; }
     public function setRecipientEmail(?string $recipientEmail): static { $this->recipientEmail = $recipientEmail; return $this; }

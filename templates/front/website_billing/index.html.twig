@@ -15,10 +15,10 @@
 	<div class="alert mt-3 mb-3 billing-info-alert" role="alert">
 		<i class="fas fa-info-circle me-1 billing-info-icon"></i>
 		{% if is_granted('ROLE_ADMIN') %}
-			La colonne <strong>Facturé</strong> est à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
+			Les colonnes <strong>Facturé</strong> et <strong>Payé</strong> sont à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
 		{% else %}
-			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> une fois la facture émise.
-			<br><small class="billing-info-note">Les cases griseśes ne sont pas encore disponibles — attendez la demande de Shebam.
+			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> puis <strong>Payé</strong>.
+			<br><small class="billing-info-note">Les cases grisées ne sont pas encore disponibles — attendez la demande de Shebam.
 </small>
 		{% endif %}
 	</div>
@@ -29,63 +29,95 @@
 					<p class="text-center color-white mt-2">Aucun projet trouvé.</p>
 				{% else %}
 					<div class="table-responsive">
-				<table class="table mb-5 table-bordered billing-table billing-table--website">
-						<thead class="bg-blue-dark-light table-borderless">
-							<tr>
-								<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
-								<th class="color-yellow text-bold text-center" colspan="2">Acompte</th>
-								<th class="color-yellow text-bold text-center" colspan="2">Maquette envoyée</th>
-								<th class="color-yellow text-bold text-center" colspan="2">Formation</th>
-
-							</tr>
-							<tr class="billing-subhead-row">
-								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
-								<th class="color-yellow text-center billing-subhead">Facturé</th>
-								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
-								<th class="color-yellow text-center billing-subhead">Facturé</th>
-								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
-								<th class="color-yellow text-center billing-subhead">Facturé</th>
-							</tr>
-						</thead>
-						<tbody class="bg-blue-dark">
-							{% for billing in billings %}
+						<table class="table mb-5 table-bordered billing-table billing-table--website">
+							<thead class="bg-blue-dark-light table-borderless">
 								<tr>
-									<td class="color-white text-bold align-middle billing-client-cell">{{ billing.websiteProject.customer }}</td>
-									{# Acompte #}
-									<td class="text-center align-middle">
-										<input type="checkbox"
-											class="billing-deposit form-check-input"
-											{{ billing.deposit ? 'checked' : '' }}									{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}											data-mail-enabled="{{ mailEnabled.deposit ? '1' : '0' }}"
-											data-billing-deposit="{{ billing.id }}">
-									</td>
-									<td class="text-center align-middle">
-								<input type="checkbox" class="billing-deposit-invoiced form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} data-billing-deposit-invoiced="{{ billing.id }}">
-							</td>
-							{# Maquette #}
-							<td class="text-center align-middle">
-								<input type="checkbox"
-									class="billing-mockup-sent form-check-input"
-									{{ billing.mockupSent ? 'checked' : '' }}								{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}									data-mail-enabled="{{ mailEnabled.mockup_sent ? '1' : '0' }}"
-									data-billing-mockup-sent="{{ billing.id }}">
-							</td>
-							<td class="text-center align-middle">
-								<input type="checkbox" class="billing-mockup-invoiced form-check-input" {{ billing.mockupSentInvoiced ? 'checked' : '' }} data-billing-mockup-invoiced="{{ billing.id }}">
-							</td>
-							{# Formation #}
-							<td class="text-center align-middle">
-								<input type="checkbox"
-									class="billing-onboarding-training form-check-input"
-									{{ billing.onboardingTraining ? 'checked' : '' }}								{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}									data-mail-enabled="{{ mailEnabled.onboarding_training ? '1' : '0' }}"
-									data-billing-onboarding-training="{{ billing.id }}">
-							</td>
-							<td class="text-center align-middle">
-								<input type="checkbox" class="billing-training-invoiced form-check-input" {{ billing.onboardingTrainingInvoiced ? 'checked' : '' }} data-billing-training-invoiced="{{ billing.id }}">
-	
+									<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
+									<th class="color-yellow text-bold text-center" colspan="3">Acompte / Devis signé</th>
+									<th class="color-yellow text-bold text-center" colspan="3">Maquettes envoyées</th>
+									<th class="color-yellow text-bold text-center" colspan="3">Formation de prise / Mise en ligne / Solde restant</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
+								<tr class="billing-subhead-row">
+									<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+									<th class="color-yellow text-center billing-subhead">Facturé</th>
+									<th class="color-yellow text-center billing-subhead">Payé</th>
+									<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+									<th class="color-yellow text-center billing-subhead">Facturé</th>
+									<th class="color-yellow text-center billing-subhead">Payé</th>
+									<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+									<th class="color-yellow text-center billing-subhead">Facturé</th>
+									<th class="color-yellow text-center billing-subhead">Payé</th>
+								</tr>
+							</thead>
+							<tbody class="bg-blue-dark">
+								{% for billing in billings %}
+									<tr>
+										<td class="color-white text-bold align-middle billing-client-cell">{{ billing.websiteProject.customer }}</td>
+										{# Acompte #}
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-deposit form-check-input"
+												{{ billing.deposit ? 'checked' : '' }}
+												{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}
+												data-mail-enabled="{{ mailEnabled.deposit ? '1' : '0' }}"
+												data-billing-deposit="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox" class="billing-deposit-invoiced form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} data-billing-deposit-invoiced="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-deposit-paid form-check-input"
+												{{ billing.depositPaid ? 'checked' : '' }}
+												{{ (not is_granted('ROLE_ADMIN') or not billing.depositInvoiced) ? 'disabled' : '' }}
+												data-role-required="admin"
+												data-billing-deposit-paid="{{ billing.id }}">
+										</td>
+										{# Maquettes #}
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-mockup-sent form-check-input"
+												{{ billing.mockupSent ? 'checked' : '' }}
+												{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}
+												data-mail-enabled="{{ mailEnabled.mockup_sent ? '1' : '0' }}"
+												data-billing-mockup-sent="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox" class="billing-mockup-invoiced form-check-input" {{ billing.mockupSentInvoiced ? 'checked' : '' }} data-billing-mockup-invoiced="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-mockup-paid form-check-input"
+												{{ billing.mockupSentPaid ? 'checked' : '' }}
+												{{ (not is_granted('ROLE_ADMIN') or not billing.mockupSentInvoiced) ? 'disabled' : '' }}
+												data-role-required="admin"
+												data-billing-mockup-paid="{{ billing.id }}">
+										</td>
+										{# Formation #}
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-onboarding-training form-check-input"
+												{{ billing.onboardingTraining ? 'checked' : '' }}
+												{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}
+												data-mail-enabled="{{ mailEnabled.onboarding_training ? '1' : '0' }}"
+												data-billing-onboarding-training="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox" class="billing-training-invoiced form-check-input" {{ billing.onboardingTrainingInvoiced ? 'checked' : '' }} data-billing-training-invoiced="{{ billing.id }}">
+										</td>
+										<td class="text-center align-middle">
+											<input type="checkbox"
+												class="billing-training-paid form-check-input"
+												{{ billing.onboardingTrainingPaid ? 'checked' : '' }}
+												{{ (not is_granted('ROLE_ADMIN') or not billing.onboardingTrainingInvoiced) ? 'disabled' : '' }}
+												data-role-required="admin"
+												data-billing-training-paid="{{ billing.id }}">
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				{% endif %}
 			{% endif %}
 		</div>

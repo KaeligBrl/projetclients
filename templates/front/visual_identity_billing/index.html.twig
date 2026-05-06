@@ -15,10 +15,10 @@
 	<div class="alert mt-3 mb-3 billing-info-alert" role="alert">
 		<i class="fas fa-info-circle me-1 billing-info-icon"></i>
 		{% if is_granted('ROLE_ADMIN') %}
-			La colonne <strong>Facturé</strong> est à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
+			Les colonnes <strong>Facturé</strong> et <strong>Payé</strong> sont à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
 		{% else %}
-			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> une fois la facture émise.
-			<br><small class="billing-info-note">Les cases griseśes ne sont pas encore disponibles — attendez la demande de Shebam.
+			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> puis <strong>Payé</strong>.
+			<br><small class="billing-info-note">Les cases grisées ne sont pas encore disponibles — attendez la demande de Shebam.
 </small>
 		{% endif %}
 	</div>
@@ -33,14 +33,20 @@
 						<thead class="bg-blue-dark-light table-borderless">
 							<tr>
 								<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
-							<th class="color-yellow text-bold text-center" colspan="2">Acompte</th>
-							<th class="color-yellow text-bold text-center" colspan="2">Envoyé au service admin</th>
-							</tr>
-							<tr class="billing-subhead-row">
+								<th class="color-yellow text-bold text-center" colspan="3">Acompte / Devis signé</th>
+							<th class="color-yellow text-bold text-center" colspan="3">Validation du logo</th>
+							<th class="color-yellow text-bold text-center" colspan="3">Charte graphique / Support / Solde restant</th>
+						</tr>
+						<tr class="billing-subhead-row">
+							<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+							<th class="color-yellow text-center billing-subhead">Facturé</th>
+							<th class="color-yellow text-center billing-subhead">Payé</th>
 								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
 								<th class="color-yellow text-center billing-subhead">Facturé</th>
+								<th class="color-yellow text-center billing-subhead">Payé</th>
 								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
 								<th class="color-yellow text-center billing-subhead">Facturé</th>
+								<th class="color-yellow text-center billing-subhead">Payé</th>
 							</tr>
 						</thead>
 						<tbody class="bg-blue-dark">
@@ -57,6 +63,35 @@
 									<td class="text-center align-middle">
 										<input type="checkbox" class="vi-billing-deposit-invoiced form-check-input" {{ billing.depositInvoiced ? 'checked' : '' }} data-vi-billing-deposit-invoiced="{{ billing.id }}">
 									</td>
+									<td class="text-center align-middle">
+										<input type="checkbox"
+											class="vi-billing-deposit-paid form-check-input"
+											{{ billing.depositPaid ? 'checked' : '' }}
+											{{ (not is_granted('ROLE_ADMIN') or not billing.depositInvoiced) ? 'disabled' : '' }}
+											data-role-required="admin"
+											data-vi-billing-deposit-paid="{{ billing.id }}">
+									</td>
+
+									{# Validation du logo #}
+									<td class="text-center align-middle">
+										<input type="checkbox"
+											class="vi-billing-logo form-check-input"
+											{{ billing.logoValidation ? 'checked' : '' }}
+											{{ not is_granted('ROLE_ADMIN') ? 'disabled' : '' }}
+											data-mail-enabled="{{ mailEnabled.logo_validation is defined ? (mailEnabled.logo_validation ? '1' : '0') : '1' }}"
+											data-vi-billing-logo="{{ billing.id }}">
+									</td>
+									<td class="text-center align-middle">
+										<input type="checkbox" class="vi-billing-logo-invoiced form-check-input" {{ billing.logoValidationInvoiced ? 'checked' : '' }} data-vi-billing-logo-invoiced="{{ billing.id }}">
+									</td>
+									<td class="text-center align-middle">
+										<input type="checkbox"
+											class="vi-billing-logo-paid form-check-input"
+											{{ billing.logoValidationPaid ? 'checked' : '' }}
+											{{ (not is_granted('ROLE_ADMIN') or not billing.logoValidationInvoiced) ? 'disabled' : '' }}
+											data-role-required="admin"
+											data-vi-billing-logo-paid="{{ billing.id }}">
+									</td>
 
 									{# Envoi admin #}
 									<td class="text-center align-middle">
@@ -67,6 +102,14 @@
 									</td>
 									<td class="text-center align-middle">
 										<input type="checkbox" class="vi-billing-status-invoiced form-check-input" {{ billing.statusInvoiced ? 'checked' : '' }} data-vi-billing-status-invoiced="{{ billing.id }}">
+									</td>
+									<td class="text-center align-middle">
+										<input type="checkbox"
+											class="vi-billing-status-paid form-check-input"
+											{{ billing.statusPaid ? 'checked' : '' }}
+											{{ (not is_granted('ROLE_ADMIN') or not billing.statusInvoiced) ? 'disabled' : '' }}
+											data-role-required="admin"
+											data-vi-billing-status-paid="{{ billing.id }}">
 									</td>
 								</tr>
 							{% endfor %}

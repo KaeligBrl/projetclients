@@ -55,7 +55,7 @@
                         class="settings-mail-tab-btn"
                         data-parent="website"
                         data-mail-tab="compta">
-                    <i class="fas fa-file-invoice-dollar me-1"></i>Email compta
+                    <i class="fas fa-file-invoice-dollar me-1"></i>Email vers compta
                 </button>
             </li>
             <li class="nav-item">
@@ -63,7 +63,7 @@
                         class="settings-mail-tab-btn"
                         data-parent="website"
                         data-mail-tab="admin">
-                    <i class="fas fa-user-shield me-1"></i>Email administrateur
+                    <i class="fas fa-user-shield me-1"></i>Email vers équipe
                 </button>
             </li>
         </ul>
@@ -93,7 +93,7 @@
                         class="settings-mail-tab-btn"
                         data-parent="visual_identity"
                         data-mail-tab="compta">
-                    <i class="fas fa-file-invoice-dollar me-1"></i>Email compta
+                    <i class="fas fa-file-invoice-dollar me-1"></i>Email vers compta
                 </button>
             </li>
             <li class="nav-item">
@@ -101,7 +101,7 @@
                         class="settings-mail-tab-btn"
                         data-parent="visual_identity"
                         data-mail-tab="admin">
-                    <i class="fas fa-user-shield me-1"></i>Email administrateur
+                    <i class="fas fa-user-shield me-1"></i>Email vers équipe
                 </button>
             </li>
         </ul>
@@ -127,8 +127,36 @@
 
 {# ── Macro carte formulaire ── #}
 {% macro settingCard(setting, tab, mailTab) %}
+    {% set labelsFr = {
+        'website': {
+            'deposit': '1. Acompte / Devis signé',
+            'mockup_sent': '2. Maquettes envoyées',
+            'onboarding_training': '3. Formation de prise / Mise en ligne / Solde restant',
+            'status': 'Transmis au service compta',
+            'invoiced': 'Facturation globale',
+            'paid': 'Paiement global',
+            'deposit_invoiced': 'Acompte facturé',
+            'deposit_paid': 'Acompte payé',
+            'mockup_sent_invoiced': 'Maquettes facturées',
+            'mockup_sent_paid': 'Maquettes payées',
+            'onboarding_training_invoiced': 'Formation facturée',
+            'onboarding_training_paid': 'Formation payée',
+            'status_invoiced': 'Solde facturé',
+            'status_paid': 'Solde payé'
+        },
+        'visual_identity': {
+            'deposit': '1. Acompte / Devis signé',
+            'status': '2. Validation du logo',
+            'invoiced': 'Facturation globale',
+            'paid': 'Paiement global',
+            'status_invoiced': '3. Charte graphique / Support / Solde restant (facturé)',
+            'status_paid': '3. Charte graphique / Support / Solde restant (payé)',
+            'deposit_invoiced': 'Acompte facturé',
+            'deposit_paid': 'Acompte payé'
+        }
+    } %}
     <div class="mb-1 d-flex align-items-center justify-content-between">
-        <span class="color-yellow fw-bold">{{ setting.label }}</span>
+        <span class="color-yellow fw-bold">{{ labelsFr[tab][setting.checkboxKey] ?? (setting.checkboxKey|replace({'_': ' '})|capitalize) }}</span>
     </div>
     <div class="mb-3 rounded overflow-hidden settings-card">
         <div class="d-flex align-items-center px-3 py-2 settings-card-header">

@@ -44,20 +44,24 @@
                 <thead class="admin-billing-head">
                     <tr>
                         <th class="color-yellow align-middle" rowspan="2">Client</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Acompte</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Maquette</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Formation</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Envoi admin</th>
+                            <th class="color-yellow text-center admin-billing-head-group" colspan="3">Acompte / Devis signé</th>
+                            <th class="color-yellow text-center admin-billing-head-group" colspan="3">Maquettes envoyées</th>
+                            <th class="color-yellow text-center admin-billing-head-group" colspan="3">Formation de prise / Mise en ligne / Solde restant</th>
+                            <th class="color-yellow text-center admin-billing-head-group" colspan="3">Transmis au service compta</th>
                     </tr>
-                    <tr class="admin-billing-subhead-row">
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
-                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
-                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
-                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
-                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <tr class="admin-billing-subhead-row">
+                            <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Payé</th>
+                            <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Payé</th>
+                            <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Payé</th>
+                            <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Transmis</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                            <th class="color-yellow text-center admin-billing-subhead">Payé</th>
                     </tr>
                 </thead>
                 <tbody class="admin-billing-body">
@@ -68,7 +72,7 @@
                             </td>
                             {# Acompte #}
                             <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input" {{ billing.deposit ? 'checked' : '' }} disabled title="Coché par l'équipe">
+                                <input type="checkbox" class="form-check-input" {{ billing.deposit ? 'checked' : '' }} disabled title="Demandé par l'équipe">
                             </td>
                             <td class="text-center align-middle">
                                 <input type="checkbox" class="form-check-input admin-toggle"
@@ -76,9 +80,15 @@
                                     {{ not billing.deposit ? 'disabled' : '' }}
                                     data-url="/admin/facturation-sites-web/acompte-facture/{{ billing.id }}">
                             </td>
+                                <td class="text-center align-middle">
+                                    <input type="checkbox" class="form-check-input admin-toggle"
+                                        {{ billing.depositPaid ? 'checked' : '' }}
+                                        {{ not billing.depositInvoiced ? 'disabled' : '' }}
+                                        data-url="/admin/facturation-sites-web/acompte-paye/{{ billing.id }}">
+                                </td>
                             {# Maquette #}
                             <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input" {{ billing.mockupSent ? 'checked' : '' }} disabled title="Coché par l'équipe">
+                                <input type="checkbox" class="form-check-input" {{ billing.mockupSent ? 'checked' : '' }} disabled title="Demandé par l'équipe">
                             </td>
                             <td class="text-center align-middle">
                                 <input type="checkbox" class="form-check-input admin-toggle"
@@ -86,9 +96,15 @@
                                     {{ not billing.mockupSent ? 'disabled' : '' }}
                                     data-url="/admin/facturation-sites-web/maquette-facturee/{{ billing.id }}">
                             </td>
+                                <td class="text-center align-middle">
+                                    <input type="checkbox" class="form-check-input admin-toggle"
+                                        {{ billing.mockupSentPaid ? 'checked' : '' }}
+                                        {{ not billing.mockupSentInvoiced ? 'disabled' : '' }}
+                                        data-url="/admin/facturation-sites-web/maquette-payee/{{ billing.id }}">
+                                </td>
                             {# Formation #}
                             <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input" {{ billing.onboardingTraining ? 'checked' : '' }} disabled title="Coché par l'équipe">
+                                <input type="checkbox" class="form-check-input" {{ billing.onboardingTraining ? 'checked' : '' }} disabled title="Demandé par l'équipe">
                             </td>
                             <td class="text-center align-middle">
                                 <input type="checkbox" class="form-check-input admin-toggle"
@@ -96,9 +112,15 @@
                                     {{ not billing.onboardingTraining ? 'disabled' : '' }}
                                     data-url="/admin/facturation-sites-web/formation-facturee/{{ billing.id }}">
                             </td>
+                                <td class="text-center align-middle">
+                                    <input type="checkbox" class="form-check-input admin-toggle"
+                                        {{ billing.onboardingTrainingPaid ? 'checked' : '' }}
+                                        {{ not billing.onboardingTrainingInvoiced ? 'disabled' : '' }}
+                                        data-url="/admin/facturation-sites-web/formation-payee/{{ billing.id }}">
+                                </td>
                             {# Envoi admin #}
                             <td class="text-center align-middle">
-                                <input type="checkbox" class="form-check-input" {{ billing.status ? 'checked' : '' }} disabled title="Coché par l'équipe">
+                                <input type="checkbox" class="form-check-input" {{ billing.status ? 'checked' : '' }} disabled title="Demandé par l'équipe">
                             </td>
                             <td class="text-center align-middle">
                                 <input type="checkbox" class="form-check-input admin-toggle"
@@ -106,6 +128,12 @@
                                     {{ not billing.status ? 'disabled' : '' }}
                                     data-url="/admin/facturation-sites-web/admin-facture/{{ billing.id }}">
                             </td>
+                                <td class="text-center align-middle">
+                                    <input type="checkbox" class="form-check-input admin-toggle"
+                                        {{ billing.statusPaid ? 'checked' : '' }}
+                                        {{ not billing.statusInvoiced ? 'disabled' : '' }}
+                                        data-url="/admin/facturation-sites-web/admin-paye/{{ billing.id }}">
+                                </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -124,14 +152,18 @@
                 <thead class="admin-billing-head">
                     <tr>
                         <th class="color-yellow align-middle" rowspan="2">Client</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Acompte</th>
-                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Envoi admin</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Acompte / Devis signé</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Validation du logo</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Charte graphique / Support / Solde restant</th>
                     </tr>
                     <tr class="admin-billing-subhead-row">
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
                         <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
                         <th class="color-yellow text-center admin-billing-subhead">Payé</th>
-                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Payé</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Demandé</th>
                         <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
                         <th class="color-yellow text-center admin-billing-subhead">Payé</th>
                     </tr>
@@ -159,6 +191,22 @@
                                     {{ not billing.depositInvoiced ? 'disabled' : '' }}
                                     data-vi-dep-paid-{{ billing.id }}="1"
                                     data-url="/admin/facturation-identite-visuelle/acompte-paye/{{ billing.id }}">
+                            </td>
+                            {# Validation du logo #}
+                            <td class="text-center align-middle">
+                                <input type="checkbox" class="form-check-input" {{ billing.logoValidation ? 'checked' : '' }} disabled>
+                            </td>
+                            <td class="text-center align-middle">
+                                <input type="checkbox" class="form-check-input admin-toggle"
+                                    {{ billing.logoValidationInvoiced ? 'checked' : '' }}
+                                    {{ not billing.logoValidation ? 'disabled' : '' }}
+                                    data-url="/admin/facturation-identite-visuelle/logo-facture/{{ billing.id }}">
+                            </td>
+                            <td class="text-center align-middle">
+                                <input type="checkbox" class="form-check-input admin-toggle"
+                                    {{ billing.logoValidationPaid ? 'checked' : '' }}
+                                    {{ not billing.logoValidationInvoiced ? 'disabled' : '' }}
+                                    data-url="/admin/facturation-identite-visuelle/logo-paye/{{ billing.id }}">
                             </td>
                             {# Envoi admin #}
                             <td class="text-center align-middle">

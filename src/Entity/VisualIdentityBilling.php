@@ -40,6 +40,15 @@ class VisualIdentityBilling
     private ?bool $depositPaid = false;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $logoValidation = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $logoValidationInvoiced = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $logoValidationPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $statusInvoiced = false;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
@@ -115,4 +124,13 @@ class VisualIdentityBilling
 
     public function getStatusPaid(): ?bool { return $this->statusPaid; }
     public function setStatusPaid(bool $v): static { $this->statusPaid = $v; return $this; }
+
+    public function getLogoValidation(): ?bool { return $this->logoValidation; }
+    public function setLogoValidation(bool $v): static { $this->logoValidation = $v; return $this; }
+
+    public function getLogoValidationInvoiced(): ?bool { return $this->logoValidationInvoiced; }
+    public function setLogoValidationInvoiced(bool $v): static { $this->logoValidationInvoiced = $v; return $this; }
+
+    public function getLogoValidationPaid(): ?bool { return $this->logoValidationPaid; }
+    public function setLogoValidationPaid(bool $v): static { $this->logoValidationPaid = $v; return $this; }
 }

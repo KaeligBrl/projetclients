@@ -62,6 +62,29 @@ class AdminViBillingToggleController extends AbstractController
         return new Response('true');
     }
 
+    #[Route('/admin/facturation-identite-visuelle/logo-facture/{id}', name: 'admin_vi_billing_logo_invoiced')]
+    public function toggleLogoInvoiced(VisualIdentityBilling $billing): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
+        $new = !$billing->getLogoValidationInvoiced();
+        $billing->setLogoValidationInvoiced($new);
+        if (!$new) { $billing->setLogoValidationPaid(false); }
+        $this->entityManager->flush();
+        if ($new) { $this->sendEmail($billing, 'logo_validation_invoiced'); }
+        return new Response('true');
+    }
+
+    #[Route('/admin/facturation-identite-visuelle/logo-paye/{id}', name: 'admin_vi_billing_logo_paid')]
+    public function toggleLogoPaid(VisualIdentityBilling $billing): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $new = !$billing->getLogoValidationPaid();
+        $billing->setLogoValidationPaid($new);
+        $this->entityManager->flush();
+        if ($new) { $this->sendEmail($billing, 'logo_validation_paid'); }
+        return new Response('true');
+    }
+
     #[Route('/admin/facturation-identite-visuelle/admin-facture/{id}', name: 'admin_vi_billing_status_invoiced')]
     public function toggleStatusInvoiced(VisualIdentityBilling $billing): Response
     {
