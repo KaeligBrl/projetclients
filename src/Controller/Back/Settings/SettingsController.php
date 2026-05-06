@@ -167,6 +167,15 @@ class SettingsController extends AbstractController
             $recipientEmail = $request->request->get('recipientEmail');
             $subject        = $request->request->get('subject');
             $messageBody    = $request->request->get('messageBody');
+            $tab            = $request->request->get('tab', 'website');
+            $mailTab        = $request->request->get('mailTab', 'compta');
+
+            if (!in_array($tab, ['website', 'visual_identity'], true)) {
+                $tab = 'website';
+            }
+            if (!in_array($mailTab, ['compta', 'admin'], true)) {
+                $mailTab = 'compta';
+            }
 
             $setting = $repository->find((int) $id);
             if ($setting) {
@@ -177,13 +186,23 @@ class SettingsController extends AbstractController
                 $this->addFlash('success', 'Configuration sauvegardée.');
             }
 
-            return $this->redirectToRoute('admin_settings', ['tab' => $request->request->get('tab', 'website')]);
+            return $this->redirectToRoute('admin_settings', ['tab' => $tab, 'mailTab' => $mailTab]);
+        }
+
+        $activeTab = $request->query->get('tab', 'website');
+        $activeMailTab = $request->query->get('mailTab', 'compta');
+        if (!in_array($activeTab, ['website', 'visual_identity'], true)) {
+            $activeTab = 'website';
+        }
+        if (!in_array($activeMailTab, ['compta', 'admin'], true)) {
+            $activeMailTab = 'compta';
         }
 
         return $this->render('back/settings/index.html.twig', [
             'websiteSettings'        => $repository->findBySection('website'),
             'visualIdentitySettings' => $repository->findBySection('visual_identity'),
-            'activeTab'              => $request->query->get('tab', 'website'),
+            'activeTab'              => $activeTab,
+            'activeMailTab'          => $activeMailTab,
         ]);
     }
 }

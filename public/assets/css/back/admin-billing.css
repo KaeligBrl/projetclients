@@ -1,0 +1,75 @@
+.admin-billing-intro {
+    opacity: .8;
+    font-size: .9rem;
+}
+
+.admin-billing-tab-nav {
+    border-bottom: 2px solid #395c6e;
+    gap: .5rem;
+}
+
+.admin-billing-tab-btn {
+    display: inline-block;
+    padding: .5rem 1.25rem;
+    border-radius: .4rem .4rem 0 0;
+    font-weight: 600;
+    font-size: .9rem;
+    border: none;
+    cursor: pointer;
+    background: #023D5C;
+    color: #ffffff;
+}
+
+.admin-billing-tab-btn--active {
+    background: #FFD600;
+    color: #00263A;
+}
+
+.admin-billing-badge {
+    background: #001a2e;
+    color: #FFD600;
+}
+
+.admin-billing-badge--active {
+    background: #00263A;
+}
+
+.admin-billing-empty {
+    opacity: .6;
+}
+
+.admin-billing-table--website {
+    min-width: 900px;
+}
+
+.admin-billing-table--vi {
+    min-width: 500px;
+}
+
+.admin-billing-head {
+    background: #023D5C;
+}
+
+.admin-billing-head-group {
+    border-bottom: 1px solid #FFD600;
+}
+
+.admin-billing-subhead-row {
+    background: #012d45;
+}
+
+.admin-billing-subhead {
+    font-size: .75rem;
+}
+
+.admin-billing-subhead--normal {
+    font-weight: 400;
+}
+
+.admin-billing-body {
+    background: #00263A;
+}
+
+.admin-billing-client {
+    white-space: nowrap;
+}

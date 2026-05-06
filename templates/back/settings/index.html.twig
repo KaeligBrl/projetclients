@@ -12,116 +12,169 @@
     {% endfor %}
 
     {# Onglets — style initial rendu côté serveur, JS ne fait que le permuter #}
-    <ul class="nav mb-4" id="settingsTabNav" style="border-bottom: 2px solid var(--blue-semi-dark); gap:.5rem;">
+    <ul class="nav mb-4 settings-tab-nav" id="settingsTabNav" data-initial-mail-tab="{{ activeMailTab|default('compta') }}">
         <li class="nav-item">
             <button type="button" data-tab="website"
-                    class="settings-tab-btn"
-                    data-style-active="background:#FFD600;color:#00263A;"
-                    data-style-inactive="background:#023D5C;color:#ffffff;"
-                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#FFD600; color:#00263A;">
+                    class="settings-tab-btn{% if activeTab == 'website' %} settings-tab-btn--active{% endif %}">
                 <i class="fas fa-globe me-1"></i> Sites web
             </button>
         </li>
         <li class="nav-item">
             <button type="button" data-tab="visual_identity"
-                    class="settings-tab-btn"
-                    data-style-active="background:#FFD600;color:#00263A;"
-                    data-style-inactive="background:#023D5C;color:#ffffff;"
-                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#023D5C; color:#ffffff;">
+                    class="settings-tab-btn{% if activeTab == 'visual_identity' %} settings-tab-btn--active{% endif %}">
                 <i class="fas fa-paint-brush me-1"></i> Identité visuelle
             </button>
         </li>
     </ul>
 
     {# Bandeau variables disponibles #}
-    <div class="mb-4 px-3 py-2 rounded d-flex align-items-center gap-3 flex-wrap"
-         style="background: var(--color-blue-dark-light); border-left: 3px solid var(--color-yellow);">
-        <span class="color-yellow fw-bold" style="font-size:.85rem;"><i class="fas fa-info-circle me-1"></i>Variables disponibles dans sujet &amp; message :</span>
+    <div class="mb-4 px-3 py-2 rounded d-flex align-items-center gap-3 flex-wrap settings-vars-banner">
+        <span class="color-yellow fw-bold settings-vars-title"><i class="fas fa-info-circle me-1"></i>Variables disponibles dans sujet &amp; message :</span>
                 
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{client}</code>
-        <span class="color-white" style="font-size:.8rem;">entreprise</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{section}</code>
-        <span class="color-white" style="font-size:.8rem;">section du projet</span>
+        <code class="settings-var-token">{client}</code>
+        <span class="color-white settings-var-text">entreprise</span>
+        <code class="settings-var-token">{section}</code>
+        <span class="color-white settings-var-text">section du projet</span>
         <span class="color-white opacity-50 mx-1">|</span>
-        <span class="color-yellow fw-bold" style="font-size:.8rem;">Acompte uniquement :</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{firstname}</code>
-        <span class="color-white" style="font-size:.8rem;">prénom</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{lastname}</code>
-        <span class="color-white" style="font-size:.8rem;">nom</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{address}</code>
-        <span class="color-white" style="font-size:.8rem;">adresse</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{postalCode}</code>
-        <span class="color-white" style="font-size:.8rem;">code postal</span>
-        <code style="background: var(--blue-semi-dark); color: var(--color-yellow); padding:.15rem .5rem; border-radius:.3rem; font-size:.85rem;">{tva}</code>
-        <span class="color-white" style="font-size:.8rem;">n° TVA</span>
+        <span class="color-yellow fw-bold settings-var-text">Acompte uniquement :</span>
+        <code class="settings-var-token">{firstname}</code>
+        <span class="color-white settings-var-text">prénom</span>
+        <code class="settings-var-token">{lastname}</code>
+        <span class="color-white settings-var-text">nom</span>
+        <code class="settings-var-token">{address}</code>
+        <span class="color-white settings-var-text">adresse</span>
+        <code class="settings-var-token">{tva}</code>
+        <span class="color-white settings-var-text">n° TVA</span>
     </div>
 
     {# ── Panneau Sites web ── #}
-    <div id="tab-website" class="settings-tab-panel">
-        {% for setting in websiteSettings %}
-            {{ _self.settingCard(setting, 'website') }}
-        {% endfor %}
+    <div id="tab-website" class="settings-tab-panel{% if activeTab != 'website' %} is-hidden{% endif %}">
+        <ul class="nav mb-3 settings-mail-tab-nav">
+            <li class="nav-item">
+                <button type="button"
+                        class="settings-mail-tab-btn"
+                        data-parent="website"
+                        data-mail-tab="compta">
+                    <i class="fas fa-file-invoice-dollar me-1"></i>Email compta
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="settings-mail-tab-btn"
+                        data-parent="website"
+                        data-mail-tab="admin">
+                    <i class="fas fa-user-shield me-1"></i>Email administrateur
+                </button>
+            </li>
+        </ul>
+
+        <div class="settings-mail-tab-panel{% if activeMailTab != 'compta' %} is-hidden{% endif %}" data-parent="website" data-mail-tab="compta">
+            {% for setting in websiteSettings %}
+                {% if not (setting.checkboxKey ends with '_invoiced') and not (setting.checkboxKey ends with '_paid') %}
+                    {{ _self.settingCard(setting, 'website', activeMailTab) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="settings-mail-tab-panel{% if activeMailTab != 'admin' %} is-hidden{% endif %}" data-parent="website" data-mail-tab="admin">
+            {% for setting in websiteSettings %}
+                {% if (setting.checkboxKey ends with '_invoiced') or (setting.checkboxKey ends with '_paid') %}
+                    {{ _self.settingCard(setting, 'website', activeMailTab) }}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
     {# ── Panneau Identité visuelle ── #}
-    <div id="tab-visual_identity" class="settings-tab-panel">
-        {% for setting in visualIdentitySettings %}
-            {{ _self.settingCard(setting, 'visual_identity') }}
-        {% endfor %}
+    <div id="tab-visual_identity" class="settings-tab-panel{% if activeTab != 'visual_identity' %} is-hidden{% endif %}">
+        <ul class="nav mb-3 settings-mail-tab-nav">
+            <li class="nav-item">
+                <button type="button"
+                        class="settings-mail-tab-btn"
+                        data-parent="visual_identity"
+                        data-mail-tab="compta">
+                    <i class="fas fa-file-invoice-dollar me-1"></i>Email compta
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="settings-mail-tab-btn"
+                        data-parent="visual_identity"
+                        data-mail-tab="admin">
+                    <i class="fas fa-user-shield me-1"></i>Email administrateur
+                </button>
+            </li>
+        </ul>
+
+        <div class="settings-mail-tab-panel" data-parent="visual_identity" data-mail-tab="compta">
+            {% for setting in visualIdentitySettings %}
+                {% if not (setting.checkboxKey ends with '_invoiced') and not (setting.checkboxKey ends with '_paid') %}
+                    {{ _self.settingCard(setting, 'visual_identity', activeMailTab) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="settings-mail-tab-panel" data-parent="visual_identity" data-mail-tab="admin">
+            {% for setting in visualIdentitySettings %}
+                {% if (setting.checkboxKey ends with '_invoiced') or (setting.checkboxKey ends with '_paid') %}
+                    {{ _self.settingCard(setting, 'visual_identity', activeMailTab) }}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
 
 {# ── Macro carte formulaire ── #}
-{% macro settingCard(setting, tab) %}
-    <div class="mb-3 rounded overflow-hidden" style="border: 1px solid #395c6e;">
-        <div class="d-flex align-items-center px-3 py-2" style="background: #023D5C; border-bottom: 1px solid #395c6e;">
+{% macro settingCard(setting, tab, mailTab) %}
+    <div class="mb-1 d-flex align-items-center justify-content-between">
+        <span class="color-yellow fw-bold">{{ setting.label }}</span>
+    </div>
+    <div class="mb-3 rounded overflow-hidden settings-card">
+        <div class="d-flex align-items-center px-3 py-2 settings-card-header">
             <i class="fas fa-envelope me-2 color-yellow"></i>
-            <span class="color-yellow fw-bold">{{ setting.label }}</span>
+            <span class="color-white settings-card-header-title">Configuration de l'email</span>
             {% if setting.recipientEmail %}
-                <span class="ms-auto" style="font-size:.78rem; color: var(--color-white); opacity:.7;">
-                    <i class="fas fa-check-circle me-1" style="color:#4caf50;"></i>Configuré
+                <span class="ms-auto settings-status settings-status--configured">
+                    <i class="fas fa-check-circle me-1 settings-icon-ok"></i>Configuré
                 </span>
             {% else %}
-                <span class="ms-auto" style="font-size:.78rem; color: #ff9800;">
+                <span class="ms-auto settings-status settings-status--missing">
                     <i class="fas fa-exclamation-circle me-1"></i>Non configuré
                 </span>
             {% endif %}
         </div>
-        <div class="p-3" style="background: #00263A;">
+        <div class="p-3 settings-card-body">
             <form method="post" action="{{ path('admin_settings') }}">
                 <input type="hidden" name="id" value="{{ setting.id }}">
                 <input type="hidden" name="tab" value="{{ tab }}">
+                <input type="hidden" name="mailTab" value="{{ mailTab }}">
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                        <label class="color-white mb-1 d-block settings-field-label">
                             <i class="fas fa-at me-1 color-yellow"></i>Adresse email destinataire
                         </label>
                         <input type="email" name="recipientEmail" class="form-control settings-form-control"
-                               style="background: #023D5C; border-color: #395c6e; color: #fff;"
                                value="{{ setting.recipientEmail ?? '' }}"
                                placeholder="ex: admin@monentreprise.fr">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                        <label class="color-white mb-1 d-block settings-field-label">
                             <i class="fas fa-tag me-1 color-yellow"></i>Sujet de l'email
                         </label>
                         <input type="text" name="subject" class="form-control settings-form-control"
-                               style="background: #023D5C; border-color: #395c6e; color: #fff;"
                                value="{{ setting.subject ?? '' }}"
                                placeholder="ex: Acompte reçu — {client}">
                     </div>
                     <div class="col-12">
-                        <label class="color-white mb-1 d-block" style="font-size:.82rem; opacity:.85;">
+                        <label class="color-white mb-1 d-block settings-field-label">
                             <i class="fas fa-align-left me-1 color-yellow"></i>Corps du message
                         </label>
                         <textarea name="messageBody" class="form-control settings-form-control" rows="4"
-                                  style="background: #023D5C; border-color: #395c6e; color: #fff; resize:vertical;"
                                   placeholder="ex: Bonjour,&#10;L'acompte pour le projet {client} ({section}) a été reçu. Merci de procéder à la facturation.">{{ setting.messageBody ?? '' }}</textarea>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-sm"
-                                style="background: var(--color-yellow); color: var(--color-blue-dark); font-weight:600; border:none;">
+                        <button type="submit" class="btn btn-sm settings-save-btn">
                             <i class="fas fa-save me-1"></i> Sauvegarder
                         </button>
                     </div>
@@ -133,39 +186,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <style>
-    .settings-form-control::placeholder { color: rgba(255,255,255,0.35); }
-    .settings-form-control:focus { outline: none; box-shadow: 0 0 0 2px rgba(255,214,0,0.35); border-color: #FFD600 !important; }
-    </style>
-    <script>
-    (function () {
-        var BASE_BTN = 'display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; ';
-        var ACTIVE   = BASE_BTN + 'background:#FFD600; color:#00263A;';
-        var INACTIVE = BASE_BTN + 'background:#023D5C; color:#ffffff;';
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.settings-tab-panel').forEach(function (panel) {
-                panel.style.display = panel.id === 'tab-' + tabName ? '' : 'none';
-            });
-            document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
-                btn.style.cssText = btn.dataset.tab === tabName ? ACTIVE : INACTIVE;
-            });
-            var url = new URL(window.location);
-            url.searchParams.set('tab', tabName);
-            history.replaceState(null, '', url);
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var params  = new URLSearchParams(window.location.search);
-            var initial = params.get('tab') || 'website';
-            switchTab(initial);
-
-            document.querySelectorAll('.settings-tab-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    switchTab(btn.dataset.tab);
-                });
-            });
-        });
-    })();
-    </script>
+    <script src="{{ asset('assets/js/settings-tabs.js') }}"></script>
 {% endblock %}

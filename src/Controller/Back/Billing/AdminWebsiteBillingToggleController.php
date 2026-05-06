@@ -42,7 +42,7 @@ class AdminWebsiteBillingToggleController extends AbstractController
     #[Route('/admin/facturation-sites-web/acompte-facture/{id}', name: 'admin_website_billing_deposit_invoiced')]
     public function toggleDepositInvoiced(WebsiteBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getDepositInvoiced();
         $billing->setDepositInvoiced($new);
         if (!$new) { $billing->setDepositPaid(false); }
@@ -65,7 +65,7 @@ class AdminWebsiteBillingToggleController extends AbstractController
     #[Route('/admin/facturation-sites-web/maquette-facturee/{id}', name: 'admin_website_billing_mockup_invoiced')]
     public function toggleMockupInvoiced(WebsiteBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getMockupSentInvoiced();
         $billing->setMockupSentInvoiced($new);
         if (!$new) { $billing->setMockupSentPaid(false); }
@@ -88,7 +88,7 @@ class AdminWebsiteBillingToggleController extends AbstractController
     #[Route('/admin/facturation-sites-web/formation-facturee/{id}', name: 'admin_website_billing_training_invoiced')]
     public function toggleTrainingInvoiced(WebsiteBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getOnboardingTrainingInvoiced();
         $billing->setOnboardingTrainingInvoiced($new);
         if (!$new) { $billing->setOnboardingTrainingPaid(false); }
@@ -111,7 +111,7 @@ class AdminWebsiteBillingToggleController extends AbstractController
     #[Route('/admin/facturation-sites-web/admin-facture/{id}', name: 'admin_website_billing_status_invoiced')]
     public function toggleStatusInvoiced(WebsiteBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getStatusInvoiced();
         $billing->setStatusInvoiced($new);
         if (!$new) { $billing->setStatusPaid(false); }

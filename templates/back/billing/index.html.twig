@@ -2,65 +2,68 @@
 {% block page_title %}Facturation admin{% endblock %}
 {% block title %}Facturation admin - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/back/admin-billing.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
     <h1 class="color-white mb-3">Facturation — Service admin</h1>
     <div class="separator mb-4"></div>
 
-    <p class="color-white mb-4" style="opacity:.8; font-size:.9rem;">
+    <p class="color-white mb-4 admin-billing-intro">
         <i class="fas fa-info-circle me-1 color-yellow"></i>
         Seuls les projets transmis par l'équipe apparaissent ici. Pour chaque étape cochée, marquez-la
         <strong>Facturé</strong> puis <strong>Payé</strong> — un email est envoyé à l'équipe automatiquement.
     </p>
 
     {# Onglets #}
-    <ul class="nav mb-4" id="billingTabNav" style="border-bottom: 2px solid #395c6e; gap:.5rem;">
+    <ul class="nav mb-4 admin-billing-tab-nav" id="billingTabNav">
         <li class="nav-item">
-            <button type="button" data-tab="website" class="admin-billing-tab-btn"
-                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#FFD600; color:#00263A;">
+            <button type="button" data-tab="website" class="admin-billing-tab-btn{% if app.request.query.get('tab', 'website') == 'website' %} admin-billing-tab-btn--active{% endif %}">
                 <i class="fas fa-globe me-1"></i> Sites web
-                <span class="ms-1 badge" style="background:#00263A; color:#FFD600;">{{ websiteBillings|length }}</span>
+                <span class="ms-1 badge admin-billing-badge">{{ websiteBillings|length }}</span>
             </button>
         </li>
         <li class="nav-item">
-            <button type="button" data-tab="vi" class="admin-billing-tab-btn"
-                    style="display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; background:#023D5C; color:#ffffff;">
+            <button type="button" data-tab="vi" class="admin-billing-tab-btn{% if app.request.query.get('tab', 'website') == 'vi' %} admin-billing-tab-btn--active{% endif %}">
                 <i class="fas fa-paint-brush me-1"></i> Identité visuelle
-                <span class="ms-1 badge" style="background:#001a2e; color:#FFD600;">{{ viBillings|length }}</span>
+                <span class="ms-1 badge admin-billing-badge">{{ viBillings|length }}</span>
             </button>
         </li>
     </ul>
 
     {# ── Sites web ── #}
-    <div id="tab-website" class="admin-billing-panel">
+    <div id="tab-website" class="admin-billing-panel{% if app.request.query.get('tab', 'website') != 'website' %} is-hidden{% endif %}">
         {% if websiteBillings is empty %}
-            <p class="color-white mt-3" style="opacity:.6;"><i class="fas fa-check-circle me-1"></i> Aucun projet en attente.</p>
+            <p class="color-white mt-3 admin-billing-empty"><i class="fas fa-check-circle me-1"></i> Aucun projet en attente.</p>
         {% else %}
             <div class="table-responsive">
-            <table class="table table-bordered mb-5" style="min-width: 900px;">
-                <thead style="background:#023D5C;">
+            <table class="table table-bordered mb-5 admin-billing-table admin-billing-table--website">
+                <thead class="admin-billing-head">
                     <tr>
                         <th class="color-yellow align-middle" rowspan="2">Client</th>
-                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Acompte</th>
-                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Maquette</th>
-                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Formation</th>
-                        <th class="color-yellow text-center" colspan="2" style="border-bottom: 1px solid #FFD600;">Envoi admin</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Acompte</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Maquette</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Formation</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="2">Envoi admin</th>
                     </tr>
-                    <tr style="background:#012d45;">
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
+                    <tr class="admin-billing-subhead-row">
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
                     </tr>
                 </thead>
-                <tbody style="background:#00263A;">
+                <tbody class="admin-billing-body">
                     {% for billing in websiteBillings %}
                         <tr>
-                            <td class="color-white fw-bold align-middle" style="white-space:nowrap;">
+                            <td class="color-white fw-bold align-middle admin-billing-client">
                                 {{ billing.websiteProject.customer }}
                             </td>
                             {# Acompte #}
@@ -112,31 +115,31 @@
     </div>
 
     {# ── Identité visuelle ── #}
-    <div id="tab-vi" class="admin-billing-panel">
+    <div id="tab-vi" class="admin-billing-panel{% if app.request.query.get('tab', 'website') != 'vi' %} is-hidden{% endif %}">
         {% if viBillings is empty %}
-            <p class="color-white mt-3" style="opacity:.6;"><i class="fas fa-check-circle me-1"></i> Aucun projet en attente.</p>
+            <p class="color-white mt-3 admin-billing-empty"><i class="fas fa-check-circle me-1"></i> Aucun projet en attente.</p>
         {% else %}
             <div class="table-responsive">
-            <table class="table table-bordered mb-5" style="min-width: 500px;">
-                <thead style="background:#023D5C;">
+            <table class="table table-bordered mb-5 admin-billing-table admin-billing-table--vi">
+                <thead class="admin-billing-head">
                     <tr>
                         <th class="color-yellow align-middle" rowspan="2">Client</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Acompte</th>
-                        <th class="color-yellow text-center" colspan="3" style="border-bottom: 1px solid #FFD600;">Envoi admin</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Acompte</th>
+                        <th class="color-yellow text-center admin-billing-head-group" colspan="3">Envoi admin</th>
                     </tr>
-                    <tr style="background:#012d45;">
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
-                        <th class="color-white text-center" style="font-size:.75rem; font-weight:400;">Coché</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-                        <th class="color-yellow text-center" style="font-size:.75rem;">Payé</th>
+                    <tr class="admin-billing-subhead-row">
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Payé</th>
+                        <th class="color-white text-center admin-billing-subhead admin-billing-subhead--normal">Coché</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Facturé</th>
+                        <th class="color-yellow text-center admin-billing-subhead">Payé</th>
                     </tr>
                 </thead>
-                <tbody style="background:#00263A;">
+                <tbody class="admin-billing-body">
                     {% for billing in viBillings %}
                         <tr>
-                            <td class="color-white fw-bold align-middle" style="white-space:nowrap;">
+                            <td class="color-white fw-bold align-middle admin-billing-client">
                                 {{ billing.visualIdentityProject.customer }}
                             </td>
                             {# Acompte #}
@@ -187,53 +190,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-    (function () {
-        var BASE = 'display:inline-block; padding:.5rem 1.25rem; border-radius:.4rem .4rem 0 0; font-weight:600; font-size:.9rem; border:none; cursor:pointer; ';
-        var ACTIVE   = BASE + 'background:#FFD600; color:#00263A;';
-        var INACTIVE = BASE + 'background:#023D5C; color:#ffffff;';
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.admin-billing-panel').forEach(function (p) {
-                p.style.display = p.id === 'tab-' + tabName ? '' : 'none';
-            });
-            document.querySelectorAll('.admin-billing-tab-btn').forEach(function (b) {
-                b.style.cssText = b.dataset.tab === tabName ? ACTIVE : INACTIVE;
-            });
-            var url = new URL(window.location);
-            url.searchParams.set('tab', tabName);
-            history.replaceState(null, '', url);
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var initial = new URLSearchParams(window.location.search).get('tab') || 'website';
-            switchTab(initial);
-
-            document.querySelectorAll('.admin-billing-tab-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () { switchTab(btn.dataset.tab); });
-            });
-
-            document.querySelectorAll('.admin-toggle').forEach(function (cb) {
-                cb.addEventListener('change', function () {
-                    var url = cb.dataset.url;
-                    if (!url) return;
-                    fetch(url, { method: 'GET' })
-                        .then(function () {
-                            // Si on décoche "Facturé", désactive "Payé"
-                            var sel = cb.dataset.nextCbSelector;
-                            if (sel) {
-                                var nextCb = document.querySelector(sel);
-                                if (nextCb) {
-                                    nextCb.disabled = !cb.checked;
-                                    if (!cb.checked) { nextCb.checked = false; }
-                                }
-                            }
-                        })
-                        .catch(function () { cb.checked = !cb.checked; });
-                });
-            });
-        });
-    })();
-    </script>
+    <script src="{{ asset('assets/js/admin-billing-tabs.js') }}"></script>
 {% endblock %}
 

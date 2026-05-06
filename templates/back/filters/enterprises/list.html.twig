@@ -7,7 +7,7 @@
     <div class="separator mb-4"></div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
         <div class="d-flex flex-row-reverse mb-3">
-            <a href="{{ path('filter_enterprise_add') }}" class="btn btn-sm" style="background:#FFD600;color:#00263A;font-weight:600;">
+            <a href="{{ path('filter_enterprise_add') }}" class="btn btn-sm btn-admin-add">
                 <i class="fas fa-plus-circle me-1"></i> Ajouter
             </a>
         </div>
@@ -25,7 +25,7 @@
                         <td>
                             <a href="{{ path('filter_enterprise_modify', {"id": filterlist.id}) }}" title="Modifier"><i class="color-yellow fas fa-cog"></i></a>
                             <span class="color-yellow">|</span>
-                            <a href="{{ path('filter_enterprise_detete', {"id": filterlist.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un filtre')" title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
+                            <a href="{{ path('filter_enterprise_detete', {"id": filterlist.id}) }}" data-confirm="Attention vous vous apprêtez à supprimer un filtre" title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

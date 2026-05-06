@@ -49,6 +49,18 @@ class WebsiteBilling
     private ?bool $statusInvoiced = false;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $depositPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $mockupSentPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $onboardingTrainingPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $statusPaid = false;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $paid = false;
 
 
@@ -143,6 +155,18 @@ class WebsiteBilling
 
     public function getStatusInvoiced(): ?bool { return $this->statusInvoiced; }
     public function setStatusInvoiced(bool $v): static { $this->statusInvoiced = $v; return $this; }
+
+    public function getDepositPaid(): ?bool { return $this->depositPaid; }
+    public function setDepositPaid(bool $v): static { $this->depositPaid = $v; return $this; }
+
+    public function getMockupSentPaid(): ?bool { return $this->mockupSentPaid; }
+    public function setMockupSentPaid(bool $v): static { $this->mockupSentPaid = $v; return $this; }
+
+    public function getOnboardingTrainingPaid(): ?bool { return $this->onboardingTrainingPaid; }
+    public function setOnboardingTrainingPaid(bool $v): static { $this->onboardingTrainingPaid = $v; return $this; }
+
+    public function getStatusPaid(): ?bool { return $this->statusPaid; }
+    public function setStatusPaid(bool $v): static { $this->statusPaid = $v; return $this; }
 
     public function getPaid(): ?bool { return $this->paid; }
     public function setPaid(bool $paid): static { $this->paid = $paid; return $this; }

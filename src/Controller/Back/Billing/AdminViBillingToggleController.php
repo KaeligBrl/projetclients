@@ -42,7 +42,7 @@ class AdminViBillingToggleController extends AbstractController
     #[Route('/admin/facturation-identite-visuelle/acompte-facture/{id}', name: 'admin_vi_billing_deposit_invoiced')]
     public function toggleDepositInvoiced(VisualIdentityBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getDepositInvoiced();
         $billing->setDepositInvoiced($new);
         if (!$new) { $billing->setDepositPaid(false); }
@@ -65,7 +65,7 @@ class AdminViBillingToggleController extends AbstractController
     #[Route('/admin/facturation-identite-visuelle/admin-facture/{id}', name: 'admin_vi_billing_status_invoiced')]
     public function toggleStatusInvoiced(VisualIdentityBilling $billing): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_COMPTA');
         $new = !$billing->getStatusInvoiced();
         $billing->setStatusInvoiced($new);
         if (!$new) { $billing->setStatusPaid(false); }

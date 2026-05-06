@@ -26,7 +26,7 @@
 								<td>
 									<a href="{{ path('visual_identity_to_current', {id: project.id}) }}" title="Repasser en cours"><i class="color-white fas fa-chevron-left"></i></a>
 									<span class="color-white">|</span>
-									<a href="{{ path('visual_identity_delete', {id: project.id}) }}" onclick="return confirm('Supprimer ce projet ?')" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
+									<a href="{{ path('visual_identity_delete', {id: project.id}) }}" data-confirm="Supprimer ce projet ?" title="Supprimer"><i class="color-white fas fa-trash"></i></a>
 								</td>
 							</tr>
 						{% endfor %}

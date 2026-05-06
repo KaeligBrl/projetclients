@@ -22,7 +22,7 @@ class AddVisualIdentityProjectType extends AbstractType
                 'required' => true,
                 'label_attr' => ['class' => 'label-custom'],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+                    return $er->createQueryBuilder('c')->orderBy('c.entreprise', 'ASC');
                 },
             ])
             ->add('submit', SubmitType::class, [

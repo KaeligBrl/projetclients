@@ -28,7 +28,7 @@ class AddWebsiteProjectType extends AbstractType
                 'label_attr' => ['class' => 'label-custom'],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                    ->orderBy('c.name', 'ASC');
+                    ->orderBy('c.entreprise', 'ASC');
                 },
             ])
             ->add('wordpressInstallation', DateType::class, [

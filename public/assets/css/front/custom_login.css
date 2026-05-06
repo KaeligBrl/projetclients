@@ -29,6 +29,19 @@
 .container-custom {margin: 0 auto;color: var(--color-yellow);width: 100%;max-width: 656px;border-radius: 20px;padding: 40px;margin-bottom: 20px;}
 .separator {height: 5px;width: 70px;background: var(--color-yellow-dark);margin: 0 auto;}
 .message-error{padding: 10px 16px;background: rgba(164,22,26,0.2);color: var(--color-white);border-radius: 10px;border: 1px solid var(--color-red);}
+.layout-reset-offset {margin-top: 150px;}
+.auth-logo {max-height: 70px;}
+.auth-page-title {color: var(--color-yellow);font-family: 'Gotham';font-size: 1.8rem;}
+.auth-submit-btn {font-family: 'Gotham';font-size: 1rem;padding: 12px;}
+.auth-form-label {font-family: 'Gotham';}
+.auth-muted-text {color: rgba(255,255,255,0.7);font-size: 0.9rem;}
+.auth-link-text {font-size: 0.9rem;}
+.auth-notification-box {background: rgba(255,255,255,0.1);color: #fff;border-radius: 10px;border: 1px solid var(--color-yellow);}
+.auth-success-card {padding: 42px 36px;}
+.auth-success-badge {width: 74px;height: 74px;border-radius: 50%;background: var(--color-yellow);color: var(--blue-dark);margin: 0 auto 20px auto;display: flex;align-items: center;justify-content: center;font-size: 34px;font-weight: 700;}
+.auth-text-white {color: var(--color-white);}
+.auth-text-soft {color: rgba(255,255,255,0.82);}
+.auth-check-email-note {font-size: 15px;font-style: italic;}
 
 @media (max-width: 767px){
 	.form-general{padding: 28px 20px;}

@@ -35,12 +35,11 @@ class VisualIdentityBillingCheckboxController extends AbstractController
         $replace = [$clientName, 'Identité visuelle'];
 
         if ($checkboxKey === 'deposit') {
-            $search  = array_merge($search,  ['{firstname}', '{lastname}', '{address}', '{postalCode}', '{tva}']);
+            $search  = array_merge($search,  ['{firstname}', '{lastname}', '{address}', '{tva}']);
             $replace = array_merge($replace, [
                 $customer?->getFirstname() ?? '',
                 $customer?->getLastname() ?? '',
                 $customer?->getAddress()   ?? '',
-                $customer?->getPostalCode() ?? '',
                 $customer?->getTva()       ?? '',
             ]);
         }

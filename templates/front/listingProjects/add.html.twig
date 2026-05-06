@@ -50,13 +50,12 @@
 
 {% block javascripts %}
     {{ parent() }}
+	<div id="listing-filter-create-urls"
+		 data-activity-url="{{ path('listing_filter_create_activity') }}"
+		 data-website-url="{{ path('listing_filter_create_website') }}"
+		 data-enterprise-url="{{ path('listing_filter_create_enterprise') }}"
+		 hidden></div>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-    <script>
-        window.FILTER_CREATE_URLS = {
-            activity:   "{{ path('listing_filter_create_activity') }}",
-            website:    "{{ path('listing_filter_create_website') }}",
-            enterprise: "{{ path('listing_filter_create_enterprise') }}"
-        };
-    </script>
+	<script src="{{ asset('assets/js/listing-projects-add.js') }}"></script>
     <script src="{{ asset('assets/js/tom-select-form.js') }}"></script>
 {% endblock %}

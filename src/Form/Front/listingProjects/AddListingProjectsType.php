@@ -31,7 +31,7 @@ class AddListingProjectsType extends AbstractType
                 'placeholder' => 'Sélectionner un client…',
                 'attr' => ['class' => 'tom-select-field'],
                 'query_builder' => function (EntityRepository $er) use ($options) {
-                    $qb = $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+                    $qb = $er->createQueryBuilder('c')->orderBy('c.entreprise', 'ASC');
                     if (!empty($options['excluded_customer_ids'])) {
                         $qb->andWhere('c.id NOT IN (:excluded)')
                            ->setParameter('excluded', $options['excluded_customer_ids']);

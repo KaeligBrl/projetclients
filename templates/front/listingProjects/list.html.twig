@@ -6,21 +6,21 @@
     {{ parent() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/front/tom-select-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/front/listing-projects.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="container py-4">
 
     <h1 class="text-center color-white mb-1">Liste des projets</h1>
-    <p class="color-white text-center mb-3" style="opacity:.7; font-size:.9rem;">
+    <p class="color-white text-center mb-3 listing-projects-count">
         {{ project_count }} site{{ project_count > 1 ? 's' : '' }} référencé{{ project_count > 1 ? 's' : '' }}
     </p>
     <div class="separator mb-4"></div>
 
     {% if is_granted('ROLE_ADMIN') %}
     <div class="d-flex justify-content-end mb-3">
-        <a href="{{ path('listing_projects_add') }}" class="btn btn-sm fw-bold"
-           style="background:#FFD600;color:#00263A;">
+        <a href="{{ path('listing_projects_add') }}" class="btn btn-sm fw-bold listing-projects-add-btn">
             <i class="fas fa-plus-circle me-1"></i> Ajouter un site
         </a>
     </div>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="mt-2">
-            <button type="button" id="reset-filters" class="btn btn-sm btn-outline-light" style="display:none;">
+            <button type="button" id="reset-filters" class="btn btn-sm btn-outline-light is-hidden">
                 <i class="fas fa-times me-1"></i> Réinitialiser
             </button>
         </div>
@@ -80,7 +80,7 @@
                 </td></tr>
             </tbody>
         </table>
-        <p id="no-results" class="text-center color-white mt-3" style="display:none;">
+        <p id="no-results" class="text-center color-white mt-3 is-hidden">
             Aucun résultat pour ces filtres.
         </p>
     </div>
@@ -90,13 +90,13 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <div id="listing-projects-config"
+         data-search-url="{{ path('listing_projects_search') }}"
+         data-modify-path="{{ path('listing_projects_modify', {id: '__ID__'}) }}"
+         data-delete-path="{{ path('listing_projects_detete', {id: '__ID__'}) }}"
+         data-is-admin="{{ is_granted('ROLE_ADMIN') ? '1' : '0' }}"
+         hidden></div>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-    <script>
-        window.LISTING_SEARCH_URL   = "{{ path('listing_projects_search') }}";
-        window.LISTING_MODIFY_PATH  = "{{ path('listing_projects_modify', {id: '__ID__'}) }}";
-        window.LISTING_DELETE_PATH  = "{{ path('listing_projects_detete', {id: '__ID__'}) }}";
-        window.IS_ADMIN             = {{ is_granted('ROLE_ADMIN') ? 'true' : 'false' }};
-    </script>
     <script src="{{ asset('assets/js/listing_projects.js') }}"></script>
 {% endblock %}
 

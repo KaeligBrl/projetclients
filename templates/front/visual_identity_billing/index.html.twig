@@ -12,13 +12,13 @@
 			Certaines cases sont grisées car aucun email destinataire n'est configuré dans Paramètres > Emails facturation.
 		</div>
 	{% endif %}
-	<div class="alert mt-3 mb-3" role="alert" style="background:#023D5C; border-left: 3px solid #FFD600; color:#fff;">
-		<i class="fas fa-info-circle me-1" style="color:#FFD600;"></i>
+	<div class="alert mt-3 mb-3 billing-info-alert" role="alert">
+		<i class="fas fa-info-circle me-1 billing-info-icon"></i>
 		{% if is_granted('ROLE_ADMIN') %}
 			La colonne <strong>Facturé</strong> est à votre charge. Vous pouvez cocher les cases au fur et à mesure de l'avancement de la facturation.
 		{% else %}
 			<strong>Workflow :</strong> Shebam coche <strong>Demander la facturation</strong> → vous pouvez ensuite cocher <strong>Facturé</strong> une fois la facture émise.
-			<br><small style="opacity:.8;">Les cases griseśes ne sont pas encore disponibles — attendez la demande de Shebam.
+			<br><small class="billing-info-note">Les cases griseśes ne sont pas encore disponibles — attendez la demande de Shebam.
 </small>
 		{% endif %}
 	</div>
@@ -29,24 +29,24 @@
 					<p class="text-center color-white mt-2">Aucun projet trouvé.</p>
 				{% else %}
 					<div class="table-responsive">
-				<table class="table mb-5 table-bordered" style="min-width: 600px;">
+				<table class="table mb-5 table-bordered billing-table billing-table--vi-front">
 						<thead class="bg-blue-dark-light table-borderless">
 							<tr>
 								<th class="color-yellow text-bold" rowspan="2" scope="col">Client</th>
 							<th class="color-yellow text-bold text-center" colspan="2">Acompte</th>
 							<th class="color-yellow text-bold text-center" colspan="2">Envoyé au service admin</th>
 							</tr>
-							<tr style="background:#012d45;">
-								<th class="color-white text-center" style="font-size:.75rem;" title="Cocher déclenche un email au client">Demander la facturation</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
-								<th class="color-white text-center" style="font-size:.75rem;" title="Cocher déclenche un email au client">Demander la facturation</th>
-								<th class="color-yellow text-center" style="font-size:.75rem;">Facturé</th>
+							<tr class="billing-subhead-row">
+								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+								<th class="color-yellow text-center billing-subhead">Facturé</th>
+								<th class="color-white text-center billing-subhead" title="Cocher déclenche un email au client">Demander la facturation</th>
+								<th class="color-yellow text-center billing-subhead">Facturé</th>
 							</tr>
 						</thead>
 						<tbody class="bg-blue-dark">
 							{% for billing in billings %}
 								<tr>
-									<td class="color-white text-bold align-middle" style="white-space:nowrap;">{{ billing.visualIdentityProject.customer }}</td>
+									<td class="color-white text-bold align-middle billing-client-cell">{{ billing.visualIdentityProject.customer }}</td>
 									{# Acompte #}
 									<td class="text-center align-middle">
 										<input type="checkbox"

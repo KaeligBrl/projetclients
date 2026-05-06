@@ -149,3 +149,169 @@ td a:hover {color: var(--color-white);}
 .bootstrap-table .fixed-table-container .table tbody tr.no-records-found td {color: var(--color-yellow);font-weight: bold;}
 .bootstrap-table .fixed-table-pagination>.pagination-detail .pagination-info {color: var(--color-yellow);font-weight: bold;}
 td,td a {color: var(--color-white);}
+
+.btn-admin-add {background:#FFD600;color:#00263A;font-weight:600;}
+
+.billing-info-alert {background:#023D5C;border-left: 3px solid #FFD600;color:#fff;}
+.billing-info-icon {color:#FFD600;}
+.billing-info-note {opacity:.8;}
+.billing-table--website {min-width: 900px;}
+.billing-table--vi-front {min-width: 600px;}
+.billing-subhead-row {background:#012d45;}
+.billing-subhead {font-size:.75rem;}
+.billing-client-cell {white-space:nowrap;}
+
+/* Settings - admin params */
+.is-hidden { display: none !important; }
+
+.settings-tab-nav {
+    border-bottom: 2px solid var(--blue-semi-dark);
+    gap: .5rem;
+}
+
+.settings-tab-btn {
+    display: inline-block;
+    padding: .5rem 1.25rem;
+    border-radius: .4rem .4rem 0 0;
+    font-weight: 600;
+    font-size: .9rem;
+    border: none;
+    cursor: pointer;
+    background: #023D5C;
+    color: #ffffff;
+}
+
+.settings-tab-btn--active {
+    background: #FFD600;
+    color: #00263A;
+}
+
+.settings-vars-banner {
+    background: var(--color-blue-dark-light);
+    border-left: 3px solid var(--color-yellow);
+}
+
+.settings-vars-title {
+    font-size: .85rem;
+}
+
+.settings-var-token {
+    background: var(--blue-semi-dark);
+    color: var(--color-yellow);
+    padding: .15rem .5rem;
+    border-radius: .3rem;
+    font-size: .85rem;
+}
+
+.settings-var-text {
+    font-size: .8rem;
+}
+
+.settings-mail-tab-nav {
+    border-bottom: 1px solid #395c6e;
+    gap: .5rem;
+}
+
+.settings-mail-tab-btn {
+    display: inline-block;
+    padding: .35rem .9rem;
+    border-radius: .35rem .35rem 0 0;
+    font-weight: 600;
+    font-size: .82rem;
+    border: none;
+    cursor: pointer;
+    background: #023D5C;
+    color: #ffffff;
+}
+
+.settings-mail-tab-btn--active {
+    background: #FFD600;
+    color: #00263A;
+}
+
+.settings-card {
+    border: 1px solid #395c6e;
+}
+
+.settings-card-header {
+    background: #023D5C;
+    border-bottom: 1px solid #395c6e;
+}
+
+.settings-card-header-title {
+    font-size: .82rem;
+    opacity: .85;
+}
+
+.settings-status {
+    font-size: .78rem;
+}
+
+.settings-status--configured {
+    color: var(--color-white);
+    opacity: .7;
+}
+
+.settings-status--missing {
+    color: #ff9800;
+}
+
+.settings-icon-ok {
+    color: #4caf50;
+}
+
+.settings-card-body {
+    background: #00263A;
+}
+
+.settings-field-label {
+    font-size: .82rem;
+    opacity: .85;
+}
+
+.settings-form-control {
+    background: #023D5C;
+    border-color: #395c6e;
+    color: #fff;
+}
+
+textarea.settings-form-control {
+    resize: vertical;
+}
+
+.settings-form-control::placeholder { color: rgba(255,255,255,0.35); }
+.settings-form-control:focus { outline: none; box-shadow: 0 0 0 2px rgba(255,214,0,0.35); border-color: #FFD600 !important; }
+
+.settings-save-btn {
+    background: var(--color-yellow);
+    color: var(--color-blue-dark);
+    font-weight: 600;
+    border: none;
+}
+
+.page-title-accent {
+    color: var(--color-yellow);
+    font-family: 'Gotham';
+    font-size: 1.8rem;
+}
+
+.success-notice-box {
+    background: rgba(106, 191, 165, 0.2);
+    color: var(--green-light);
+    border-radius: 10px;
+    border: 1px solid var(--green-light);
+    margin-bottom: 20px;
+}
+
+.success-notice-actions {
+    margin-top: 15px;
+}
+
+.btn-inline-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.form-label-gotham {
+    font-family: 'Gotham';
+}

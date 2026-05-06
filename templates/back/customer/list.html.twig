@@ -8,7 +8,7 @@
 <div class="separator mb-4"></div>
 {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
 <div class="d-flex flex-row-reverse mb-3">
-<a href="{{ path('add_customer') }}" class="btn btn-sm" style="background:#FFD600;color:#00263A;font-weight:600;">
+<a href="{{ path('add_customer') }}" class="btn btn-sm btn-admin-add">
 <i class="fas fa-plus-circle me-1"></i> Ajouter
 </a>
 </div>
@@ -19,7 +19,6 @@
 <th class="color-yellow text-bold">Nom</th>
 <th class="color-yellow text-bold">Prénom</th>
 <th class="color-yellow text-bold">Adresse</th>
-<th class="color-yellow text-bold">Code postal</th>
 <th class="color-yellow text-bold">N° TVA</th>
 <th class="color-yellow text-bold">Action</th>
 </tr>
@@ -30,12 +29,11 @@
 <td class="color-white text-bold">{{ customer.entreprise }}</td>
 <td class="color-white">{{ customer.firstname }}</td>
 <td class="color-white">{{ customer.address }}</td>
-<td class="color-white">{{ customer.postalCode }}</td>
 <td class="color-white">{{ customer.tva }}</td>
 <td>
 <a href="{{ path('modify_customer', {"id": customer.id}) }}" title="Modifier"><i class="color-yellow fas fa-cog"></i></a>
 <span class="color-yellow">|</span>
-<a href="{{ path('delete_customer', {"id": customer.id}) }}" onclick="return confirm('Attention vous vous apprêtez à supprimer un client. Vous êtes sûr ?')" title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
+<a href="{{ path('delete_customer', {"id": customer.id}) }}" data-confirm="Attention vous vous apprêtez à supprimer un client. Vous êtes sûr ?" title="Supprimer"><i class="color-yellow fas fa-trash"></i></a>
 </td>
 </tr>
 {% endfor %}

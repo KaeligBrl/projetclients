@@ -30,10 +30,6 @@ class AddCustomerType extends AbstractType
                 'required' => false,
                 'label' => 'Adresse',
             ])
-            ->add('postalCode', TextType::class, [
-                'required' => false,
-                'label' => 'Code postal',
-            ])
             ->add('tva', TextType::class, [
                 'required' => false,
                 'label' => 'N° TVA',

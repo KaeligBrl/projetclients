@@ -1,8 +1,9 @@
 window.addEventListener('load', function () {
-    const searchUrl    = window.LISTING_SEARCH_URL;
-    const modifyPath   = window.LISTING_MODIFY_PATH;
-    const deletePath   = window.LISTING_DELETE_PATH;
-    const isAdmin      = window.IS_ADMIN;
+    const configNode = document.getElementById('listing-projects-config');
+    const searchUrl = configNode ? configNode.dataset.searchUrl : window.LISTING_SEARCH_URL;
+    const modifyPath = configNode ? configNode.dataset.modifyPath : window.LISTING_MODIFY_PATH;
+    const deletePath = configNode ? configNode.dataset.deletePath : window.LISTING_DELETE_PATH;
+    const isAdmin = configNode ? configNode.dataset.isAdmin === '1' : window.IS_ADMIN;
 
     const tbody    = document.getElementById('listing-tbody');
     const noResults= document.getElementById('no-results');
@@ -28,13 +29,13 @@ window.addEventListener('load', function () {
         tsActivity.clear();
         tsWebsite.clear();
         tsEnterprise.clear();
-        resetBtn.style.display = 'none';
+        resetBtn.classList.add('is-hidden');
         fetchResults();
     });
 
     function updateResetBtn(a, w, e) {
         const hasActive = a.getValue().length || w.getValue().length || e.getValue().length;
-        resetBtn.style.display = hasActive ? 'inline-block' : 'none';
+        resetBtn.classList.toggle('is-hidden', !hasActive);
     }
 
     // ── Fetch ─────────────────────────────────────────────────────
@@ -46,7 +47,7 @@ window.addEventListener('load', function () {
 
         tbody.innerHTML = '<tr><td colspan="6" class="text-center color-white py-4">'
             + '<i class="fas fa-spinner fa-spin me-2"></i> Chargement…</td></tr>';
-        noResults.style.display = 'none';
+        noResults.classList.add('is-hidden');
 
         fetch(searchUrl + '?' + params.toString())
             .then(function (r) { return r.json(); })
@@ -61,16 +62,16 @@ window.addEventListener('load', function () {
     function renderRows(rows) {
         if (rows.length === 0) {
             tbody.innerHTML = '';
-            noResults.style.display = 'block';
+            noResults.classList.remove('is-hidden');
             return;
         }
 
-        noResults.style.display = 'none';
+        noResults.classList.add('is-hidden');
         tbody.innerHTML = rows.map(function (row) {
             const domain = row.domain_name
                 ? '<a class="color-white" href="' + escHtml(row.domain_name) + '" target="_blank" rel="noopener">'
                   + escHtml(row.domain_name) + '</a>'
-                : '<span style="opacity:.5">Non renseigné</span>';
+                : '<span class="listing-muted">Non renseigné</span>';
 
             const activity   = row.nameActivity      ? escHtml(row.nameActivity)      : '';
             const website    = row.nameWebsite        ? escHtml(row.nameWebsite)        : '';

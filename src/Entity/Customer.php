@@ -29,9 +29,6 @@ class Customer
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $address = null;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private ?string $postalCode = null;
-
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $tva = null;
 
@@ -97,18 +94,6 @@ class Customer
     public function setAddress(?string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?string
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(?string $postalCode): self
-    {
-        $this->postalCode = $postalCode;
 
         return $this;
     }

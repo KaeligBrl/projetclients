@@ -112,6 +112,14 @@ body.admin-layout {
     font-weight: 600;
 }
 
+.admin-brand-logo {
+    max-height: 34px;
+}
+
+.admin-user-chip {
+    font-size: .85rem;
+}
+
 /* ── Page content ────────────────────────────────── */
 
 .admin-page-content {
@@ -200,6 +208,10 @@ body.admin-layout {
 .admin-section-title {
     font-size: 1.1rem;
     font-weight: 600;
+}
+
+.admin-dashboard-shell {
+    min-height: calc(100vh - 57px);
 }
 
 /* ── Responsive ──────────────────────────────────── */

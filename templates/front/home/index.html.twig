@@ -4,11 +4,11 @@
 
 {% block content %}
 	<a href="{{ path('home') }}">
-		<img class="d-block mx-auto mb-4" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo Projets Clients" style="max-height: 70px;">
+		<img class="d-block mx-auto mb-4 auth-logo" src="{{ asset('/assets/images/logo-projet-clients.png') }}" alt="Logo Projets Clients">
 	</a>
 
 	<div class="container-custom text-center">
-		<h1 class="mb-1" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Connexion</h1>
+		<h1 class="mb-1 auth-page-title">Connexion</h1>
 		<div class="separator mb-4"></div>
 
 		<form class="form-general" method="post">
@@ -27,7 +27,7 @@
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-submit w-100" style="font-family: Gotham; font-size: 1rem; padding: 12px;">Connexion</button>
+				<button type="submit" class="btn btn-submit w-100 auth-submit-btn">Connexion</button>
 			</div>
 
 			<div id="register-link" class="text-left mt-4">

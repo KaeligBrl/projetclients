@@ -31,7 +31,7 @@ class ModifyListingProjectsType extends AbstractType
                 'placeholder' => 'Sélectionner un client…',
                 'attr' => ['class' => 'tom-select-field'],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+                    return $er->createQueryBuilder('c')->orderBy('c.entreprise', 'ASC');
                 },
             ])
             ->add('name_activities', EntityType::class, [

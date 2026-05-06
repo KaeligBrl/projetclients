@@ -6,14 +6,14 @@
 	{% block content %}
 		<div class="container-fluid layout-main-offset">
 			<div class="container-custom">
-				<h1 class="text-center mb-3" style="color: var(--color-yellow); font-family: 'Gotham'; font-size: 1.8rem;">Modification du suivi <i class="fas fa-arrow-right"></i> {{project.customer }}</h1>
+				<h1 class="text-center mb-3 page-title-accent">Modification du suivi <i class="fas fa-arrow-right"></i> {{project.customer }}</h1>
 				<div class="separator mb-4"></div>
 
 				{% if notification %}
-					<div class="alert text-center" style="background: rgba(106, 191, 165, 0.2); color: var(--green-light); border-radius: 10px; border: 1px solid var(--green-light); margin-bottom: 20px;">
+					<div class="alert text-center success-notice-box">
 						{{ notification }}
-						<div style="margin-top: 15px;">
-							<a href="{{ path('website_projects_finished') }}" class="btn btn-submit" style="display: inline-block; text-decoration: none;">Retourner à la liste</a>
+						<div class="success-notice-actions">
+							<a href="{{ path('website_projects_finished') }}" class="btn btn-submit btn-inline-link">Retourner à la liste</a>
 						</div>
 					</div>
 				{% else %}
